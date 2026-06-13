@@ -1,0 +1,58 @@
+{
+  "nav": {
+    "about": "About",
+    "programmes": "Programmes",
+    "news": "News",
+    "resources": "Resources",
+    "donate": "Donate"
+  },
+  "hero": {
+    "badge": "Regional coalition · 14 MENA countries",
+    "title": "Access to healthcare is a <red>right</red>.",
+    "subtitle": "ITPC-MENA advocates for equitable access to medicines and healthcare for everyone, across 14 countries in the Middle East and North Africa.",
+    "ctaPrimary": "Explore our programmes",
+    "ctaSecondary": "Our news →",
+    "founded": "Founded in Marrakech"
+  },
+  "about": {
+    "tag": "Who we are",
+    "title": "A regional coalition for the right to health",
+    "body": "ITPC-MENA works for equitable access to care, medicines and other health products. With a global perspective and full transparency, we work towards global solutions to local challenges across the MENA region.",
+    "cta": "Learn more →",
+    "stats": {
+      "countries": "Countries covered",
+      "years": "Years of commitment",
+      "programmes": "Active programmes",
+      "domains": "Focus areas"
+    }
+  },
+  "programmes": {
+    "tag": "Our programmes",
+    "title": "Initiatives shaping the future of health",
+    "subtitle": "Three complementary programmes, deployed across 14 MENA countries.",
+    "cta": "Discover →"
+  },
+  "news": {
+    "tag": "News",
+    "title": "Stay informed",
+    "read": "Read article →",
+    "filterAll": "All"
+  },
+  "resources": {
+    "tag": "Key resources",
+    "title": "Publications, tools and guides to act",
+    "subtitle": "Explore our publications for an in-depth understanding of issues related to access to care and medicines.",
+    "placeholder": "your@email.com",
+    "subscribe": "Subscribe",
+    "allResources": "Access all resources →"
+  },
+  "footer": {
+    "description": "International Treatment Preparedness Coalition — Middle East and North Africa Region. For equitable access to care and medicines.",
+    "nav": "Navigation",
+    "programmes": "Programmes",
+    "contact": "Contact",
+    "address": "58 Bd Abdelkrim Al Khattabi,\nMarrakech, Morocco",
+    "copyright": "© 2025 ITPC-MENA. All rights reserved.",
+    "location": "Marrakech · MENA Region"
+  }
+}

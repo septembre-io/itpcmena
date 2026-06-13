@@ -1,0 +1,58 @@
+{
+  "nav": {
+    "about": "À propos",
+    "programmes": "Programmes",
+    "news": "Actualités",
+    "resources": "Ressources",
+    "donate": "Faire un don"
+  },
+  "hero": {
+    "badge": "Coalition régionale · 14 pays MENA",
+    "title": "L'accès aux soins est un <red>droit</red>.",
+    "subtitle": "ITPC-MENA défend un accès équitable aux médicaments et aux soins de santé pour toutes et tous, dans les 14 pays du Moyen-Orient et de l'Afrique du Nord.",
+    "ctaPrimary": "Découvrir nos programmes",
+    "ctaSecondary": "Nos actualités →",
+    "founded": "Fondée à Marrakech"
+  },
+  "about": {
+    "tag": "Qui sommes-nous",
+    "title": "Une coalition régionale pour le droit à la santé",
+    "body": "ITPC-MENA travaille pour un accès équitable aux soins, médicaments et autres produits de santé. Avec une perspective mondiale et une transparence totale, nous œuvrons pour des solutions globales aux défis locaux dans toute la région MENA.",
+    "cta": "En savoir plus →",
+    "stats": {
+      "countries": "Pays couverts",
+      "years": "Ans d'engagement",
+      "programmes": "Programmes actifs",
+      "domains": "Domaines d'action"
+    }
+  },
+  "programmes": {
+    "tag": "Nos programmes",
+    "title": "Des initiatives qui façonnent l'avenir de la santé",
+    "subtitle": "Trois programmes complémentaires, déployés dans 14 pays de la région MENA.",
+    "cta": "Découvrir →"
+  },
+  "news": {
+    "tag": "Actualités",
+    "title": "Restez informé",
+    "read": "Lire l'article →",
+    "filterAll": "Tous"
+  },
+  "resources": {
+    "tag": "Ressources clés",
+    "title": "Publications, outils et guides pour agir",
+    "subtitle": "Explorez nos publications pour une compréhension approfondie des enjeux liés à l'accès aux soins et aux médicaments.",
+    "placeholder": "votre@email.com",
+    "subscribe": "S'inscrire",
+    "allResources": "Accéder à toutes les ressources →"
+  },
+  "footer": {
+    "description": "International Treatment Preparedness Coalition — Région Moyen-Orient et Afrique du Nord. Pour un accès équitable aux soins et aux médicaments.",
+    "nav": "Navigation",
+    "programmes": "Programmes",
+    "contact": "Contact",
+    "address": "58 Bd Abdelkrim Al Khattabi,\nMarrakech, Maroc",
+    "copyright": "© 2025 ITPC-MENA. Tous droits réservés.",
+    "location": "Marrakech · Région MENA"
+  }
+}
