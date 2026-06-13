@@ -7,7 +7,7 @@ const stats = [
 
 export function ImpactStripV1() {
   return (
-    <div className="bg-[#1A1A1A] px-20 py-10">
+    <div className="bg-[#1A1A1A] px-5 md:px-20 py-10">
       <div className="grid grid-cols-2 md:grid-cols-4">
         {stats.map(({ number, label }, i) => (
           <div

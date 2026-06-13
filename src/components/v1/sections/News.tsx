@@ -28,7 +28,7 @@ export async function NewsV1({ locale }: { locale: string }) {
   const secondary = posts.slice(1, 3);
 
   return (
-    <section id="actualites" className="bg-[#F9F9F7] px-20 py-20">
+    <section id="actualites" className="bg-[#F9F9F7] px-5 md:px-20 py-20">
       {/* Header */}
       <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
         <div>

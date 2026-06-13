@@ -2,8 +2,8 @@ import Image from "next/image";
 
 export function AboutV1() {
   return (
-    <section id="apropos" className="bg-[#F9F9F7] px-20 py-20">
-      <div className="grid items-center gap-20 md:grid-cols-2">
+    <section id="apropos" className="bg-[#F9F9F7] px-5 md:px-20 py-20">
+      <div className="grid items-center gap-10 md:gap-20 md:grid-cols-2">
         {/* Text */}
         <div>
           <p className="mb-3 text-[11.5px] font-bold uppercase tracking-[0.1em] text-[#1D9E75]">

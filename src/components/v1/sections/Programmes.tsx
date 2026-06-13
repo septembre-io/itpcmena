@@ -9,7 +9,7 @@ const cardAccent = [
 
 export function ProgrammesV1() {
   return (
-    <section id="programmes" className="bg-white px-20 py-20">
+    <section id="programmes" className="bg-white px-5 md:px-20 py-20">
       <p className="mb-3 text-[11.5px] font-bold uppercase tracking-[0.1em] text-[#1D9E75]">
         Nos programmes
       </p>

@@ -1,6 +1,6 @@
 export function ResourcesCTAV1() {
   return (
-    <div id="ressources" className="bg-[#1D9E75] px-20 py-16">
+    <div id="ressources" className="bg-[#1D9E75] px-5 md:px-20 py-16">
       <div className="flex flex-wrap items-center justify-between gap-10">
         <div className="max-w-[560px]">
           <p className="mb-3 text-[11.5px] font-bold uppercase tracking-[0.1em] text-white/65">

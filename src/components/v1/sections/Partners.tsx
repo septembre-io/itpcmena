@@ -8,7 +8,7 @@ const partners = [
 
 export function PartnersV1() {
   return (
-    <section className="bg-white px-20 py-[60px]">
+    <section className="bg-white px-5 md:px-20 py-[60px]">
       <p className="mb-9 text-center text-[13px] font-semibold uppercase tracking-[0.08em] text-[#6B7280]">
         Partenariats &amp; Collaboration
       </p>

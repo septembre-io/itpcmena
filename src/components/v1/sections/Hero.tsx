@@ -22,7 +22,7 @@ export function HeroV1() {
       />
 
       {/* Content */}
-      <div className="relative z-10 max-w-[760px] px-20 pb-[72px]">
+      <div className="relative z-10 max-w-[760px] px-5 md:px-20 pb-[72px]">
         <p className="mb-4 text-[12px] font-semibold uppercase tracking-[0.12em] text-white/65">
           Région MENA · 14 pays
         </p>
