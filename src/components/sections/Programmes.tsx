@@ -1,7 +1,9 @@
+import { getLocale } from "next-intl/server";
 import { RevealWrapper } from "@/components/ui";
-import { programmes } from "@/data/programmes";
+import { programmes, type Locale } from "@/data/programmes";
 
-export function Programmes() {
+export async function Programmes() {
+  const locale = (await getLocale()) as Locale;
   return (
     <section id="programmes" className="px-4 py-12">
       <RevealWrapper className="mx-auto max-w-6xl rounded-5xl bg-ink px-6 py-16 text-white md:px-14">
@@ -27,9 +29,9 @@ export function Programmes() {
               >
                 {prog.icon}
               </div>
-              <h3 className="text-lg font-bold leading-snug">{prog.title}</h3>
+              <h3 className="text-lg font-bold leading-snug">{prog.title[locale]}</h3>
               <p className="mt-3 flex-1 text-sm leading-relaxed text-white/55">
-                {prog.description}
+                {prog.description[locale] || prog.description.fr}
               </p>
               <span
                 className={`mt-5 inline-flex items-center gap-1.5 text-sm font-semibold transition group-hover:gap-2.5 ${prog.ctaColor}`}

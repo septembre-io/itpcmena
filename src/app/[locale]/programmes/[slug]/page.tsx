@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { programmes } from "@/data/programmes";
+import { programmes, type Locale } from "@/data/programmes";
 
 export function generateStaticParams() {
   const locales = ["fr", "en", "ar"];
@@ -15,12 +15,12 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const programme = programmes.find((p) => p.id === slug);
   if (!programme) return { title: "Programme — ITPC MENA" };
-  return { title: `${programme.title} — ITPC MENA` };
+  return { title: `${programme.title[locale as Locale]} — ITPC MENA` };
 }
 
 export default async function ProgrammePage({
@@ -28,9 +28,12 @@ export default async function ProgrammePage({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const programme = programmes.find((p) => p.id === slug);
   if (!programme) notFound();
+
+  const loc = locale as Locale;
+  const isRtl = loc === "ar";
 
   return (
     <>
@@ -52,13 +55,19 @@ export default async function ProgrammePage({
         </div>
 
         {/* Title */}
-        <h1 className="mb-4 text-3xl font-extrabold leading-tight tracking-tight text-ink md:text-4xl">
-          {programme.title}
+        <h1
+          className="mb-4 text-3xl font-extrabold leading-tight tracking-tight text-ink md:text-4xl"
+          dir={isRtl ? "rtl" : undefined}
+        >
+          {programme.title[loc]}
         </h1>
 
         {/* Description */}
-        <p className="mb-10 text-lg leading-relaxed text-ink/65">
-          {programme.description}
+        <p
+          className="mb-10 text-lg leading-relaxed text-ink/65"
+          dir={isRtl ? "rtl" : undefined}
+        >
+          {programme.description[loc] || programme.description.fr}
         </p>
 
         {/* Placeholder content */}

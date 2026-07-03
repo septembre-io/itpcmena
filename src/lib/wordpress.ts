@@ -11,6 +11,9 @@ export interface WPPost {
   jetpack_featured_media_url: string; // direct i0.wp.com URL from Jetpack
   class_list: string[]; // includes "category--fr" / "category--ar" / "category--en"
   link: string; // canonical WP URL
+  // Exposed by the itpc-polylang-rest mu-plugin (Polylang free):
+  lang?: PostLang | null; // native Polylang language code
+  translations?: Record<string, number>; // { "fr": 30065, "en": 30062, "ar": 30071 }
   yoast_head_json?: {
     og_image?: Array<{ url: string; width?: number; height?: number }>;
   };
@@ -24,14 +27,16 @@ const WP_URL =
 // ---------------------------------------------------------------------------
 
 /**
- * Detect post language from Polylang's class_list (e.g. "category--fr").
- * Falls back to Unicode range detection for Arabic titles.
+ * Detect a post's language.
  *
- * NOTE: Polylang's ?lang= REST param is unreliable on this site — both
- * ?lang=fr and ?lang=ar return the same mixed pool. class_list is the
- * authoritative source of truth.
+ * Primary source: the native `lang` field now exposed by the
+ * itpc-polylang-rest mu-plugin. Falls back to the legacy class_list /
+ * Unicode heuristic for posts not yet assigned a language in Polylang.
  */
 export function getPostLang(post: WPPost): PostLang {
+  if (post.lang === "fr" || post.lang === "en" || post.lang === "ar") {
+    return post.lang;
+  }
   const classes = post.class_list ?? [];
   if (classes.includes("category--ar")) return "ar";
   if (classes.includes("category--en")) return "en";
@@ -76,26 +81,48 @@ export function decodeSlug(slug: string): string {
 // ---------------------------------------------------------------------------
 
 /**
- * Fetch posts filtered to a specific locale.
+ * Fetch posts for a specific locale.
  *
- * Polylang's ?lang= param is unreliable on this site (returns the same mixed
- * pool regardless of locale). We fetch a larger pool and filter server-side
- * via getPostLang() which reads class_list + Unicode heuristic.
+ * `?lang=` is now honored server-side by the itpc-polylang-rest mu-plugin,
+ * so we request exactly the posts of this locale instead of over-fetching a
+ * mixed pool and filtering by class_list.
  */
-const FETCH_POOL = 50;
-
 export async function getPosts(
   locale: string,
   perPage = 6
 ): Promise<WPPost[]> {
   try {
-    const url = `${WP_URL}/wp-json/wp/v2/posts?per_page=${FETCH_POOL}&orderby=date&order=desc`;
+    const url = `${WP_URL}/wp-json/wp/v2/posts?lang=${locale}&per_page=${perPage}&orderby=date&order=desc`;
     const res = await fetch(url, { next: { revalidate: 3600 } });
     if (!res.ok) return [];
-    const data: WPPost[] = await res.json();
-    return data
-      .filter((post) => getPostLang(post) === (locale as PostLang))
-      .slice(0, perPage);
+    return (await res.json()) as WPPost[];
+  } catch {
+    return [];
+  }
+}
+
+/** Sections éditoriales exposées par le mu-plugin itpc-sections. */
+export type PostSection = "actualites" | "blog";
+
+/**
+ * Fetch posts of an editorial section (category) for a specific locale.
+ *
+ * Uses the `?itpc_section=` filter exposed by the itpc-sections mu-plugin, which
+ * resolves the section's category for the requested language (Polylang) and is
+ * fail-closed: if the category isn't configured yet, it returns no post rather
+ * than the whole archive. Only published posts are returned (drafts / pending
+ * stay invisible until an Editor publishes them).
+ */
+export async function getSectionPosts(
+  locale: string,
+  section: PostSection,
+  perPage = 6
+): Promise<WPPost[]> {
+  try {
+    const url = `${WP_URL}/wp-json/wp/v2/posts?lang=${locale}&itpc_section=${section}&per_page=${perPage}&orderby=date&order=desc`;
+    const res = await fetch(url, { next: { revalidate: 3600 } });
+    if (!res.ok) return [];
+    return (await res.json()) as WPPost[];
   } catch {
     return [];
   }
@@ -124,37 +151,101 @@ export async function getPostBySlug(slug: string): Promise<WPPost | null> {
 }
 
 /**
- * Fetch recent post slugs for generateStaticParams.
+ * Fetch a WordPress *page* (not post) by slug. Pages share the WPPost shape
+ * (title/content/translations…). Used to render institutional pages (e.g. « La
+ * région ») inside the Next front instead of linking to the raw WordPress page.
+ */
+export async function getPageBySlug(slug: string): Promise<WPPost | null> {
+  try {
+    const url = `${WP_URL}/wp-json/wp/v2/pages?slug=${encodeURIComponent(slug)}`;
+    const res = await fetch(url, { next: { revalidate: 3600 } });
+    if (!res.ok) return null;
+    const data: WPPost[] = await res.json();
+    return data[0] ?? null;
+  } catch {
+    return null;
+  }
+}
+
+/** Fetch a WordPress page by ID (used to resolve a Polylang translation). */
+export async function getPageById(id: number): Promise<WPPost | null> {
+  try {
+    const res = await fetch(`${WP_URL}/wp-json/wp/v2/pages/${id}`, {
+      next: { revalidate: 3600 },
+    });
+    if (!res.ok) return null;
+    return (await res.json()) as WPPost;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Resolve a post's `translations` map ({ locale: postId }) into a map of
+ * { locale: decodedSlug }, so the language switcher can link to the same
+ * article in another language.
  *
- * Each post is pre-built ONLY for its actual detected locale (class_list).
- * A French post → /fr/actualites/[slug] only. Other locales will SSR on demand.
- * This avoids generating /ar/actualites/french-article-slug etc.
+ * The current post's own entry is skipped. Locales without a linked
+ * translation simply don't appear in the result — the caller decides the
+ * fallback (e.g. send the user to the localized /actualites list).
+ */
+export async function getTranslatedSlugs(
+  post: WPPost
+): Promise<Partial<Record<PostLang, string>>> {
+  const translations = post.translations ?? {};
+  const otherIds = Object.values(translations).filter((id) => id !== post.id);
+  if (otherIds.length === 0) return {};
+
+  try {
+    const url = `${WP_URL}/wp-json/wp/v2/posts?include=${otherIds.join(
+      ","
+    )}&per_page=${otherIds.length}&_fields=id,slug,lang`;
+    const res = await fetch(url, { next: { revalidate: 3600 } });
+    if (!res.ok) return {};
+    const linked: Array<Pick<WPPost, "id" | "slug" | "lang">> =
+      await res.json();
+
+    const slugById = new Map(linked.map((p) => [p.id, decodeSlug(p.slug)]));
+    const result: Partial<Record<PostLang, string>> = {};
+    for (const [loc, id] of Object.entries(translations)) {
+      if (id === post.id) continue;
+      const slug = slugById.get(id);
+      if (slug && (loc === "fr" || loc === "en" || loc === "ar")) {
+        result[loc] = slug;
+      }
+    }
+    return result;
+  } catch {
+    return {};
+  }
+}
+
+/**
+ * Recent post slugs per locale for generateStaticParams.
+ *
+ * One ?lang= request per locale → each post is pre-built under its own locale
+ * route only (a French post → /fr/actualites/[slug]). Remaining posts SSR on
+ * demand via ISR.
  */
 export async function getAllPostSlugs(): Promise<
   Array<{ slug: string; locale: string }>
 > {
+  const locales: PostLang[] = ["fr", "en", "ar"];
+  const results: Array<{ slug: string; locale: string }> = [];
   try {
-    // No ?lang= filter — Polylang param is unreliable; we detect lang ourselves
-    const url = `${WP_URL}/wp-json/wp/v2/posts?per_page=30&orderby=date&order=desc`;
-    const res = await fetch(url, { next: { revalidate: 3600 } });
-    if (!res.ok) return [];
-    const posts: WPPost[] = await res.json();
-
-    const seen = new Set<string>();
-    const results: Array<{ slug: string; locale: string }> = [];
-
-    for (const post of posts) {
-      const decoded = decodeSlug(post.slug);
-      if (seen.has(decoded)) continue;
-      seen.add(decoded);
-      results.push({
-        slug: decoded,
-        locale: getPostLang(post), // only the real locale of this post
-      });
-    }
-
+    await Promise.all(
+      locales.map(async (locale) => {
+        const url = `${WP_URL}/wp-json/wp/v2/posts?lang=${locale}&per_page=20&orderby=date&order=desc&_fields=id,slug`;
+        const res = await fetch(url, { next: { revalidate: 3600 } });
+        if (!res.ok) return;
+        const posts: Array<Pick<WPPost, "id" | "slug">> = await res.json();
+        for (const post of posts) {
+          results.push({ slug: decodeSlug(post.slug), locale });
+        }
+      })
+    );
     return results;
   } catch {
-    return [];
+    return results;
   }
 }

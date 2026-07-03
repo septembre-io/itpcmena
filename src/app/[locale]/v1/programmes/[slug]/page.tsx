@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { NavbarV1 } from "@/components/v1/layout/Navbar";
 import { FooterV1 } from "@/components/v1/layout/Footer";
-import { programmes } from "@/data/programmes";
+import { programmes, type Locale } from "@/data/programmes";
 
 export const revalidate = false; // static
 
@@ -25,12 +25,12 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const programme = programmes.find((p) => p.id === slug);
   if (!programme) return { title: "Programme — ITPC MENA" };
-  return { title: `${programme.title} — ITPC MENA` };
+  return { title: `${programme.title[locale as Locale]} — ITPC MENA` };
 }
 
 const cardAccent = [
@@ -44,11 +44,13 @@ export default async function ProgrammeV1Page({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const idx = programmes.findIndex((p) => p.id === slug);
   const programme = programmes[idx];
   if (!programme) notFound();
 
+  const loc = locale as Locale;
+  const isRtl = loc === "ar";
   const accent = cardAccent[idx] ?? cardAccent[0];
 
   return (
@@ -75,12 +77,18 @@ export default async function ProgrammeV1Page({
         </div>
 
         {/* Title */}
-        <h1 className="mb-4 text-3xl font-bold leading-tight tracking-[-0.02em] text-[#1A1A1A] md:text-4xl">
-          {programme.title}
+        <h1
+          className="mb-4 text-3xl font-bold leading-tight tracking-[-0.02em] text-[#1A1A1A] md:text-4xl"
+          dir={isRtl ? "rtl" : undefined}
+        >
+          {programme.title[loc]}
         </h1>
 
-        <p className="mb-10 text-lg leading-relaxed text-[#6B7280]">
-          {programme.description}
+        <p
+          className="mb-10 text-lg leading-relaxed text-[#6B7280]"
+          dir={isRtl ? "rtl" : undefined}
+        >
+          {programme.description[loc] || programme.description.fr}
         </p>
 
         {/* Placeholder */}

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans, Newsreader } from "next/font/google";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -10,6 +10,15 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
   variable: "--font-plus-jakarta-sans",
+  display: "swap",
+});
+
+// Serif éditorial pour la zone op-ed (proposition P1).
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  style: ["normal", "italic"],
+  variable: "--font-newsreader",
   display: "swap",
 });
 
@@ -31,11 +40,14 @@ export default async function LocaleLayout({ children, params }: Props) {
     notFound();
   }
 
-  const messages = await getMessages();
+  const messages = await getMessages({ locale });
 
   return (
-    <NextIntlClientProvider messages={messages}>
-      <div className={`${plusJakartaSans.variable} font-sans text-ink min-h-screen`}>
+    // `locale` explicite : sans middleware next-intl actif, le provider ne peut
+    // pas déduire la locale de l'URL — on la passe depuis le segment [locale]
+    // pour que useLocale()/usePathname() (et donc le switch de langue) soient corrects.
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      <div className={`${plusJakartaSans.variable} ${newsreader.variable} font-sans text-ink min-h-screen`}>
         {children}
       </div>
     </NextIntlClientProvider>

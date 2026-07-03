@@ -2,15 +2,16 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 import { Link, useRouter, usePathname } from "@/i18n/navigation";
 
-// `key` maps to messages.nav.*, `hash` to the home-page section anchor.
+// Section anchors match the v2 (institutionnel chaud) page layout.
 const navLinks = [
-  { key: "about", hash: "apropos" },
-  { key: "programmes", hash: "programmes" },
-  { key: "news", hash: "actualites" },
-  { key: "resources", hash: "ressources" },
+  { label: "À propos", hash: "apropos" },
+  { label: "La région", hash: "region" },
+  { label: "Notre travail", hash: "travail" },
+  { label: "Plateformes", hash: "plateformes" },
+  { label: "Actualités", hash: "actualites" },
 ] as const;
 
 const locales = [
@@ -19,26 +20,13 @@ const locales = [
   { code: "ar", label: "ع" },
 ];
 
-type LocaleCode = "fr" | "en" | "ar";
-
-/**
- * `translations` maps a locale to the slug of the same article in that
- * language. Passed only on article pages — when present, the language
- * switcher navigates to the translated article instead of keeping the
- * current path. Locales absent from the map fall back to /actualites.
- */
-export function Navbar({
-  translations,
-}: {
-  translations?: Partial<Record<LocaleCode, string>>;
-} = {}) {
+export function NavbarV2() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const t = useTranslations("nav");
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
-  const isHome = pathname === "/";
+  const isHome = pathname === "/v2";
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 10);
@@ -46,34 +34,23 @@ export function Navbar({
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
-  // Close menu on route change
-  useEffect(() => { setMobileOpen(false); }, [pathname]);
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
 
-  // Prevent body scroll when menu open
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [mobileOpen]);
 
   const switchLocale = (next: string) => {
-    const nextLocale = next as LocaleCode;
-    if (translations) {
-      // On an article page: jump to the translated article, or fall back to
-      // the localized news list when no translation exists for this locale.
-      const translatedSlug = translations[nextLocale];
-      const target = translatedSlug
-        ? `/actualites/${translatedSlug}`
-        : "/actualites";
-      router.replace(target as Parameters<typeof router.replace>[0], {
-        locale: nextLocale,
-      });
-    } else {
-      router.replace(pathname, { locale: nextLocale });
-    }
+    router.replace(pathname, { locale: next as "fr" | "en" | "ar" });
     setMobileOpen(false);
   };
 
-  const NavLink = ({ label, hash }: { label: string; hash: string }) =>
+  const NavAnchor = ({ label, hash }: { label: string; hash: string }) =>
     isHome ? (
       <a
         href={`#${hash}`}
@@ -84,7 +61,7 @@ export function Navbar({
       </a>
     ) : (
       <Link
-        href={`/#${hash}` as Parameters<typeof Link>[0]["href"]}
+        href={`/v2#${hash}` as Parameters<typeof Link>[0]["href"]}
         onClick={() => setMobileOpen(false)}
         className="text-sm font-medium text-ink/60 transition hover:text-ink"
       >
@@ -101,7 +78,7 @@ export function Navbar({
           }`}
         >
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 pl-2">
+          <Link href="/v2" className="flex items-center gap-2.5 pl-2">
             <Image
               src="https://itpcmena.org/wp-content/uploads/2020/01/Logo_ITPC.png"
               alt="ITPC-MENA"
@@ -112,10 +89,10 @@ export function Navbar({
             />
           </Link>
 
-          {/* Nav links — desktop */}
+          {/* Nav — desktop */}
           <nav className="hidden items-center gap-7 md:flex">
-            {navLinks.map(({ key, hash }) => (
-              <NavLink key={hash} label={t(key)} hash={hash} />
+            {navLinks.map(({ label, hash }) => (
+              <NavAnchor key={hash} label={label} hash={hash} />
             ))}
           </nav>
 
@@ -142,9 +119,9 @@ export function Navbar({
               rel="noopener noreferrer"
               className="hidden rounded-full bg-red px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:brightness-95 sm:inline-flex"
             >
-              {t("donate")}
+              Nous contacter
             </a>
-            {/* Hamburger — mobile only */}
+            {/* Hamburger — mobile */}
             <button
               onClick={() => setMobileOpen((o) => !o)}
               aria-label="Menu"
@@ -172,7 +149,7 @@ export function Navbar({
         style={{ top: "72px" }}
       >
         <nav className="flex flex-1 flex-col gap-0 px-6 pt-4">
-          {navLinks.map(({ key, hash }) => (
+          {navLinks.map(({ label, hash }) => (
             <div key={hash} className="border-b border-black/5">
               {isHome ? (
                 <a
@@ -180,22 +157,21 @@ export function Navbar({
                   onClick={() => setMobileOpen(false)}
                   className="flex items-center py-4 text-[17px] font-medium text-ink"
                 >
-                  {t(key)}
+                  {label}
                 </a>
               ) : (
                 <Link
-                  href={`/#${hash}` as Parameters<typeof Link>[0]["href"]}
+                  href={`/v2#${hash}` as Parameters<typeof Link>[0]["href"]}
                   onClick={() => setMobileOpen(false)}
                   className="flex items-center py-4 text-[17px] font-medium text-ink"
                 >
-                  {t(key)}
+                  {label}
                 </Link>
               )}
             </div>
           ))}
         </nav>
         <div className="px-6 pb-10 pt-6">
-          {/* Lang switcher */}
           <div className="mb-4 flex gap-2">
             {locales.map(({ code, label }) => (
               <button
@@ -217,7 +193,7 @@ export function Navbar({
             rel="noopener noreferrer"
             className="block w-full rounded-full bg-red py-3.5 text-center text-[15px] font-semibold text-white"
           >
-            {t("donate")}
+            Nous contacter
           </a>
         </div>
       </div>

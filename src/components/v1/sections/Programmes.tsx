@@ -1,5 +1,6 @@
+import { getLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { programmes } from "@/data/programmes";
+import { programmes, type Locale } from "@/data/programmes";
 
 const cardAccent = [
   { top: "bg-[#1D9E75]", link: "text-[#1D9E75]", icon: "bg-[#E1F5EE]" },
@@ -7,7 +8,8 @@ const cardAccent = [
   { top: "bg-[#E07A2F]", link: "text-[#E07A2F]", icon: "bg-[#FEF3E7]" },
 ];
 
-export function ProgrammesV1() {
+export async function ProgrammesV1() {
+  const locale = (await getLocale()) as Locale;
   return (
     <section id="programmes" className="bg-white px-5 md:px-20 py-20">
       <p className="mb-3 text-[11.5px] font-bold uppercase tracking-[0.1em] text-[#1D9E75]">
@@ -41,10 +43,10 @@ export function ProgrammesV1() {
                   {p.icon}
                 </div>
                 <h3 className="mb-[10px] text-[16.5px] font-bold leading-[1.35] text-[#1A1A1A]">
-                  {p.title}
+                  {p.title[locale]}
                 </h3>
                 <p className="mb-5 flex-1 text-[14px] leading-[1.6] text-[#6B7280]">
-                  {p.description}
+                  {p.description[locale] || p.description.fr}
                 </p>
                 <span className={`flex items-center gap-1.5 text-[13.5px] font-semibold ${accent.link}`}>
                   En savoir plus →

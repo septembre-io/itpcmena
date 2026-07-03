@@ -10,10 +10,10 @@ export default function DemoPage() {
         Choisissez un design
       </h1>
       <p className="mb-14 text-center text-base text-[#0B0F0E]/50">
-        Deux directions créatives pour le même contenu. Cliquez pour explorer.
+        Trois directions créatives pour le même contenu. Cliquez pour explorer.
       </p>
 
-      <div className="grid w-full max-w-4xl gap-6 md:grid-cols-2">
+      <div className="grid w-full max-w-5xl gap-6 md:grid-cols-3">
         {/* V7 Radiant */}
         <Link
           href="/"
@@ -105,6 +105,50 @@ export default function DemoPage() {
               Header flat avec border, hero photo plein écran, cartes à bordure fine. Ambiance éditoriale et épurée.
             </p>
             <p className="mt-3 text-sm font-semibold text-[#0B0F0E] transition group-hover:text-[#1D9E75]">
+              Explorer ce design →
+            </p>
+          </div>
+        </Link>
+
+        {/* V2 Institutionnel chaud */}
+        <Link
+          href="/v2"
+          className="group block overflow-hidden rounded-3xl border border-black/8 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+        >
+          {/* Preview thumbnail */}
+          <div className="relative flex h-48 items-end overflow-hidden bg-[#F7F6F2] p-6">
+            {/* Simulated mesh (warmer, amber-led) */}
+            <div
+              className="pointer-events-none absolute inset-0 opacity-70"
+              style={{
+                background:
+                  "radial-gradient(ellipse 45% 55% at 20% 30%, #0E9F7655 0%, transparent 70%), radial-gradient(ellipse 40% 50% at 82% 22%, #C1272D40 0%, transparent 70%), radial-gradient(ellipse 50% 55% at 70% 80%, #F5B04055 0%, transparent 70%)",
+              }}
+            />
+            {/* Simulated pill nav */}
+            <div className="absolute left-4 right-4 top-4 flex items-center justify-between rounded-full bg-white/90 px-4 py-2 text-[9px] font-semibold text-[#0B0F0E]/60">
+              <span className="font-bold text-[#0B0F0E]">ITPC</span>
+              <span>À propos · La région · Notre travail</span>
+              <span className="rounded-full bg-[#C1272D] px-2 py-0.5 text-white">Contact</span>
+            </div>
+            {/* Hero text sim */}
+            <div className="relative z-10 text-center">
+              <p className="mb-1 text-[8px] font-bold uppercase tracking-[0.12em] text-[#0B0F0E]/50">Coalition régionale · 14 pays</p>
+              <p className="text-[15px] font-extrabold leading-tight text-[#0B0F0E]">
+                L&rsquo;accès à la santé<br />
+                est un <span className="text-[#C1272D]">droit.</span>
+              </p>
+            </div>
+          </div>
+          <div className="p-6">
+            <div className="mb-1 flex items-center gap-2">
+              <span className="rounded-full bg-[#F5B020]/15 px-2 py-0.5 text-[10px] font-bold text-[#B47C0A]">V2</span>
+              <span className="text-sm font-bold text-[#0B0F0E]">Institutionnel chaud</span>
+            </div>
+            <p className="text-sm text-[#0B0F0E]/50">
+              Hero centré sobre, stats à filet coloré, sections chaudes (teal, ink, amber). Ambiance institutionnelle et chaleureuse.
+            </p>
+            <p className="mt-3 text-sm font-semibold text-[#0B0F0E] transition group-hover:text-[#C1272D]">
               Explorer ce design →
             </p>
           </div>
