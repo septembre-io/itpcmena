@@ -50,6 +50,8 @@ interface RawMenuItem {
   children?: RawMenuItem[];
 }
 
+import { wpFetchInit } from "./wordpress";
+
 const WP_URL = process.env.NEXT_PUBLIC_WP_URL ?? "https://itpcmena.org";
 
 function normalize(items: RawMenuItem[]): MenuItem[] {
@@ -81,7 +83,7 @@ export async function getMenu(
     const url = `${WP_URL}/wp-json/itpc/v1/menu?location=${encodeURIComponent(
       location
     )}&lang=${locale}`;
-    const res = await fetch(url, { next: { revalidate: 3600 } });
+    const res = await fetch(url, wpFetchInit);
     if (!res.ok) return fallback;
     const data = (await res.json()) as RawMenuItem[];
     if (!Array.isArray(data) || data.length === 0) return fallback;

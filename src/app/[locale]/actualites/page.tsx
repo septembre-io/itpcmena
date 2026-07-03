@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+import { NavbarV3 } from "@/components/v3/layout/Navbar";
+import { FooterV3 } from "@/components/v3/layout/Footer";
+import type { MenuItem } from "@/lib/menu";
 import {
   getPosts,
   getPostLang,
@@ -12,14 +13,18 @@ import {
   type PostLang,
 } from "@/lib/wordpress";
 
-export const revalidate = 3600;
-
 const langBadgeClass: Record<PostLang, string> = {
   fr: "rounded-md bg-blue-50 px-2 py-0.5 text-[11px] font-bold text-blue-700",
   ar: "rounded-md bg-amber-50 px-2 py-0.5 text-[11px] font-bold text-amber-800",
   en: "rounded-md bg-green-50 px-2 py-0.5 text-[11px] font-bold text-green-700",
 };
 const langLabel: Record<PostLang, string> = { fr: "FR", ar: "ع", en: "EN" };
+
+const S = {
+  fr: { tag: "Actualités", title: "Toutes les actualités", sub: "Suivez nos analyses, communiqués et actualités de la région MENA.", empty: "Aucun article disponible." },
+  en: { tag: "News", title: "All news", sub: "Follow our analyses, statements and news from the MENA region.", empty: "No article available." },
+  ar: { tag: "الأخبار", title: "كل الأخبار", sub: "تابعوا تحليلاتنا وبياناتنا وأخبار منطقة الشرق الأوسط وشمال إفريقيا.", empty: "لا يوجد مقال متاح." },
+} as const;
 
 export default async function ActualitesPage({
   params,
@@ -28,25 +33,45 @@ export default async function ActualitesPage({
 }) {
   const { locale } = await params;
   const posts = await getPosts(locale, 12);
+  const l = S[(locale as keyof typeof S)] ?? S.fr;
+
+  const anchor = (h: string) => `/${locale}#${h}`;
+  const navMenu: MenuItem[] = [
+    { label: "À propos", url: anchor("apropos") },
+    { label: "La région", url: `/${locale}/la-region` },
+    { label: "Notre travail", url: anchor("travail") },
+    { label: "Plateformes", url: anchor("plateformes") },
+    { label: l.tag, url: `/${locale}/actualites` },
+    {
+      label: "Nous contacter",
+      url: "https://itpcmena.org/faire-un-don/",
+      target: "_blank",
+      cta: true,
+    },
+  ];
+  const footMenu: MenuItem[] = [
+    { label: "À propos", url: anchor("apropos") },
+    { label: "La région", url: `/${locale}/la-region` },
+    { label: "Notre travail", url: anchor("travail") },
+    { label: "Plateformes", url: anchor("plateformes") },
+  ];
 
   return (
-    <>
-      <Navbar />
+    <div className="bg-cream text-ink">
+      <NavbarV3 menu={navMenu} />
       <main className="mx-auto max-w-6xl px-6 py-16">
-        <header className="mb-10">
+        <header className="mb-10" dir={locale === "ar" ? "rtl" : undefined}>
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-teal">
-            Actualités
+            {l.tag}
           </p>
           <h1 className="mt-2 text-4xl font-extrabold tracking-tight text-ink">
-            Toutes les actualités
+            {l.title}
           </h1>
-          <p className="mt-3 text-base text-ink/55">
-            Suivez nos analyses, communiqués et actualités de la région MENA.
-          </p>
+          <p className="mt-3 text-base text-ink/55">{l.sub}</p>
         </header>
 
         {posts.length === 0 ? (
-          <p className="text-ink/50">Aucun article disponible.</p>
+          <p className="text-ink/50">{l.empty}</p>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {posts.map((post) => (
@@ -55,8 +80,8 @@ export default async function ActualitesPage({
           </div>
         )}
       </main>
-      <Footer />
-    </>
+      <FooterV3 menu={footMenu} />
+    </div>
   );
 }
 

@@ -128,7 +128,7 @@ export default async function ArticlePage({
   );
 
   // Menus V3 localisés (les ancres pointent vers la home de la langue)
-  const anchor = (h: string) => `/${locale}/v3#${h}`;
+  const anchor = (h: string) => `/${locale}#${h}`;
   const navMenu: MenuItem[] = [
     { label: "À propos", url: anchor("apropos") },
     { label: "La région", url: anchor("region") },
@@ -159,7 +159,7 @@ export default async function ArticlePage({
       <main className="mx-auto max-w-3xl px-6 pb-8 pt-10">
         {/* ① Fil d'Ariane */}
         <nav className="mb-8 flex flex-wrap items-center gap-2 text-sm text-ink/45">
-          <Link href="/v3" className="transition hover:text-ink">
+          <Link href="/" className="transition hover:text-ink">
             {l.home}
           </Link>
           <span>›</span>
@@ -311,7 +311,7 @@ export default async function ArticlePage({
       <section className="px-4 pb-20">
         <div className="mx-auto grid max-w-6xl gap-4 md:grid-cols-3">
           <Link
-            href="/v3#plateformes"
+            href="/#plateformes"
             className="group rounded-4xl bg-ink p-7 text-white transition hover:brightness-125"
           >
             <p className="text-xs font-bold uppercase tracking-wider text-white/40">
@@ -321,7 +321,7 @@ export default async function ArticlePage({
             <span className="mt-4 inline-block text-sm font-semibold text-amber">→</span>
           </Link>
           <Link
-            href="/v3"
+            href="/"
             className="group rounded-4xl bg-teal p-7 text-white transition hover:brightness-105"
           >
             <p className="text-xs font-bold uppercase tracking-wider text-white/70">

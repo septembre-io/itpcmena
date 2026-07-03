@@ -22,6 +22,18 @@ export interface WPPost {
 const WP_URL =
   process.env.NEXT_PUBLIC_WP_URL ?? "https://itpcmena.org";
 
+/**
+ * Options de fetch des données WordPress.
+ * En dev : `no-store` → refetch à CHAQUE requête, donc une modif dans WP est
+ * visible dès le rafraîchissement du navigateur (aucun redémarrage de dev server).
+ * En prod : cache ISR 5 min (fraîcheur raisonnable ; passer à une revalidation à
+ * la demande via webhook WordPress si besoin d'instantané).
+ */
+export const wpFetchInit: RequestInit =
+  process.env.NODE_ENV === "development"
+    ? { cache: "no-store" }
+    : { next: { revalidate: 300 } };
+
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
@@ -93,7 +105,7 @@ export async function getPosts(
 ): Promise<WPPost[]> {
   try {
     const url = `${WP_URL}/wp-json/wp/v2/posts?lang=${locale}&per_page=${perPage}&orderby=date&order=desc`;
-    const res = await fetch(url, { next: { revalidate: 3600 } });
+    const res = await fetch(url, wpFetchInit);
     if (!res.ok) return [];
     return (await res.json()) as WPPost[];
   } catch {
@@ -120,7 +132,7 @@ export async function getSectionPosts(
 ): Promise<WPPost[]> {
   try {
     const url = `${WP_URL}/wp-json/wp/v2/posts?lang=${locale}&itpc_section=${section}&per_page=${perPage}&orderby=date&order=desc`;
-    const res = await fetch(url, { next: { revalidate: 3600 } });
+    const res = await fetch(url, wpFetchInit);
     if (!res.ok) return [];
     return (await res.json()) as WPPost[];
   } catch {
@@ -135,13 +147,13 @@ export async function getSectionPosts(
 export async function getPostBySlug(slug: string): Promise<WPPost | null> {
   try {
     const url = `${WP_URL}/wp-json/wp/v2/posts?slug=${encodeURIComponent(slug)}`;
-    const res = await fetch(url, { next: { revalidate: 3600 } });
+    const res = await fetch(url, wpFetchInit);
     if (!res.ok) return null;
     const data: WPPost[] = await res.json();
     if (data.length > 0) return data[0];
     // Fallback: slug might be URL-encoded in DB — try re-encoding
     const url2 = `${WP_URL}/wp-json/wp/v2/posts?slug=${encodeURIComponent(encodeURIComponent(slug))}`;
-    const res2 = await fetch(url2, { next: { revalidate: 3600 } });
+    const res2 = await fetch(url2, wpFetchInit);
     if (!res2.ok) return null;
     const data2: WPPost[] = await res2.json();
     return data2[0] ?? null;
@@ -158,7 +170,7 @@ export async function getPostBySlug(slug: string): Promise<WPPost | null> {
 export async function getPageBySlug(slug: string): Promise<WPPost | null> {
   try {
     const url = `${WP_URL}/wp-json/wp/v2/pages?slug=${encodeURIComponent(slug)}`;
-    const res = await fetch(url, { next: { revalidate: 3600 } });
+    const res = await fetch(url, wpFetchInit);
     if (!res.ok) return null;
     const data: WPPost[] = await res.json();
     return data[0] ?? null;
@@ -170,14 +182,34 @@ export async function getPageBySlug(slug: string): Promise<WPPost | null> {
 /** Fetch a WordPress page by ID (used to resolve a Polylang translation). */
 export async function getPageById(id: number): Promise<WPPost | null> {
   try {
-    const res = await fetch(`${WP_URL}/wp-json/wp/v2/pages/${id}`, {
-      next: { revalidate: 3600 },
-    });
+    const res = await fetch(`${WP_URL}/wp-json/wp/v2/pages/${id}`, wpFetchInit);
     if (!res.ok) return null;
     return (await res.json()) as WPPost;
   } catch {
     return null;
   }
+}
+
+/**
+ * Resolve a WordPress page (by its base/FR slug) to the right Polylang
+ * translation for the requested locale. Falls back to the base page when no
+ * translation exists (e.g. EN missing → serves FR content).
+ */
+export async function resolveTranslatedPage(
+  baseSlug: string,
+  locale: string
+): Promise<WPPost | null> {
+  const base = await getPageBySlug(baseSlug);
+  if (!base) return null;
+  const baseLang = base.lang ?? "fr";
+  if (locale !== baseLang) {
+    const tid = base.translations?.[locale as PostLang];
+    if (tid && tid !== base.id) {
+      const translated = await getPageById(tid);
+      if (translated) return translated;
+    }
+  }
+  return base;
 }
 
 /**
@@ -200,7 +232,7 @@ export async function getTranslatedSlugs(
     const url = `${WP_URL}/wp-json/wp/v2/posts?include=${otherIds.join(
       ","
     )}&per_page=${otherIds.length}&_fields=id,slug,lang`;
-    const res = await fetch(url, { next: { revalidate: 3600 } });
+    const res = await fetch(url, wpFetchInit);
     if (!res.ok) return {};
     const linked: Array<Pick<WPPost, "id" | "slug" | "lang">> =
       await res.json();
@@ -236,7 +268,7 @@ export async function getAllPostSlugs(): Promise<
     await Promise.all(
       locales.map(async (locale) => {
         const url = `${WP_URL}/wp-json/wp/v2/posts?lang=${locale}&per_page=20&orderby=date&order=desc&_fields=id,slug`;
-        const res = await fetch(url, { next: { revalidate: 3600 } });
+        const res = await fetch(url, wpFetchInit);
         if (!res.ok) return;
         const posts: Array<Pick<WPPost, "id" | "slug">> = await res.json();
         for (const post of posts) {

@@ -71,7 +71,7 @@ export function NavbarV3({ menu = headerFallback }: { menu?: MenuItem[] }) {
           } ${scrolled ? "shadow-lg" : "shadow-sm"}`}
         >
           {/* Logo */}
-          <Link href="/v3" className="flex items-center gap-2.5 pl-2">
+          <Link href="/" className="flex items-center gap-2.5 pl-2">
             <Image
               src="https://itpcmena.org/wp-content/uploads/2020/01/Logo_ITPC.png"
               alt="ITPC-MENA"

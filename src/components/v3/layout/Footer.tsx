@@ -1,8 +1,11 @@
 import Image from "next/image";
+import { Link } from "@/i18n/navigation";
 import { footerFallback, type MenuItem } from "@/lib/menu";
 
+// `href` interne (commence par « / ») → rendu via next-intl Link (localisé) ;
+// sinon lien externe. « Partenaires » = page WP rendue dans Next (/partenaires).
 const joinLinks = [
-  { label: "Organisations partenaires", href: "https://itpcmena.org/" },
+  { label: "Organisations partenaires", href: "/partenaires" },
   { label: "S'impliquer", href: "https://itpcmena.org/" },
   { label: "Appels d'offres", href: "https://itpcmena.org/" },
 ];
@@ -66,18 +69,29 @@ export function FooterV3({ menu = footerFallback }: { menu?: MenuItem[] }) {
             Nous rejoindre
           </h4>
           <ul className="mt-4 space-y-2.5 text-sm text-white/55">
-            {joinLinks.map((l) => (
-              <li key={l.label}>
-                <a
-                  href={l.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition hover:text-white"
-                >
-                  {l.label}
-                </a>
-              </li>
-            ))}
+            {joinLinks.map((l) =>
+              l.href.startsWith("/") ? (
+                <li key={l.label}>
+                  <Link
+                    href={l.href as Parameters<typeof Link>[0]["href"]}
+                    className="transition hover:text-white"
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              ) : (
+                <li key={l.label}>
+                  <a
+                    href={l.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="transition hover:text-white"
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              )
+            )}
           </ul>
         </div>
 
