@@ -17,7 +17,7 @@ export function FooterV3({ menu = footerFallback }: { menu?: MenuItem[] }) {
         {/* Brand */}
         <div>
           <Image
-            src="https://itpcmena.org/wp-content/uploads/2020/01/Logo_ITPC.png"
+            src="https://wphead.itpcmena.org/wp-content/uploads/2020/01/Logo_ITPC.png"
             alt="ITPC-MENA"
             width={140}
             height={40}

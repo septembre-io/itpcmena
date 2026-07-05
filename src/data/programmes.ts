@@ -31,7 +31,7 @@ export const programmes: Programme[] = [
     iconBg: "bg-teal/15",
     ctaColor: "text-teal",
     href: "/programmes/plateforme-mena",
-    image: "https://itpcmena.org/wp-content/uploads/2015/10/12222.png",
+    image: "https://wphead.itpcmena.org/wp-content/uploads/2015/10/12222.png",
     wpId: { fr: 1395, en: 1590, ar: 1702 },
     wpSlug: {
       fr: "financement-de-sante",
@@ -79,7 +79,7 @@ export const programmes: Programme[] = [
     iconBg: "bg-amber-400/15",
     ctaColor: "text-amber-300",
     href: "/programmes/education-traitements",
-    image: "https://itpcmena.org/wp-content/uploads/2015/10/1222.png",
+    image: "https://wphead.itpcmena.org/wp-content/uploads/2015/10/1222.png",
     wpId: { fr: 1388, en: 1333, ar: 1709 },
     wpSlug: {
       fr: "unitaid",

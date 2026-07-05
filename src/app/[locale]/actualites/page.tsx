@@ -44,7 +44,7 @@ export default async function ActualitesPage({
     { label: l.tag, url: `/${locale}/actualites` },
     {
       label: "Nous contacter",
-      url: "https://itpcmena.org/faire-un-don/",
+      url: "mailto:contact@itpcmena.org",
       target: "_blank",
       cta: true,
     },

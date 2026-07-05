@@ -137,7 +137,7 @@ export default async function ArticlePage({
     { label: l.news, url: `/${locale}/actualites` },
     {
       label: "Nous contacter",
-      url: "https://itpcmena.org/faire-un-don/",
+      url: "mailto:contact@itpcmena.org",
       target: "_blank",
       cta: true,
     },
@@ -331,7 +331,7 @@ export default async function ArticlePage({
             <span className="mt-4 inline-block text-sm font-semibold">→</span>
           </Link>
           <a
-            href="https://itpcmena.org/faire-un-don/"
+            href="mailto:contact@itpcmena.org"
             target="_blank"
             rel="noopener noreferrer"
             className="group rounded-4xl bg-red p-7 text-white transition hover:brightness-110"

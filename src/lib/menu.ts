@@ -28,7 +28,7 @@ export const headerFallback: MenuItem[] = [
   { label: "Actualités", url: "#actualites" },
   {
     label: "Nous contacter",
-    url: "https://itpcmena.org/faire-un-don/",
+    url: "mailto:contact@itpcmena.org",
     target: "_blank",
     cta: true,
   },
