@@ -52,7 +52,7 @@ export async function OpEdChapter({ locale }: { locale: string }) {
             </h2>
           </div>
           <Link
-            href="/actualites"
+            href="/opinions"
             className="hidden shrink-0 rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10 md:inline-flex"
           >
             {t("seeAll")}

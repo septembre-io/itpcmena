@@ -7,6 +7,7 @@ import { getTranslations } from "next-intl/server";
 import { getHomeV3, type Accent, type PlatformStatus } from "@/lib/homeV3";
 import { getMenu, headerFallback, footerFallback } from "@/lib/menu";
 import { OpEdChapter } from "@/components/v3/sections/OpEd";
+import { NewsletterForm } from "@/components/v3/sections/NewsletterForm";
 
 // Tailwind ne peut pas générer des classes dynamiques : on mappe les accents.
 const borderAccent: Record<Accent, string> = {
@@ -326,23 +327,11 @@ export default async function HomePage({
             <p className="mx-auto mt-4 max-w-xl text-base text-ink/60">
               {newsletter.body}
             </p>
-            <form
-              className="mx-auto mt-8 flex max-w-md flex-wrap items-center justify-center gap-2"
-              action="https://itpcmena.org/"
-              target="_blank"
-            >
-              <input
-                type="email"
-                placeholder={newsletter.placeholder}
-                className="min-w-0 flex-1 rounded-full border border-ink/15 bg-white/90 px-5 py-3 text-sm outline-none backdrop-blur placeholder:text-ink/40 focus:border-ink/40"
-              />
-              <button
-                type="submit"
-                className="rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white transition hover:brightness-110"
-              >
-                {newsletter.cta}
-              </button>
-            </form>
+            <NewsletterForm
+              locale={locale}
+              placeholder={newsletter.placeholder}
+              cta={newsletter.cta}
+            />
           </RevealWrapper>
         </section>
       </main>

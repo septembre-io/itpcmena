@@ -2,6 +2,11 @@
 // Uses next-intl's getLocale() to set lang and dir dynamically so the
 // [locale]/layout.tsx doesn't need to repeat them.
 import { getLocale } from "next-intl/server";
+import Script from "next/script";
+
+const umamiScriptSrc =
+  process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL ?? "https://atom.septembre.io/script.js";
+const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
 
 export default async function RootLayout({
   children,
@@ -18,7 +23,16 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} dir={dir}>
-      <body className="bg-cream antialiased">{children}</body>
+      <body className="bg-cream antialiased">
+        {umamiWebsiteId ? (
+          <Script
+            strategy="afterInteractive"
+            src={umamiScriptSrc}
+            data-website-id={umamiWebsiteId}
+          />
+        ) : null}
+        {children}
+      </body>
     </html>
   );
 }
