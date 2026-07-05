@@ -19,6 +19,19 @@ export interface MenuItem {
   children?: MenuItem[];
 }
 
+// Libellés localisés partagés par les navs inline des sous-pages (Actualités /
+// Opinions), pour ne pas les redéfinir dans chaque page.
+export const newsLabel: Record<string, string> = {
+  fr: "Actualités",
+  en: "News",
+  ar: "الأخبار",
+};
+export const opinionsLabel: Record<string, string> = {
+  fr: "Opinions",
+  en: "Op-ed",
+  ar: "رأي",
+};
+
 // Repli header : reproduit le menu d'origine (ancres de sections) + le CTA.
 export const headerFallback: MenuItem[] = [
   { label: "À propos", url: "#apropos" },
@@ -26,6 +39,7 @@ export const headerFallback: MenuItem[] = [
   { label: "Notre travail", url: "#travail" },
   { label: "Plateformes", url: "#plateformes" },
   { label: "Actualités", url: "#actualites" },
+  { label: "Opinions", url: "#blog" },
   {
     label: "Nous contacter",
     url: "mailto:contact@itpcmena.org",

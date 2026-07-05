@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { NavbarV3 } from "@/components/v3/layout/Navbar";
 import { FooterV3 } from "@/components/v3/layout/Footer";
-import type { MenuItem } from "@/lib/menu";
+import { opinionsLabel, type MenuItem } from "@/lib/menu";
 import { getPostLang, stripHtml, type WPPost } from "@/lib/wordpress";
 
 const HOME = { fr: "Accueil", en: "Home", ar: "الرئيسية" } as const;
@@ -33,6 +33,7 @@ export function WpPageView({
     { label: "Notre travail", url: anchor("travail") },
     { label: "Plateformes", url: anchor("plateformes") },
     { label: news, url: `/${locale}/actualites` },
+    { label: opinionsLabel[locale] ?? opinionsLabel.fr, url: `/${locale}/opinions` },
     {
       label: "Nous contacter",
       url: "mailto:contact@itpcmena.org",

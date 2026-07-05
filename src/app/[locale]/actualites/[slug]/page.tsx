@@ -5,7 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { NavbarV3 } from "@/components/v3/layout/Navbar";
 import { FooterV3 } from "@/components/v3/layout/Footer";
 import { ShareButtons } from "@/components/v3/sections/ShareButtons";
-import type { MenuItem } from "@/lib/menu";
+import { opinionsLabel, type MenuItem } from "@/lib/menu";
 import {
   getPostBySlug,
   getAllPostSlugs,
@@ -135,6 +135,7 @@ export default async function ArticlePage({
     { label: "Notre travail", url: anchor("travail") },
     { label: "Plateformes", url: anchor("plateformes") },
     { label: l.news, url: `/${locale}/actualites` },
+    { label: opinionsLabel[locale] ?? opinionsLabel.fr, url: `/${locale}/opinions` },
     {
       label: "Nous contacter",
       url: "mailto:contact@itpcmena.org",

@@ -10,11 +10,11 @@ import {
   type WPPost,
 } from "@/lib/wordpress";
 
-// ⚠️ TEMPORAIRE — pour la démo client : tant que les catégories WordPress
-// « Actualités » / « Blog » ne sont pas créées et que les articles ne sont pas
-// tagués, on remplit les zones avec les derniers articles publiés. Passer à
-// `false` (ou supprimer) une fois les sections alimentées dans WordPress.
-const DEMO_FILL_FROM_ALL = true;
+// Repli démo : si la section « blog » (catégorie Opinion 974/978) ne renvoie rien,
+// on remplissait avec les derniers articles publiés. Désormais la section est
+// alimentée → désactivé. Le bloc op-ed est donc fail-closed (vide si section vide,
+// ex. arabe tant que « Opinion » n'a pas de traduction AR liée).
+const DEMO_FILL_FROM_ALL = false;
 
 function href(post: WPPost) {
   return `/actualites/${decodeSlug(post.slug)}` as Parameters<

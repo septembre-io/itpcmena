@@ -1,29 +1,24 @@
 import { NavbarV3 } from "@/components/v3/layout/Navbar";
 import { FooterV3 } from "@/components/v3/layout/Footer";
 import { PostCard } from "@/components/v3/PostCard";
-import { opinionsLabel, type MenuItem } from "@/lib/menu";
-import { getSectionPosts, decodeSlug } from "@/lib/wordpress";
+import { newsLabel, type MenuItem } from "@/lib/menu";
+import { getSectionPosts } from "@/lib/wordpress";
 
 const S = {
-  fr: { tag: "Actualités", title: "Toutes les actualités", sub: "Suivez nos analyses, communiqués et actualités de la région MENA.", empty: "Aucun article disponible." },
-  en: { tag: "News", title: "All news", sub: "Follow our analyses, statements and news from the MENA region.", empty: "No article available." },
-  ar: { tag: "الأخبار", title: "كل الأخبار", sub: "تابعوا تحليلاتنا وبياناتنا وأخبار منطقة الشرق الأوسط وشمال إفريقيا.", empty: "لا يوجد مقال متاح." },
+  fr: { tag: "Opinion", title: "Toutes les opinions", sub: "Analyses, tribunes et points de vue sur l'accès aux traitements dans la région MENA.", empty: "Aucune opinion disponible." },
+  en: { tag: "Op-ed", title: "All op-eds", sub: "Analyses, op-eds and perspectives on access to treatment in the MENA region.", empty: "No op-ed available." },
+  ar: { tag: "رأي", title: "كل الآراء", sub: "تحليلات وآراء ووجهات نظر حول الوصول إلى العلاج في منطقة الشرق الأوسط وشمال إفريقيا.", empty: "لا يوجد رأي متاح." },
 } as const;
 
-export default async function ActualitesPage({
+export default async function OpinionsPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  // Page « Actualités » = uniquement la section Actualités (donc PAS les blogs /
-  // op-ed, qui auront leur propre page) + on retire les appels d'offres, repérés
-  // par leur slug « appel-… » (ils ont leur propre espace). On fetch large puis
-  // on tronque à 12 après filtrage.
-  const raw = await getSectionPosts(locale, "actualites", 24);
-  const posts = raw
-    .filter((p) => !decodeSlug(p.slug).startsWith("appel-"))
-    .slice(0, 12);
+  // Page « Opinions » = section blog / op-ed (catégorie « Opinion » 974, liée EN
+  // 978 ; AR pas encore de traduction → vide en arabe, fail-closed).
+  const posts = await getSectionPosts(locale, "blog", 30);
   const l = S[(locale as keyof typeof S)] ?? S.fr;
 
   const anchor = (h: string) => `/${locale}#${h}`;
@@ -32,8 +27,8 @@ export default async function ActualitesPage({
     { label: "La région", url: `/${locale}/la-region` },
     { label: "Notre travail", url: anchor("travail") },
     { label: "Plateformes", url: anchor("plateformes") },
-    { label: l.tag, url: `/${locale}/actualites` },
-    { label: opinionsLabel[locale] ?? opinionsLabel.fr, url: `/${locale}/opinions` },
+    { label: newsLabel[locale] ?? newsLabel.fr, url: `/${locale}/actualites` },
+    { label: l.tag, url: `/${locale}/opinions` },
     {
       label: "Nous contacter",
       url: "mailto:contact@itpcmena.org",
