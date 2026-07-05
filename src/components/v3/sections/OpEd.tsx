@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { RadiantMesh, RevealWrapper } from "@/components/ui";
 import {
@@ -25,6 +26,8 @@ function href(post: WPPost) {
 // P5-B — Chapitre op-ed sombre, pleine largeur
 // ───────────────────────────────────────────────────────────────────────────
 export async function OpEdChapter({ locale }: { locale: string }) {
+  // Intitulés traduits (messages/*.json → namespace `oped`), éditables sans toucher au code.
+  const t = await getTranslations({ locale, namespace: "oped" });
   let blog = await getSectionPosts(locale, "blog", 4);
   if (DEMO_FILL_FROM_ALL && blog.length === 0) {
     blog = await getPosts(locale, 4);
@@ -42,22 +45,22 @@ export async function OpEdChapter({ locale }: { locale: string }) {
         <RevealWrapper className="mb-12 flex items-end justify-between gap-4">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-amber">
-              Le blog · Tribunes &amp; analyses
+              {t("eyebrow")}
             </p>
             <h2 className="mt-2 text-4xl font-extrabold tracking-tight md:text-6xl">
-              Prises de position
+              {t("title")}
             </h2>
           </div>
           <Link
             href="/actualites"
             className="hidden shrink-0 rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10 md:inline-flex"
           >
-            Toutes →
+            {t("seeAll")}
           </Link>
         </RevealWrapper>
 
         {!featured ? (
-          <p className="text-white/55">Les premières tribunes arrivent bientôt.</p>
+          <p className="text-white/55">{t("empty")}</p>
         ) : (
           <RevealWrapper>
             <Link

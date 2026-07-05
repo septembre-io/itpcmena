@@ -34,9 +34,23 @@
   },
   "news": {
     "tag": "الأخبار",
-    "title": "ابقَ على اطلاع",
+    "title": "الأعمال التي تصنع الفرق",
+    "seeAll": "كل الأخبار →",
+    "empty": "لا توجد مقالات متاحة.",
     "read": "اقرأ المقال →",
     "filterAll": "الكل"
+  },
+  "oped": {
+    "eyebrow": "المدونة · مقالات رأي وتحليلات",
+    "title": "مواقفنا",
+    "seeAll": "الكل →",
+    "empty": "أولى المقالات قادمة قريباً."
+  },
+  "platforms": {
+    "statusOnline": "متاح",
+    "statusConstruction": "قيد الإنشاء",
+    "statusRequest": "عند الطلب",
+    "statusContact": "اتصل بنا"
   },
   "resources": {
     "tag": "الموارد الرئيسية",

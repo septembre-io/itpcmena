@@ -13,7 +13,7 @@
 import { wpFetchInit } from "./wordpress";
 
 export type Accent = "red" | "amber" | "teal" | "ink";
-export type PlatformStatus = "online" | "construction";
+export type PlatformStatus = "online" | "construction" | "request" | "contact";
 
 export interface CTA {
   label: string;

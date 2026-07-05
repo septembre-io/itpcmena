@@ -34,9 +34,23 @@
   },
   "news": {
     "tag": "Actualités",
-    "title": "Restez informé",
+    "title": "Les actions qui comptent",
+    "seeAll": "Toutes les actualités →",
+    "empty": "Aucun article disponible.",
     "read": "Lire l'article →",
     "filterAll": "Tous"
+  },
+  "oped": {
+    "eyebrow": "Le blog · Tribunes & analyses",
+    "title": "Prises de position",
+    "seeAll": "Toutes →",
+    "empty": "Les premières tribunes arrivent bientôt."
+  },
+  "platforms": {
+    "statusOnline": "En ligne",
+    "statusConstruction": "En construction",
+    "statusRequest": "Sur demande",
+    "statusContact": "Nous contacter"
   },
   "resources": {
     "tag": "Ressources clés",

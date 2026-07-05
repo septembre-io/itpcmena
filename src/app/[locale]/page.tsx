@@ -3,7 +3,8 @@ import { NavbarV3 } from "@/components/v3/layout/Navbar";
 import { FooterV3 } from "@/components/v3/layout/Footer";
 import { NewsV2 } from "@/components/v3/sections/News";
 import { RadiantMesh, RevealWrapper } from "@/components/ui";
-import { getHomeV3, type Accent } from "@/lib/homeV3";
+import { getTranslations } from "next-intl/server";
+import { getHomeV3, type Accent, type PlatformStatus } from "@/lib/homeV3";
 import { getMenu, headerFallback, footerFallback } from "@/lib/menu";
 import { OpEdChapter } from "@/components/v3/sections/OpEd";
 
@@ -21,6 +22,23 @@ const textAccent: Record<Accent, string> = {
   ink: "text-ink",
 };
 
+// Le statut plateforme vient d'un champ ACF texte/select : le webmaster peut y
+// saisir la valeur canonique (online/construction/request/contact) OU un libellé
+// humain (« Nous contacter », « Sur demande »…). On ramène ces saisies vers la
+// clé canonique pour retrouver le bon badge traduit. Toute valeur non reconnue
+// est gérée en repli plus bas (affichée brute, jamais de crash).
+const statusAliases: Record<string, PlatformStatus> = {
+  "en-ligne": "online",
+  "en-construction": "construction",
+  "sur-demande": "request",
+  "nous-contacter": "contact",
+  "contactez-nous": "contact",
+};
+function normalizeStatus(raw: string): string {
+  const slug = raw.trim().toLowerCase().replace(/[\s_]+/g, "-");
+  return statusAliases[slug] ?? slug;
+}
+
 export default async function HomePage({
   params,
 }: {
@@ -34,6 +52,20 @@ export default async function HomePage({
   ]);
   const { hero, stats, mission, vision, region, oneHealth, work, values, platforms, newsletter } =
     content;
+
+  // Libellés + styles des statuts de plateforme (traduits, éditables via messages/*.json).
+  // Clé = valeur ACF du champ statut. Un statut inconnu (ex. choix ajouté côté WP
+  // sans mapping ici) retombe sur `fallbackBadge` : on affiche la valeur brute
+  // avec un style neutre plutôt que de faire planter la page.
+  const tPlatform = await getTranslations({ locale, namespace: "platforms" });
+  const statusBadge: Record<string, { label: string; className: string }> = {
+    online: { label: tPlatform("statusOnline"), className: "bg-teal/20 text-teal" },
+    construction: { label: tPlatform("statusConstruction"), className: "bg-white/10 text-white/60" },
+    request: { label: tPlatform("statusRequest"), className: "bg-amber/20 text-amber" },
+    contact: { label: tPlatform("statusContact"), className: "bg-amber/20 text-amber" },
+  };
+  const badgeFor = (status: string) =>
+    statusBadge[status] ?? { label: status, className: "bg-white/10 text-white/60" };
 
   return (
     <div className="bg-cream text-ink">
@@ -233,16 +265,14 @@ export default async function HomePage({
             </h2>
             <div className="mt-10 grid gap-4 md:grid-cols-2">
               {platforms.items.map((p) => {
-                const badge =
-                  p.status === "online" ? (
-                    <span className="rounded-full bg-teal/20 px-3 py-1 text-[11px] font-bold text-teal">
-                      En ligne
-                    </span>
-                  ) : (
-                    <span className="rounded-full bg-white/10 px-3 py-1 text-[11px] font-bold text-white/60">
-                      En construction
-                    </span>
-                  );
+                const s = badgeFor(normalizeStatus(p.status));
+                const badge = (
+                  <span
+                    className={`rounded-full px-3 py-1 text-[11px] font-bold ${s.className}`}
+                  >
+                    {s.label}
+                  </span>
+                );
                 const inner = (
                   <>
                     <div className="flex items-center justify-between">
@@ -282,8 +312,6 @@ export default async function HomePage({
           locale={locale}
           section="actualites"
           id="actualites"
-          tag="Actualités"
-          title="Les actions qui comptent"
         />
         <OpEdChapter locale={locale} />
 

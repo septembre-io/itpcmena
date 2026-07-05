@@ -4,6 +4,7 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import { DirectionSync } from "@/components/DirectionSync";
 import "../globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -47,6 +48,7 @@ export default async function LocaleLayout({ children, params }: Props) {
     // pas déduire la locale de l'URL — on la passe depuis le segment [locale]
     // pour que useLocale()/usePathname() (et donc le switch de langue) soient corrects.
     <NextIntlClientProvider locale={locale} messages={messages}>
+      <DirectionSync />
       <div className={`${plusJakartaSans.variable} ${newsreader.variable} font-sans text-ink min-h-screen`}>
         {children}
       </div>

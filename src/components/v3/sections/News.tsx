@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { RevealWrapper } from "@/components/ui";
 import { NewsLangSwitch } from "./NewsLangSwitch";
@@ -30,8 +31,8 @@ export async function NewsV2({
   locale,
   section,
   id = "actualites",
-  tag = "Actualités",
-  title = "Les actions qui comptent",
+  tag,
+  title,
   showLangSwitch = true,
 }: {
   locale: string;
@@ -39,13 +40,15 @@ export async function NewsV2({
   section?: PostSection;
   /** id de la <section> pour les ancres de menu. */
   id?: string;
-  /** Surtitre (eyebrow). */
+  /** Surtitre (eyebrow). Override optionnel — sinon i18n `news.tag`. */
   tag?: string;
-  /** Titre de la section. */
+  /** Titre de la section. Override optionnel — sinon i18n `news.title`. */
   title?: string;
   /** Afficher le sélecteur de langue de la section. */
   showLangSwitch?: boolean;
 }) {
+  // Intitulés traduits (messages/*.json → namespace `news`), éditables sans toucher au code.
+  const t = await getTranslations({ locale, namespace: "news" });
   const posts = section
     ? await getSectionPosts(locale, section, 3)
     : await getPosts(locale, 3);
@@ -58,10 +61,10 @@ export async function NewsV2({
       <RevealWrapper className="mb-9 flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-teal">
-            {tag}
+            {tag ?? t("tag")}
           </p>
           <h2 className="mt-2 text-3xl font-extrabold tracking-tight text-ink md:text-4xl">
-            {title}
+            {title ?? t("title")}
           </h2>
         </div>
         {showLangSwitch && <NewsLangSwitch />}
@@ -69,7 +72,7 @@ export async function NewsV2({
 
       {/* Grid */}
       {posts.length === 0 ? (
-        <p className="text-ink/50">Aucun article disponible.</p>
+        <p className="text-ink/50">{t("empty")}</p>
       ) : (
         <RevealWrapper className="grid gap-5 md:grid-cols-3">
           {featured && <FeaturedCardV2 post={featured} locale={locale} />}
@@ -87,7 +90,7 @@ export async function NewsV2({
           href="/actualites"
           className="inline-flex items-center gap-2 rounded-full border border-ink/15 px-6 py-3 text-sm font-semibold text-ink transition hover:bg-ink hover:text-white"
         >
-          Toutes les actualités →
+          {t("seeAll")}
         </Link>
       </div>
     </section>

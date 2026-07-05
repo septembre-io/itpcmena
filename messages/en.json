@@ -34,9 +34,23 @@
   },
   "news": {
     "tag": "News",
-    "title": "Stay informed",
+    "title": "The actions that matter",
+    "seeAll": "All news →",
+    "empty": "No articles available.",
     "read": "Read article →",
     "filterAll": "All"
+  },
+  "oped": {
+    "eyebrow": "The blog · Op-eds & analysis",
+    "title": "Where we stand",
+    "seeAll": "All →",
+    "empty": "The first op-eds are coming soon."
+  },
+  "platforms": {
+    "statusOnline": "Online",
+    "statusConstruction": "Under construction",
+    "statusRequest": "On request",
+    "statusContact": "Contact us"
   },
   "resources": {
     "tag": "Key resources",
