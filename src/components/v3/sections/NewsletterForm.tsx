@@ -38,15 +38,20 @@ export function NewsletterForm({
   const [status, setStatus] = useState<Status>("idle");
   const m = MESSAGES[locale] ?? MESSAGES.fr;
 
-  async function onSubmit(e: FormEvent) {
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (status === "loading") return;
+    // Honeypot lu directement dans le DOM (champ non contrôlé) : on capte ce
+    // qu'un bot y aurait injecté, même sans passer par React.
+    const website =
+      (e.currentTarget.elements.namedItem("website") as HTMLInputElement | null)
+        ?.value ?? "";
     setStatus("loading");
     try {
       const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ email, locale }),
+        body: JSON.stringify({ email, locale, website }),
       });
       setStatus(res.ok ? "success" : "error");
       if (res.ok) setEmail("");
@@ -71,6 +76,15 @@ export function NewsletterForm({
       onSubmit={onSubmit}
       className="mx-auto mt-8 flex max-w-md flex-wrap items-center justify-center gap-2"
     >
+      {/* Honeypot anti-bot : hors écran, ignoré des humains, rempli par les bots. */}
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden opacity-0"
+      />
       <input
         type="email"
         required
