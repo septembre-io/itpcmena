@@ -10,7 +10,7 @@
 // Même philosophie de tolérance aux pannes que getPosts() dans wordpress.ts.
 // ---------------------------------------------------------------------------
 
-import { wpFetchInit } from "./wordpress";
+import { wpFetch } from "./wordpress";
 
 export type Accent = "red" | "amber" | "teal" | "ink";
 export type PlatformStatus = "online" | "construction" | "request" | "contact";
@@ -231,8 +231,8 @@ const WP_URL = process.env.NEXT_PUBLIC_WP_URL ?? "https://itpcmena.org";
 export async function getHomeV3(locale: string): Promise<HomeV3Content> {
   try {
     const url = `${WP_URL}/wp-json/itpc/v1/home-v3?lang=${locale}`;
-    const res = await fetch(url, wpFetchInit);
-    if (!res.ok) return homeV3Fallback;
+    const res = await wpFetch(url);
+    if (!res) return homeV3Fallback;
     const data = (await res.json()) as Partial<HomeV3Content>;
     // Fusion superficielle bloc par bloc : un bloc absent côté WP garde le repli.
     const merged: HomeV3Content = { ...homeV3Fallback, ...data };

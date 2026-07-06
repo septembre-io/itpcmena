@@ -34,6 +34,35 @@ export const wpFetchInit: RequestInit =
     ? { cache: "no-store" }
     : { next: { revalidate: 300 } };
 
+const WP_TIMEOUT_MS = 8000;
+
+/**
+ * Fetch WordPress résilient.
+ *
+ * 1re tentative : mise en cache (revalidate 300 en prod → faible charge sur WP).
+ * En cas d'échec (réseau, timeout, ou statut non-2xx — ex. blocage passager d'une
+ * IP Vercel par le WAF Plesk), 2e tentative en `no-store` : on contourne un
+ * éventuel cache empoisonné par ce hoquet et on relit l'état RÉEL de WP.
+ *
+ * Résultat : un hoquet ponctuel n'affecte au pire qu'une requête (auto-guérison)
+ * au lieu de figer le fallback 5 min. Renvoie la Response OK, ou null si tout échoue.
+ */
+export async function wpFetch(url: string): Promise<Response | null> {
+  const attempts: RequestInit[] = [wpFetchInit, { cache: "no-store" }];
+  for (const init of attempts) {
+    try {
+      const res = await fetch(url, {
+        ...init,
+        signal: AbortSignal.timeout(WP_TIMEOUT_MS),
+      });
+      if (res.ok) return res;
+    } catch {
+      // on passe à la tentative suivante
+    }
+  }
+  return null;
+}
+
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
@@ -105,8 +134,8 @@ export async function getPosts(
 ): Promise<WPPost[]> {
   try {
     const url = `${WP_URL}/wp-json/wp/v2/posts?lang=${locale}&per_page=${perPage}&orderby=date&order=desc`;
-    const res = await fetch(url, wpFetchInit);
-    if (!res.ok) return [];
+    const res = await wpFetch(url);
+    if (!res) return [];
     return (await res.json()) as WPPost[];
   } catch {
     return [];
@@ -132,8 +161,8 @@ export async function getSectionPosts(
 ): Promise<WPPost[]> {
   try {
     const url = `${WP_URL}/wp-json/wp/v2/posts?lang=${locale}&itpc_section=${section}&per_page=${perPage}&orderby=date&order=desc`;
-    const res = await fetch(url, wpFetchInit);
-    if (!res.ok) return [];
+    const res = await wpFetch(url);
+    if (!res) return [];
     return (await res.json()) as WPPost[];
   } catch {
     return [];
