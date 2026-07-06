@@ -72,6 +72,7 @@ export default async function HomePage({
     <div className="bg-cream text-ink">
       <NavbarV3 menu={headerMenu} />
 
+
       <main>
         {/* ── HERO — sombre militant (repris de la proposition Plaidoyer) ── */}
         <section id="v3-hero" className="relative overflow-hidden bg-ink text-white">
