@@ -19,42 +19,77 @@ export interface MenuItem {
   children?: MenuItem[];
 }
 
-// Libellés localisés partagés par les navs inline des sous-pages (Actualités /
-// Opinions), pour ne pas les redéfinir dans chaque page.
-export const newsLabel: Record<string, string> = {
-  fr: "Actualités",
-  en: "News",
-  ar: "الأخبار",
-};
-export const opinionsLabel: Record<string, string> = {
-  fr: "Opinions",
-  en: "Op-ed",
-  ar: "رأي",
+// ---------------------------------------------------------------------------
+// Libellés de navigation localisés (FR / EN / AR) — source unique de vérité
+// pour les replis. Le menu WordPress (Polylang) reste prioritaire quand il est
+// disponible ; ces libellés ne servent que de repli, mais ils sont désormais
+// traduits par langue au lieu de rester en français sur /en et /ar.
+// ---------------------------------------------------------------------------
+type Locale = "fr" | "en" | "ar";
+const asLocale = (l: string): Locale => (l === "en" || l === "ar" ? l : "fr");
+
+const NAV_LABELS: Record<string, Record<Locale, string>> = {
+  about: { fr: "À propos", en: "About", ar: "من نحن" },
+  region: { fr: "La région", en: "The region", ar: "المنطقة" },
+  work: { fr: "Notre travail", en: "Our work", ar: "عملنا" },
+  platforms: { fr: "Plateformes", en: "Platforms", ar: "منصّاتنا" },
+  news: { fr: "Actualités", en: "News", ar: "الأخبار" },
+  opinions: { fr: "Opinions", en: "Op-ed", ar: "رأي" },
+  contact: { fr: "Nous contacter", en: "Contact us", ar: "اتصل بنا" },
 };
 
-// Repli header : reproduit le menu d'origine (ancres de sections) + le CTA.
-export const headerFallback: MenuItem[] = [
-  { label: "À propos", url: "#apropos" },
-  { label: "La région", url: "#region" },
-  { label: "Notre travail", url: "#travail" },
-  { label: "Plateformes", url: "#plateformes" },
-  { label: "Actualités", url: "#actualites" },
-  { label: "Opinions", url: "#blog" },
-  {
-    label: "Nous contacter",
-    url: "mailto:contact@itpcmena.org",
-    target: "_blank",
-    cta: true,
-  },
-];
+// Rétro-compat : certains composants importent encore ces maps.
+export const newsLabel: Record<string, string> = { ...NAV_LABELS.news };
+export const opinionsLabel: Record<string, string> = { ...NAV_LABELS.opinions };
 
-// Repli footer : colonne « Navigation ».
-export const footerFallback: MenuItem[] = [
-  { label: "À propos", url: "#apropos" },
-  { label: "La région", url: "/la-region" },
-  { label: "Notre travail", url: "#travail" },
-  { label: "Plateformes", url: "#plateformes" },
-];
+/**
+ * Repli header localisé : 5 entrées principales + sous-menu Actualités/Opinions
+ * + le CTA « Nous contacter ». Les ancres pointent vers la home de la langue ;
+ * « La région » / « Actualités » / « Opinions » sont de vraies routes localisées.
+ */
+export function getHeaderFallback(loc: string): MenuItem[] {
+  const l = asLocale(loc);
+  const t = (k: keyof typeof NAV_LABELS) => NAV_LABELS[k][l];
+  return [
+    { label: t("about"), url: `/${l}#apropos` },
+    { label: t("region"), url: `/${l}/la-region` },
+    { label: t("work"), url: `/${l}#travail` },
+    { label: t("platforms"), url: `/${l}#plateformes` },
+    {
+      label: t("news"),
+      url: `/${l}/actualites`,
+      children: [
+        { label: t("news"), url: `/${l}/actualites` },
+        { label: t("opinions"), url: `/${l}/opinions` },
+      ],
+    },
+    {
+      label: t("contact"),
+      url: "mailto:contact@itpcmena.org",
+      target: "_blank",
+      cta: true,
+    },
+  ];
+}
+
+/** Repli footer localisé : colonne « Navigation ». */
+export function getFooterFallback(loc: string): MenuItem[] {
+  const l = asLocale(loc);
+  const t = (k: keyof typeof NAV_LABELS) => NAV_LABELS[k][l];
+  return [
+    { label: t("about"), url: `/${l}#apropos` },
+    { label: t("region"), url: `/${l}/la-region` },
+    { label: t("work"), url: `/${l}#travail` },
+    { label: t("platforms"), url: `/${l}#plateformes` },
+    { label: t("news"), url: `/${l}/actualites` },
+    { label: t("opinions"), url: `/${l}/opinions` },
+  ];
+}
+
+// Replis FR par défaut (valeur par défaut des props de composants ; les pages
+// passent désormais la version localisée).
+export const headerFallback: MenuItem[] = getHeaderFallback("fr");
+export const footerFallback: MenuItem[] = getFooterFallback("fr");
 
 interface RawMenuItem {
   label?: string;

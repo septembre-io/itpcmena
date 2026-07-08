@@ -5,7 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { NavbarV3 } from "@/components/v3/layout/Navbar";
 import { FooterV3 } from "@/components/v3/layout/Footer";
 import { ShareButtons } from "@/components/v3/sections/ShareButtons";
-import { opinionsLabel, type MenuItem } from "@/lib/menu";
+import { getHeaderFallback, getFooterFallback } from "@/lib/menu";
 import {
   getPostBySlug,
   getAllPostSlugs,
@@ -127,28 +127,9 @@ export default async function ArticlePage({
     (loc) => loc !== lang
   );
 
-  // Menus V3 localisés (les ancres pointent vers la home de la langue)
-  const anchor = (h: string) => `/${locale}#${h}`;
-  const navMenu: MenuItem[] = [
-    { label: "À propos", url: anchor("apropos") },
-    { label: "La région", url: anchor("region") },
-    { label: "Notre travail", url: anchor("travail") },
-    { label: "Plateformes", url: anchor("plateformes") },
-    { label: l.news, url: `/${locale}/actualites` },
-    { label: opinionsLabel[locale] ?? opinionsLabel.fr, url: `/${locale}/opinions` },
-    {
-      label: "Nous contacter",
-      url: "mailto:contact@itpcmena.org",
-      target: "_blank",
-      cta: true,
-    },
-  ];
-  const footMenu: MenuItem[] = [
-    { label: "À propos", url: anchor("apropos") },
-    { label: "La région", url: `/${locale}/la-region` },
-    { label: "Notre travail", url: anchor("travail") },
-    { label: "Plateformes", url: anchor("plateformes") },
-  ];
+  // Menus V3 localisés (centralisés dans lib/menu.ts)
+  const navMenu = getHeaderFallback(locale);
+  const footMenu = getFooterFallback(locale);
 
   const href = (p: WPPost) =>
     `/actualites/${decodeSlug(p.slug)}` as Parameters<typeof Link>[0]["href"];

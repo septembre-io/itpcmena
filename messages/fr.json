@@ -1,10 +1,12 @@
 {
   "nav": {
     "about": "À propos",
-    "programmes": "Programmes",
+    "region": "La région",
+    "work": "Notre travail",
+    "platforms": "Plateformes",
     "news": "Actualités",
-    "resources": "Ressources",
-    "donate": "Faire un don"
+    "opinions": "Opinions",
+    "contact": "Nous contacter"
   },
   "hero": {
     "badge": "Coalition régionale · 14 pays MENA",

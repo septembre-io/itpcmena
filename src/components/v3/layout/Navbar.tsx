@@ -86,18 +86,52 @@ export function NavbarV3({ menu = headerFallback }: { menu?: MenuItem[] }) {
 
           {/* Nav — desktop */}
           <nav className="hidden items-center gap-7 md:flex">
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.url}
-                target={item.target}
-                rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
-                onClick={() => setMobileOpen(false)}
-                className={navLinkClass}
-              >
-                {item.label}
-              </a>
-            ))}
+            {navItems.map((item) =>
+              item.children && item.children.length ? (
+                <div key={item.label} className="group relative">
+                  <a
+                    href={item.url}
+                    target={item.target}
+                    rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
+                    onClick={() => setMobileOpen(false)}
+                    className={`${navLinkClass} inline-flex items-center gap-1`}
+                  >
+                    {item.label}
+                    <span className="text-[10px] opacity-60 transition group-hover:rotate-180">
+                      ▾
+                    </span>
+                  </a>
+                  {/* Dropdown — RTL-safe via `start-0`, toujours sur fond clair. */}
+                  <div className="invisible absolute top-full start-0 z-50 min-w-[190px] pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                    <div className="overflow-hidden rounded-2xl border border-black/5 bg-white p-1.5 shadow-lg">
+                      {item.children.map((child) => (
+                        <a
+                          key={child.label}
+                          href={child.url}
+                          target={child.target}
+                          rel={child.target === "_blank" ? "noopener noreferrer" : undefined}
+                          onClick={() => setMobileOpen(false)}
+                          className="block rounded-xl px-3 py-2 text-sm font-medium text-ink/70 transition hover:bg-ink/5 hover:text-ink"
+                        >
+                          {child.label}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <a
+                  key={item.label}
+                  href={item.url}
+                  target={item.target}
+                  rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
+                  onClick={() => setMobileOpen(false)}
+                  className={navLinkClass}
+                >
+                  {item.label}
+                </a>
+              )
+            )}
           </nav>
 
           {/* Lang switcher + CTA + hamburger */}
@@ -176,6 +210,22 @@ export function NavbarV3({ menu = headerFallback }: { menu?: MenuItem[] }) {
               >
                 {item.label}
               </a>
+              {item.children && item.children.length ? (
+                <div className="-mt-1 flex flex-col gap-0 pb-3 ps-4">
+                  {item.children.map((child) => (
+                    <a
+                      key={child.label}
+                      href={child.url}
+                      target={child.target}
+                      rel={child.target === "_blank" ? "noopener noreferrer" : undefined}
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center py-2.5 text-[15px] font-medium text-ink/55"
+                    >
+                      {child.label}
+                    </a>
+                  ))}
+                </div>
+              ) : null}
             </div>
           ))}
         </nav>

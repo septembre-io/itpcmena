@@ -5,7 +5,7 @@ import { NewsV2 } from "@/components/v3/sections/News";
 import { RadiantMesh, RevealWrapper } from "@/components/ui";
 import { getTranslations } from "next-intl/server";
 import { getHomeV3, type Accent, type PlatformStatus } from "@/lib/homeV3";
-import { getMenu, headerFallback, footerFallback } from "@/lib/menu";
+import { getMenu, getHeaderFallback, getFooterFallback } from "@/lib/menu";
 import { OpEdChapter } from "@/components/v3/sections/OpEd";
 import { NewsletterForm } from "@/components/v3/sections/NewsletterForm";
 
@@ -48,8 +48,8 @@ export default async function HomePage({
   const { locale } = await params;
   const [content, headerMenu, footerMenu] = await Promise.all([
     getHomeV3(locale),
-    getMenu("v3-header", locale, headerFallback),
-    getMenu("v3-footer", locale, footerFallback),
+    getMenu("v3-header", locale, getHeaderFallback(locale)),
+    getMenu("v3-footer", locale, getFooterFallback(locale)),
   ]);
   const { hero, stats, mission, vision, region, oneHealth, work, values, platforms, newsletter } =
     content;
