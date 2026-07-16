@@ -1,14 +1,32 @@
 import { NavbarV3 } from "@/components/v3/layout/Navbar";
 import { FooterV3 } from "@/components/v3/layout/Footer";
 import { PostCard } from "@/components/v3/PostCard";
-import { getHeaderFallback, getFooterFallback } from "@/lib/menu";
+import { getMenu, getHeaderFallback, getFooterFallback } from "@/lib/menu";
+import { pageMetadata } from "@/lib/seo";
 import { getSectionPosts } from "@/lib/wordpress";
+import type { Metadata } from "next";
 
 const S = {
   fr: { tag: "Opinion", title: "Toutes les opinions", sub: "Analyses, tribunes et points de vue sur l'accès aux traitements dans la région MENA.", empty: "Aucune opinion disponible." },
   en: { tag: "Op-ed", title: "All op-eds", sub: "Analyses, op-eds and perspectives on access to treatment in the MENA region.", empty: "No op-ed available." },
   ar: { tag: "رأي", title: "كل الآراء", sub: "تحليلات وآراء ووجهات نظر حول الوصول إلى العلاج في منطقة الشرق الأوسط وشمال إفريقيا.", empty: "لا يوجد رأي متاح." },
 } as const;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const l = S[(locale as keyof typeof S)] ?? S.fr;
+  const loc = locale === "en" || locale === "ar" ? locale : "fr";
+  return pageMetadata({
+    locale: loc,
+    path: "opinions",
+    title: `${l.title} — ITPC MENA`,
+    description: l.sub,
+  });
+}
 
 export default async function OpinionsPage({
   params,
@@ -22,7 +40,7 @@ export default async function OpinionsPage({
   const l = S[(locale as keyof typeof S)] ?? S.fr;
 
   const navMenu = getHeaderFallback(locale);
-  const footMenu = getFooterFallback(locale);
+  const footMenu = await getMenu("v3-footer", locale, getFooterFallback(locale));
 
   return (
     <div className="bg-cream text-ink">

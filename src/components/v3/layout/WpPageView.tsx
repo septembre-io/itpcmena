@@ -2,7 +2,12 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { NavbarV3 } from "@/components/v3/layout/Navbar";
 import { FooterV3 } from "@/components/v3/layout/Footer";
-import { opinionsLabel, type MenuItem } from "@/lib/menu";
+import {
+  getMenu,
+  getFooterFallback,
+  opinionsLabel,
+  type MenuItem,
+} from "@/lib/menu";
 import { getPostLang, stripHtml, type WPPost } from "@/lib/wordpress";
 
 const HOME = { fr: "Accueil", en: "Home", ar: "الرئيسية" } as const;
@@ -13,7 +18,7 @@ const NEWS = { fr: "Actualités", en: "News", ar: "الأخبار" } as const;
  * NavbarV3 + fil d'Ariane + titre + contenu (.article-body) + FooterV3.
  * Réutilisé par les routes institutionnelles (/la-region, /partenaires…).
  */
-export function WpPageView({
+export async function WpPageView({
   page,
   locale,
 }: {
@@ -41,12 +46,11 @@ export function WpPageView({
       cta: true,
     },
   ];
-  const footMenu: MenuItem[] = [
-    { label: "À propos", url: anchor("apropos") },
-    { label: "La région", url: `/${locale}/la-region` },
-    { label: "Notre travail", url: anchor("travail") },
-    { label: "Plateformes", url: anchor("plateformes") },
-  ];
+  const footMenu = await getMenu(
+    "v3-footer",
+    locale,
+    getFooterFallback(locale)
+  );
 
   return (
     <div className="bg-cream text-ink">

@@ -35,6 +35,7 @@ const NAV_LABELS: Record<string, Record<Locale, string>> = {
   platforms: { fr: "Plateformes", en: "Platforms", ar: "منصّاتنا" },
   news: { fr: "Actualités", en: "News", ar: "الأخبار" },
   opinions: { fr: "Opinions", en: "Op-ed", ar: "رأي" },
+  financements: { fr: "Opportunités", en: "Opportunities", ar: "الفرص" },
   contact: { fr: "Nous contacter", en: "Contact us", ar: "اتصل بنا" },
 };
 
@@ -63,6 +64,7 @@ export function getHeaderFallback(loc: string): MenuItem[] {
         { label: t("opinions"), url: `/${l}/opinions` },
       ],
     },
+    { label: t("financements"), url: `/${l}/financements` },
     {
       label: t("contact"),
       url: "mailto:contact@itpcmena.org",
@@ -83,6 +85,7 @@ export function getFooterFallback(loc: string): MenuItem[] {
     { label: t("platforms"), url: `/${l}#plateformes` },
     { label: t("news"), url: `/${l}/actualites` },
     { label: t("opinions"), url: `/${l}/opinions` },
+    { label: t("financements"), url: `/${l}/financements` },
   ];
 }
 

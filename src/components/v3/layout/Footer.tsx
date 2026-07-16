@@ -28,17 +28,15 @@ export function FooterV3({ menu = footerFallback }: { menu?: MenuItem[] }) {
             et Afrique du Nord. Pour un accès équitable à la santé.
           </p>
           <div className="mt-5 flex gap-2.5">
-            {["f", "in", "𝕏"].map((s) => (
-              <a
-                key={s}
-                href="https://itpcmena.org/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-sm text-white/55 transition hover:bg-red hover:text-white"
-              >
-                {s}
-              </a>
-            ))}
+            <a
+              href="https://www.facebook.com/itpcmena"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="ITPC-MENA sur Facebook"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-sm text-white/55 transition hover:bg-red hover:text-white"
+            >
+              f
+            </a>
           </div>
         </div>
 

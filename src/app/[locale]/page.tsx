@@ -8,6 +8,45 @@ import { getHomeV3, type Accent, type PlatformStatus } from "@/lib/homeV3";
 import { getMenu, getHeaderFallback, getFooterFallback } from "@/lib/menu";
 import { OpEdChapter } from "@/components/v3/sections/OpEd";
 import { NewsletterForm } from "@/components/v3/sections/NewsletterForm";
+import type { Metadata } from "next";
+import { pageMetadata, organizationSchema } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
+
+const HOME_META = {
+  fr: {
+    title:
+      "ITPC-MENA — Accès équitable aux traitements en Afrique du Nord et Moyen-Orient",
+    description:
+      "La Coalition internationale pour la préparation aux traitements (MENA) agit pour un accès équitable à la santé : plaidoyer, données, plateformes et appels dans 14 pays.",
+  },
+  en: {
+    title:
+      "ITPC-MENA — Equitable access to treatment in the Middle East & North Africa",
+    description:
+      "The International Treatment Preparedness Coalition (MENA) advocates for equitable access to health: advocacy, data, platforms and calls across 14 countries.",
+  },
+  ar: {
+    title:
+      "آي تي بي سي مينا — الوصول العادل إلى العلاج في الشرق الأوسط وشمال إفريقيا",
+    description:
+      "الائتلاف الدولي للاستعداد للعلاج (مينا) يعمل من أجل وصول عادل إلى الصحة: المناصرة والبيانات والمنصّات والدعوات في 14 بلدًا.",
+  },
+} as const;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const l = (locale === "en" || locale === "ar" ? locale : "fr") as keyof typeof HOME_META;
+  return pageMetadata({
+    locale: l,
+    path: "",
+    title: HOME_META[l].title,
+    description: HOME_META[l].description,
+  });
+}
 
 // Tailwind ne peut pas générer des classes dynamiques : on mappe les accents.
 const borderAccent: Record<Accent, string> = {
@@ -70,6 +109,7 @@ export default async function HomePage({
 
   return (
     <div className="bg-cream text-ink">
+      <JsonLd data={organizationSchema()} />
       <NavbarV3 menu={headerMenu} />
 
 

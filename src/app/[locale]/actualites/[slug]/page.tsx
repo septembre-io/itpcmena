@@ -5,7 +5,20 @@ import { Link } from "@/i18n/navigation";
 import { NavbarV3 } from "@/components/v3/layout/Navbar";
 import { FooterV3 } from "@/components/v3/layout/Footer";
 import { ShareButtons } from "@/components/v3/sections/ShareButtons";
-import { getHeaderFallback, getFooterFallback } from "@/lib/menu";
+import { AppelInfoBox } from "@/components/v3/appels/AppelInfoBox";
+import { AppelDocuments } from "@/components/v3/appels/AppelDocuments";
+import { ArticleToc } from "@/components/v3/ArticleToc";
+import { appelFromPost } from "@/lib/appels";
+import { buildToc, fixUploadHosts } from "@/lib/content";
+import { getMenu, getHeaderFallback, getFooterFallback } from "@/lib/menu";
+import {
+  articleMetadata,
+  articleSchema,
+  breadcrumbSchema,
+  SITE_URL,
+  DEFAULT_OG_IMAGE,
+} from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
 import {
   getPostBySlug,
   getAllPostSlugs,
@@ -31,16 +44,23 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const post = await getPostBySlug(slug);
   if (!post) return { title: "Article — ITPC MENA" };
-  const ogImg =
-    post.jetpack_featured_media_url || post.yoast_head_json?.og_image?.[0]?.url;
-  return {
+  const ogImg = post.jetpack_featured_media_url;
+
+  // hreflang : la langue courante + les traductions liées (slugs distincts).
+  const postLang = getPostLang(post);
+  const translated = await getTranslatedSlugs(post);
+  const slugsByLocale = { ...translated, [postLang]: decodeSlug(post.slug) };
+
+  return articleMetadata({
+    locale,
+    slugsByLocale,
     title: `${stripHtml(post.title.rendered)} — ITPC MENA`,
     description: stripHtml(post.excerpt.rendered).slice(0, 160),
-    openGraph: ogImg ? { images: [{ url: ogImg }] } : undefined,
-  };
+    images: ogImg ? [ogImg] : undefined,
+  });
 }
 
 // Libellés localisés
@@ -52,6 +72,7 @@ const S = {
     langName: { fr: "français", en: "anglais", ar: "arabe" },
     prev: "Précédent",
     next: "Suivant",
+    sommaire: "Sommaire",
     related: "Sur le même thème",
     back: "Toutes les actualités",
     ctaTitle: "Poursuivre",
@@ -61,6 +82,17 @@ const S = {
     letterD: "Les mises à jour qui comptent, rien d’autre.",
     join: "Rejoindre le combat",
     joinD: "Il existe une place pour vous.",
+    appel: {
+      heading: "Cet appel en bref",
+      type: "Type",
+      deadline: "Date limite",
+      bailleur: "Bailleur",
+      statutOpen: "Ouvert",
+      statutClosed: "Clos",
+      apply: "Postuler",
+      applyEmail: "Postuler par email",
+      documents: "Documents à télécharger",
+    },
   },
   en: {
     home: "Home",
@@ -69,6 +101,7 @@ const S = {
     langName: { fr: "French", en: "English", ar: "Arabic" },
     prev: "Previous",
     next: "Next",
+    sommaire: "Contents",
     related: "Related reading",
     back: "All news",
     ctaTitle: "Keep going",
@@ -78,6 +111,17 @@ const S = {
     letterD: "The updates that matter, nothing else.",
     join: "Join the fight",
     joinD: "There is a place for you.",
+    appel: {
+      heading: "This call at a glance",
+      type: "Type",
+      deadline: "Deadline",
+      bailleur: "Funder",
+      statutOpen: "Open",
+      statutClosed: "Closed",
+      apply: "Apply",
+      applyEmail: "Apply by email",
+      documents: "Documents to download",
+    },
   },
   ar: {
     home: "الرئيسية",
@@ -86,6 +130,7 @@ const S = {
     langName: { fr: "الفرنسية", en: "الإنجليزية", ar: "العربية" },
     prev: "السابق",
     next: "التالي",
+    sommaire: "المحتويات",
     related: "مواضيع ذات صلة",
     back: "كل الأخبار",
     ctaTitle: "تابع",
@@ -95,6 +140,17 @@ const S = {
     letterD: "التحديثات التي تهمّ، لا غير.",
     join: "انضمّ إلى النضال",
     joinD: "هناك مكان لك.",
+    appel: {
+      heading: "الدعوة باختصار",
+      type: "النوع",
+      deadline: "آخر أجل",
+      bailleur: "المموّل",
+      statutOpen: "مفتوح",
+      statutClosed: "مغلق",
+      apply: "قدّم الآن",
+      applyEmail: "التقديم عبر البريد",
+      documents: "وثائق للتحميل",
+    },
   },
 } as const;
 
@@ -111,6 +167,19 @@ export default async function ArticlePage({
   const isRtl = lang === "ar";
   const img = post.jetpack_featured_media_url;
   const l = S[(locale as keyof typeof S)] ?? S.fr;
+
+  // Encart « appel » si le post appartient à la catégorie « Appel d'offres ».
+  const appel = appelFromPost(post);
+  const appelLocale = (locale === "en" || locale === "ar" ? locale : "fr") as
+    | "fr"
+    | "en"
+    | "ar";
+
+  // Corps : réécriture des hôtes uploads (fichiers/images) + ancres de titres.
+  // Table des matières affichée seulement pour les articles longs (≥ 3 titres).
+  const { html: contentHtml, toc } = buildToc(
+    fixUploadHosts(post.content.rendered)
+  );
 
   const [translations, recent] = await Promise.all([
     getTranslatedSlugs(post),
@@ -129,16 +198,36 @@ export default async function ArticlePage({
 
   // Menus V3 localisés (centralisés dans lib/menu.ts)
   const navMenu = getHeaderFallback(locale);
-  const footMenu = getFooterFallback(locale);
+  const footMenu = await getMenu("v3-footer", locale, getFooterFallback(locale));
 
   const href = (p: WPPost) =>
     `/actualites/${decodeSlug(p.slug)}` as Parameters<typeof Link>[0]["href"];
 
+  // Données structurées : NewsArticle + fil d'Ariane.
+  const canonicalUrl = `${SITE_URL}/${locale}/actualites/${decodeSlug(post.slug)}`;
+  const jsonLd = [
+    articleSchema({
+      url: canonicalUrl,
+      headline: stripHtml(post.title.rendered),
+      description: stripHtml(post.excerpt.rendered).slice(0, 200),
+      image: img || DEFAULT_OG_IMAGE,
+      datePublished: post.date,
+      locale,
+    }),
+    breadcrumbSchema([
+      { name: l.home, url: `${SITE_URL}/${locale}` },
+      { name: l.news, url: `${SITE_URL}/${locale}/actualites` },
+      { name: stripHtml(post.title.rendered), url: canonicalUrl },
+    ]),
+  ];
+
   return (
     <div className="bg-cream text-ink">
+      <JsonLd data={jsonLd} />
       <NavbarV3 menu={navMenu} />
 
-      <main className="mx-auto max-w-3xl px-6 pb-8 pt-10">
+      <div className="mx-auto flex max-w-6xl flex-col px-6 pb-8 pt-10 lg:flex-row lg:items-start lg:justify-center lg:gap-10">
+      <main className="min-w-0 w-full lg:max-w-3xl">
         {/* ① Fil d'Ariane */}
         <nav className="mb-8 flex flex-wrap items-center gap-2 text-sm text-ink/45">
           <Link href="/" className="transition hover:text-ink">
@@ -201,12 +290,42 @@ export default async function ArticlePage({
           <ShareButtons locale={locale} title={stripHtml(post.title.rendered)} />
         </div>
 
+        {/* Encart appel/financement (uniquement pour la catégorie 804) */}
+        {appel && (
+          <AppelInfoBox
+            appel={appel}
+            labels={l.appel}
+            locale={appelLocale}
+          />
+        )}
+
+        {/* Sommaire mobile (repliable) — la version desktop est en sidebar sticky */}
+        {toc.length >= 3 && (
+          <div className="lg:hidden">
+            <ArticleToc
+              items={toc}
+              label={l.sommaire}
+              locale={appelLocale}
+              variant="inline"
+            />
+          </div>
+        )}
+
         {/* Corps d'article — lisibilité renforcée */}
         <article
           className="article-body mt-10"
           dir={isRtl ? "rtl" : undefined}
-          dangerouslySetInnerHTML={{ __html: post.content.rendered }}
+          dangerouslySetInnerHTML={{ __html: contentHtml }}
         />
+
+        {/* Carte documents en pied d'article (appels avec pièces jointes) */}
+        {appel && (
+          <AppelDocuments
+            attachments={appel.attachments}
+            label={l.appel.documents}
+            locale={appelLocale}
+          />
+        )}
 
         {/* Partage bas de page */}
         <div className="mt-12 border-t border-ink/10 pt-6">
@@ -245,6 +364,21 @@ export default async function ArticlePage({
           </div>
         )}
       </main>
+
+      {/* Sommaire desktop : sidebar collante, visible pendant la lecture.
+          `sticky` posé sur l'aside lui-même (parent = conteneur flex haut de
+          tout l'article → course complète) ; `self-start` l'empêche de s'étirer. */}
+      {toc.length >= 3 && (
+        <aside className="hidden lg:block lg:w-56 lg:shrink-0 lg:self-start lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto">
+          <ArticleToc
+            items={toc}
+            label={l.sommaire}
+            locale={appelLocale}
+            variant="sidebar"
+          />
+        </aside>
+      )}
+      </div>
 
       {/* ② Sur le même thème */}
       {related.length > 0 && (

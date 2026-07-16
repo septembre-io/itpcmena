@@ -97,6 +97,9 @@ input:focus-visible {
 .article-body h2:first-child,
 .article-body h3:first-child,
 .article-body p:first-child { margin-top: 0; }
+/* Ancres de la table des matières (titres + paragraphes-titres) : décalage
+   sous la navbar fixe. */
+.article-body [id] { scroll-margin-top: 6rem; }
 .article-body a {
   color: #C1272D;
   text-decoration: underline;

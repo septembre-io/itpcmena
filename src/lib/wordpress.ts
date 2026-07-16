@@ -1,5 +1,18 @@
 export type PostLang = "fr" | "en" | "ar";
 
+/**
+ * Champs ACF « appel / financement » exposés par le mu-plugin itpc-appels.php
+ * sous la clé `itpc_appel`. `null` hors de la catégorie « Appel d'offres » (804),
+ * et absent si le mu-plugin n'est pas déployé.
+ */
+export interface WPAppelFields {
+  type?: string;
+  dateLimite?: string; // 'YYYY-MM-DD' ou ''
+  bailleur?: string;
+  url?: string; // lien de candidature
+  email?: string; // email de candidature
+}
+
 export interface WPPost {
   id: number;
   slug: string; // URL-encoded in API response (e.g. %d8%aa%d8%ad...)
@@ -14,9 +27,7 @@ export interface WPPost {
   // Exposed by the itpc-polylang-rest mu-plugin (Polylang free):
   lang?: PostLang | null; // native Polylang language code
   translations?: Record<string, number>; // { "fr": 30065, "en": 30062, "ar": 30071 }
-  yoast_head_json?: {
-    og_image?: Array<{ url: string; width?: number; height?: number }>;
-  };
+  itpc_appel?: WPAppelFields | null;
 }
 
 const WP_URL =
@@ -288,15 +299,15 @@ export async function getTranslatedSlugs(
  * route only (a French post → /fr/actualites/[slug]). Remaining posts SSR on
  * demand via ISR.
  */
-export async function getAllPostSlugs(): Promise<
-  Array<{ slug: string; locale: string }>
-> {
+export async function getAllPostSlugs(
+  perPage = 20
+): Promise<Array<{ slug: string; locale: string }>> {
   const locales: PostLang[] = ["fr", "en", "ar"];
   const results: Array<{ slug: string; locale: string }> = [];
   try {
     await Promise.all(
       locales.map(async (locale) => {
-        const url = `${WP_URL}/wp-json/wp/v2/posts?lang=${locale}&per_page=20&orderby=date&order=desc&_fields=id,slug`;
+        const url = `${WP_URL}/wp-json/wp/v2/posts?lang=${locale}&per_page=${perPage}&orderby=date&order=desc&_fields=id,slug`;
         const res = await fetch(url, wpFetchInit);
         if (!res.ok) return;
         const posts: Array<Pick<WPPost, "id" | "slug">> = await res.json();

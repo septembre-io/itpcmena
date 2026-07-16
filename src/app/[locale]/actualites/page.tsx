@@ -1,14 +1,32 @@
 import { NavbarV3 } from "@/components/v3/layout/Navbar";
 import { FooterV3 } from "@/components/v3/layout/Footer";
 import { PostCard } from "@/components/v3/PostCard";
-import { getHeaderFallback, getFooterFallback } from "@/lib/menu";
+import { getMenu, getHeaderFallback, getFooterFallback } from "@/lib/menu";
+import { pageMetadata } from "@/lib/seo";
 import { getSectionPosts, decodeSlug } from "@/lib/wordpress";
+import type { Metadata } from "next";
 
 const S = {
   fr: { tag: "Actualités", title: "Toutes les actualités", sub: "Suivez nos analyses, communiqués et actualités de la région MENA.", empty: "Aucun article disponible." },
   en: { tag: "News", title: "All news", sub: "Follow our analyses, statements and news from the MENA region.", empty: "No article available." },
   ar: { tag: "الأخبار", title: "كل الأخبار", sub: "تابعوا تحليلاتنا وبياناتنا وأخبار منطقة الشرق الأوسط وشمال إفريقيا.", empty: "لا يوجد مقال متاح." },
 } as const;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const l = S[(locale as keyof typeof S)] ?? S.fr;
+  const loc = locale === "en" || locale === "ar" ? locale : "fr";
+  return pageMetadata({
+    locale: loc,
+    path: "actualites",
+    title: `${l.title} — ITPC MENA`,
+    description: l.sub,
+  });
+}
 
 export default async function ActualitesPage({
   params,
@@ -27,7 +45,7 @@ export default async function ActualitesPage({
   const l = S[(locale as keyof typeof S)] ?? S.fr;
 
   const navMenu = getHeaderFallback(locale);
-  const footMenu = getFooterFallback(locale);
+  const footMenu = await getMenu("v3-footer", locale, getFooterFallback(locale));
 
   return (
     <div className="bg-cream text-ink">
