@@ -221,7 +221,7 @@ export const homeV3Fallback: HomeV3Content = {
   },
 };
 
-const WP_URL = process.env.NEXT_PUBLIC_WP_URL ?? "https://itpcmena.org";
+const WP_URL = process.env.NEXT_PUBLIC_WP_URL ?? "https://wphead.itpcmena.org";
 
 /**
  * Récupère le contenu éditorial v3 depuis l'endpoint custom du mu-plugin.

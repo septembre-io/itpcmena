@@ -31,7 +31,7 @@ export interface WPPost {
 }
 
 const WP_URL =
-  process.env.NEXT_PUBLIC_WP_URL ?? "https://itpcmena.org";
+  process.env.NEXT_PUBLIC_WP_URL ?? "https://wphead.itpcmena.org";
 
 /**
  * Options de fetch des données WordPress.

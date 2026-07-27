@@ -8,7 +8,7 @@
 //    matières correspondante, pour une navigation par ancres dans la page.
 // ---------------------------------------------------------------------------
 
-const WP_URL = process.env.NEXT_PUBLIC_WP_URL ?? "https://itpcmena.org";
+const WP_URL = process.env.NEXT_PUBLIC_WP_URL ?? "https://wphead.itpcmena.org";
 
 /**
  * Réécrit les URLs /wp-content/ pointant sur l'apex (itpcmena.org, avec ou sans

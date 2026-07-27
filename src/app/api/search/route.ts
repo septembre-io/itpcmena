@@ -13,7 +13,7 @@
 import { NextResponse } from "next/server";
 import { wpFetch, decodeSlug, stripHtml } from "@/lib/wordpress";
 
-const WP_URL = process.env.NEXT_PUBLIC_WP_URL ?? "https://itpcmena.org";
+const WP_URL = process.env.NEXT_PUBLIC_WP_URL ?? "https://wphead.itpcmena.org";
 
 /** Décode les entités HTML courantes des titres WP. */
 function decodeEntities(s: string): string {

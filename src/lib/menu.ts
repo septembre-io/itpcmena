@@ -104,7 +104,7 @@ interface RawMenuItem {
 
 import { wpFetch } from "./wordpress";
 
-const WP_URL = process.env.NEXT_PUBLIC_WP_URL ?? "https://itpcmena.org";
+const WP_URL = process.env.NEXT_PUBLIC_WP_URL ?? "https://wphead.itpcmena.org";
 
 function normalize(items: RawMenuItem[]): MenuItem[] {
   return items

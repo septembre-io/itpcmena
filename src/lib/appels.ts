@@ -26,7 +26,7 @@ import {
 } from "./wordpress";
 import { fixUploadHosts } from "./content";
 
-const WP_URL = process.env.NEXT_PUBLIC_WP_URL ?? "https://itpcmena.org";
+const WP_URL = process.env.NEXT_PUBLIC_WP_URL ?? "https://wphead.itpcmena.org";
 
 /** Catégorie « Appel d'offres » — ID FR de base (source unique de vérité). */
 const APPELS_CATEGORY_ID = 804;
