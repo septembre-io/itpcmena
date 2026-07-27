@@ -157,7 +157,7 @@ export default async function FinancementsPage({
           }}
         />
       </main>
-      <FooterV3 menu={footMenu} />
+      <FooterV3 menu={footMenu} locale={loc} />
     </div>
   );
 }

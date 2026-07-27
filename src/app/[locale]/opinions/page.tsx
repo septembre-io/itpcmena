@@ -66,7 +66,7 @@ export default async function OpinionsPage({
           </div>
         )}
       </main>
-      <FooterV3 menu={footMenu} />
+      <FooterV3 menu={footMenu} locale={locale} />
     </div>
   );
 }

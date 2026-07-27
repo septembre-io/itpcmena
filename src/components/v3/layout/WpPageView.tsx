@@ -91,7 +91,7 @@ export async function WpPageView({
         />
       </main>
 
-      <FooterV3 menu={footMenu} />
+      <FooterV3 menu={footMenu} locale={locale} />
     </div>
   );
 }

@@ -461,7 +461,7 @@ export default async function ArticlePage({
         </div>
       </section>
 
-      <FooterV3 menu={footMenu} />
+      <FooterV3 menu={footMenu} locale={locale} />
     </div>
   );
 }

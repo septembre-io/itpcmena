@@ -63,12 +63,15 @@
     "allResources": "Accéder à toutes les ressources →"
   },
   "footer": {
-    "description": "International Treatment Preparedness Coalition — Région Moyen-Orient et Afrique du Nord. Pour un accès équitable aux soins et aux médicaments.",
+    "description": "La Coalition Internationale pour la Préparation au Traitement — Région Moyen-Orient et Afrique du Nord. Pour un accès équitable à la santé.",
     "nav": "Navigation",
-    "programmes": "Programmes",
+    "join": "Nous rejoindre",
+    "joinPartners": "Organisations partenaires",
+    "joinInvolved": "S'impliquer",
+    "joinCalls": "Appels d'offres",
     "contact": "Contact",
-    "address": "58 Bd Abdelkrim Al Khattabi,\nMarrakech, Maroc",
-    "copyright": "© 2025 ITPC-MENA. Tous droits réservés.",
-    "location": "Marrakech · Région MENA"
+    "contactPrompt": "Une question, un partenariat, une demande média ?",
+    "rights": "Tous droits réservés.",
+    "location": "Région MENA · 14 pays"
   }
 }

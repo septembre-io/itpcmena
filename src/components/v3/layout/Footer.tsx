@@ -1,18 +1,32 @@
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { footerFallback, type MenuItem } from "@/lib/menu";
 
+// Libellés traduits via next-intl (messages/{fr,en,ar}.json, namespace
+// « footer ») ; la colonne « Navigation » vient du menu WP (prop `menu`).
 // `href` interne (commence par « / ») → rendu via next-intl Link (localisé) ;
 // sinon lien externe. « Partenaires » = page WP rendue dans Next (/partenaires).
 const joinLinks = [
-  { label: "Organisations partenaires", href: "/partenaires" },
-  { label: "S'impliquer", href: "https://itpcmena.org/" },
-  { label: "Appels d'offres", href: "https://itpcmena.org/" },
-];
+  { key: "joinPartners", href: "/partenaires" },
+  { key: "joinInvolved", href: "https://itpcmena.org/" },
+  { key: "joinCalls", href: "https://itpcmena.org/" },
+] as const;
 
-export function FooterV3({ menu = footerFallback }: { menu?: MenuItem[] }) {
+export async function FooterV3({
+  menu = footerFallback,
+  locale = "fr",
+}: {
+  menu?: MenuItem[];
+  locale?: string;
+}) {
+  const t = await getTranslations({ locale, namespace: "footer" });
   return (
-    <footer id="contact" className="bg-ink px-6 pb-10 pt-16 text-white">
+    <footer
+      id="contact"
+      dir={locale === "ar" ? "rtl" : undefined}
+      className="bg-ink px-6 pb-10 pt-16 text-white"
+    >
       <div className="mx-auto grid max-w-6xl gap-10 border-b border-white/10 pb-12 md:grid-cols-[2fr_1fr_1fr_1.5fr]">
         {/* Brand */}
         <div>
@@ -24,8 +38,7 @@ export function FooterV3({ menu = footerFallback }: { menu?: MenuItem[] }) {
             className="h-10 w-auto brightness-0 invert"
           />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/45">
-            International Treatment Preparedness Coalition — Région Moyen-Orient
-            et Afrique du Nord. Pour un accès équitable à la santé.
+            {t("description")}
           </p>
           <div className="mt-5 flex gap-2.5">
             <a
@@ -43,7 +56,7 @@ export function FooterV3({ menu = footerFallback }: { menu?: MenuItem[] }) {
         {/* Navigation */}
         <div>
           <h4 className="text-[11px] font-bold uppercase tracking-[0.12em] text-white/35">
-            Navigation
+            {t("nav")}
           </h4>
           <ul className="mt-4 space-y-2.5 text-sm text-white/55">
             {menu.map((l) => (
@@ -64,28 +77,28 @@ export function FooterV3({ menu = footerFallback }: { menu?: MenuItem[] }) {
         {/* Join */}
         <div>
           <h4 className="text-[11px] font-bold uppercase tracking-[0.12em] text-white/35">
-            Nous rejoindre
+            {t("join")}
           </h4>
           <ul className="mt-4 space-y-2.5 text-sm text-white/55">
             {joinLinks.map((l) =>
               l.href.startsWith("/") ? (
-                <li key={l.label}>
+                <li key={l.key}>
                   <Link
                     href={l.href as Parameters<typeof Link>[0]["href"]}
                     className="transition hover:text-white"
                   >
-                    {l.label}
+                    {t(l.key)}
                   </Link>
                 </li>
               ) : (
-                <li key={l.label}>
+                <li key={l.key}>
                   <a
                     href={l.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="transition hover:text-white"
                   >
-                    {l.label}
+                    {t(l.key)}
                   </a>
                 </li>
               )
@@ -96,10 +109,10 @@ export function FooterV3({ menu = footerFallback }: { menu?: MenuItem[] }) {
         {/* Contact */}
         <div>
           <h4 className="text-[11px] font-bold uppercase tracking-[0.12em] text-white/35">
-            Contact
+            {t("contact")}
           </h4>
           <p className="mt-4 text-sm leading-relaxed text-white/45">
-            Une question, un partenariat, une demande média ?
+            {t("contactPrompt")}
           </p>
           <p className="mt-2 text-sm">
             <a
@@ -112,8 +125,10 @@ export function FooterV3({ menu = footerFallback }: { menu?: MenuItem[] }) {
         </div>
       </div>
       <div className="mx-auto mt-6 flex max-w-6xl flex-wrap items-center justify-between gap-2 text-xs text-white/30">
-        <p>© {new Date().getFullYear()} ITPC-MENA. Tous droits réservés.</p>
-        <p>Région MENA · 14 pays</p>
+        <p>
+          © {new Date().getFullYear()} ITPC-MENA. {t("rights")}
+        </p>
+        <p>{t("location")}</p>
       </div>
     </footer>
   );

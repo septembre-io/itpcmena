@@ -377,7 +377,7 @@ export default async function HomePage({
         </section>
       </main>
 
-      <FooterV3 menu={footerMenu} />
+      <FooterV3 menu={footerMenu} locale={locale} />
     </div>
   );
 }
