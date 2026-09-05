@@ -10,7 +10,7 @@ import { AppelDocuments } from "@/components/v3/appels/AppelDocuments";
 import { ArticleToc } from "@/components/v3/ArticleToc";
 import { appelFromPost } from "@/lib/appels";
 import { buildToc, fixUploadHosts } from "@/lib/content";
-import { getMenu, getHeaderFallback, getFooterFallback } from "@/lib/menu";
+import { getMenu, getHeaderMenu, getFooterFallback } from "@/lib/menu";
 import {
   articleMetadata,
   articleSchema,
@@ -197,7 +197,7 @@ export default async function ArticlePage({
   );
 
   // Menus V3 localisés (centralisés dans lib/menu.ts)
-  const navMenu = getHeaderFallback(locale);
+  const navMenu = await getHeaderMenu(locale);
   const footMenu = await getMenu("v3-footer", locale, getFooterFallback(locale));
 
   const href = (p: WPPost) =>

@@ -21,6 +21,16 @@ export function NavbarV3({ menu = headerFallback }: { menu?: MenuItem[] }) {
   const router = useRouter();
   const pathname = usePathname();
 
+  // Fermeture du menu mobile au changement de route. C'est un ajustement
+  // d'état pendant le rendu (patron recommandé par React) et non un setState
+  // dans un effet : le menu disparaît dans la même passe de rendu, sans
+  // affichage intermédiaire ni re-rendu supplémentaire.
+  const [lastPath, setLastPath] = useState(pathname);
+  if (lastPath !== pathname) {
+    setLastPath(pathname);
+    setMobileOpen(false);
+  }
+
   // Items de navigation vs bouton d'action (classe « cta » côté WordPress).
   const navItems = menu.filter((m) => !m.cta);
   const cta = menu.find((m) => m.cta);
@@ -36,10 +46,6 @@ export function NavbarV3({ menu = headerFallback }: { menu?: MenuItem[] }) {
     handler();
     window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
-  }, [pathname]);
-
-  useEffect(() => {
-    setMobileOpen(false);
   }, [pathname]);
 
   useEffect(() => {
@@ -75,8 +81,8 @@ export function NavbarV3({ menu = headerFallback }: { menu?: MenuItem[] }) {
             <Image
               src="https://wphead.itpcmena.org/wp-content/uploads/2020/01/Logo_ITPC.png"
               alt="ITPC-MENA"
-              width={120}
-              height={32}
+              width={124}
+              height={66}
               className={`h-8 w-auto transition ${
                 dark ? "brightness-0 invert" : ""
               }`}

@@ -138,3 +138,135 @@ input:focus-visible {
   padding-left: 0;
   padding-right: 1.15em;
 }
+
+/* ───────────────────────────────────────────────────────────────────────
+   Blocs WordPress « Média et texte » / « Colonnes »
+   ─────────────────────────────────────────────────────────────────────
+   Le front headless ne charge PAS la feuille de style de WordPress
+   (wp-block-library) : sans ces règles, un bloc « Média et texte » sort
+   empilé et non stylé. La grille est donc redéfinie ici.
+
+   Contrat éditorial : dans l'éditeur WP, poser la classe additionnelle
+   `equipe-membre` sur le bloc (panneau Avancé → Classe(s) CSS
+   additionnelle(s)) et `equipe-fonction` sur le paragraphe de fonction.
+   La mise en page appartient au front, l'éditeur ne saisit que du contenu.
+   ──────────────────────────────────────────────────────────────────── */
+.article-body .wp-block-media-text {
+  display: grid;
+  grid-template-columns: minmax(0, 34%) minmax(0, 1fr);
+  gap: 1.75rem;
+  align-items: start;
+}
+.article-body .wp-block-media-text.is-vertically-aligned-center {
+  align-items: center;
+}
+/* Média à droite (option du bloc) : on inverse l'ordre, pas la grille. */
+.article-body .wp-block-media-text.has-media-on-the-right {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 34%);
+}
+.article-body .wp-block-media-text.has-media-on-the-right
+  .wp-block-media-text__media { order: 2; }
+.article-body .wp-block-media-text__media { margin: 0; }
+/* Cadrage carré : la fiche ne casse pas si la photo fournie est en
+   portrait, en paysage ou en 4/3. */
+.article-body .wp-block-media-text__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 1.25rem;
+  margin: 0;
+}
+.article-body .wp-block-media-text__content > :first-child { margin-top: 0; }
+.article-body .wp-block-media-text__content > * + * { margin-top: 1em; }
+
+/* ── Fiche membre d'équipe ──
+   Deux structures possibles, même rendu :
+   1. bloc WP « Média et texte » portant la classe `equipe-membre` ;
+   2. motif éditorial simple (photo, nom — fonction, bio) reformaté en cartes
+      par `buildTeamCards()` (src/lib/content.ts) → .equipe-photo/.equipe-texte.
+   La grille est donc portée par `.equipe-membre` lui-même. */
+.article-body .equipe-membre {
+  display: grid;
+  grid-template-columns: minmax(0, 13rem) minmax(0, 1fr);
+  gap: 1.75rem;
+  align-items: start;
+  padding: 1.5rem;
+  border: 1px solid rgba(11, 15, 14, 0.08);
+  border-radius: 1.75rem;
+  background: #fff;
+}
+.article-body .equipe-photo { margin: 0; }
+.article-body .equipe-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center 25%; /* cadrage sur le visage, pas le menton */
+  border-radius: 1.25rem;
+  margin: 0;
+}
+.article-body .equipe-texte > * + * { margin-top: 0.9em; }
+.article-body .equipe-membre h2,
+.article-body .equipe-membre h3,
+.article-body .equipe-membre .equipe-nom {
+  margin-top: 0;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+/* Fonction : sur la même ligne que le nom quand elle est dans le titre
+   (rendu par buildTeamCards), en dessous quand c'est un paragraphe distinct
+   (bloc « Média et texte » avec la classe posée dans l'éditeur). */
+.article-body .equipe-membre .equipe-fonction {
+  margin-top: 0.3rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0E9F76;
+}
+.article-body .equipe-nom .equipe-fonction {
+  display: inline;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: normal;
+}
+.article-body .equipe-membre p {
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+/* ── Bloc « Colonnes » (grille fluide, repli automatique) ── */
+.article-body .wp-block-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.75rem;
+}
+.article-body .wp-block-column > :first-child { margin-top: 0; }
+
+/* ── Mobile : la colonne média passe au-dessus ── */
+@media (max-width: 767px) {
+  .article-body .wp-block-media-text.is-stacked-on-mobile,
+  .article-body .wp-block-media-text.has-media-on-the-right {
+    grid-template-columns: 1fr;
+  }
+  .article-body .wp-block-media-text.has-media-on-the-right
+    .wp-block-media-text__media { order: 0; }
+  .article-body .equipe-membre {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding: 1.25rem;
+  }
+  .article-body .equipe-membre .wp-block-media-text__media img,
+  .article-body .equipe-photo img {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* Neutralise les styles inline hérités des anciens copier-coller WP
+   (font-family: Times New Roman, tailles fixes…). */
+.article-body [style*="font-family"] { font-family: inherit !important; }
+.article-body [style*="font-size"] { font-size: inherit !important; }

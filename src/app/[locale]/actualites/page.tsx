@@ -1,7 +1,7 @@
 import { NavbarV3 } from "@/components/v3/layout/Navbar";
 import { FooterV3 } from "@/components/v3/layout/Footer";
 import { PostCard } from "@/components/v3/PostCard";
-import { getMenu, getHeaderFallback, getFooterFallback } from "@/lib/menu";
+import { getMenu, getHeaderMenu, getFooterFallback } from "@/lib/menu";
 import { pageMetadata } from "@/lib/seo";
 import { getSectionPosts, decodeSlug } from "@/lib/wordpress";
 import type { Metadata } from "next";
@@ -44,7 +44,7 @@ export default async function ActualitesPage({
     .slice(0, 12);
   const l = S[(locale as keyof typeof S)] ?? S.fr;
 
-  const navMenu = getHeaderFallback(locale);
+  const navMenu = await getHeaderMenu(locale);
   const footMenu = await getMenu("v3-footer", locale, getFooterFallback(locale));
 
   return (

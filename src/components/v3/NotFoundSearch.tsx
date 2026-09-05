@@ -24,18 +24,23 @@ export function NotFoundSearch({
   labels: NotFoundSearchLabels;
 }) {
   const [q, setQ] = useState("");
-  const [results, setResults] = useState<Result[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [touched, setTouched] = useState(false);
+  // Une seule variable d'état : la dernière réponse reçue, avec le terme
+  // auquel elle correspond. Tout le reste (chargement, résultats, « recherche
+  // effectuée ») s'en déduit au rendu — l'effet n'appelle donc plus setState
+  // de façon synchrone, ce qui évitait des rendus en cascade.
+  const [answer, setAnswer] = useState<{ term: string; results: Result[] } | null>(
+    null
+  );
+
+  const term = q.trim();
+  const enabled = term.length >= 2;
+  const fresh = enabled && answer?.term === term ? answer : null;
+  const results = fresh?.results ?? [];
+  const loading = enabled && !fresh;
+  const touched = Boolean(fresh);
 
   useEffect(() => {
-    const term = q.trim();
-    if (term.length < 2) {
-      setResults([]);
-      setTouched(false);
-      return;
-    }
-    setLoading(true);
+    if (!enabled) return;
     const ctrl = new AbortController();
     const timer = setTimeout(async () => {
       try {
@@ -46,19 +51,19 @@ export function NotFoundSearch({
           { signal: ctrl.signal }
         );
         const data = (await res.json()) as Result[];
-        setResults(Array.isArray(data) ? data : []);
-        setTouched(true);
+        setAnswer({ term, results: Array.isArray(data) ? data : [] });
       } catch {
-        /* requête annulée ou réseau — on ignore */
-      } finally {
-        setLoading(false);
+        // Requête annulée par le nettoyage : on ne touche à rien. Erreur
+        // réseau : on affiche « aucun résultat » plutôt qu'un chargement
+        // sans fin.
+        if (!ctrl.signal.aborted) setAnswer({ term, results: [] });
       }
     }, 300);
     return () => {
       clearTimeout(timer);
       ctrl.abort();
     };
-  }, [q, locale]);
+  }, [term, enabled, locale]);
 
   return (
     <div>
@@ -109,9 +114,9 @@ export function NotFoundSearch({
         </ul>
       )}
 
-      {!loading && touched && q.trim().length >= 2 && results.length === 0 && (
+      {!loading && touched && results.length === 0 && (
         <p className="mt-3 text-sm text-ink/45">
-          {labels.noResults.replace("{q}", q.trim())}
+          {labels.noResults.replace("{q}", term)}
         </p>
       )}
 

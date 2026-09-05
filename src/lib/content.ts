@@ -77,7 +77,7 @@ export function buildToc(html: string): { html: string; toc: TocItem[] } {
   const used = new Set<string>();
 
   const uniqueId = (text: string): string => {
-    let id = slugify(text);
+    const id = slugify(text);
     let unique = id;
     let n = 2;
     while (used.has(unique)) unique = `${id}-${n++}`;
@@ -121,4 +121,119 @@ export function buildToc(html: string): { html: string; toc: TocItem[] } {
   );
 
   return { html: out, toc };
+}
+
+// ---------------------------------------------------------------------------
+// Fiches équipe : transformation du motif éditorial en cartes
+// ---------------------------------------------------------------------------
+
+/** Sépare « Hiba El Khamal — Directrice exécutive » en (nom, fonction). */
+function splitNameRole(text: string): [string, string] {
+  const t = text.replace(/\s+/g, " ").trim().replace(/[.,;]+$/, "");
+  for (const sep of ["—", "–", "،", " - ", ","]) {
+    const i = t.indexOf(sep);
+    if (i > 0) {
+      return [
+        t.slice(0, i).trim().replace(/[,،]+$/, ""),
+        t.slice(i + sep.length).trim().replace(/^[-–—,،\s]+/, ""),
+      ];
+    }
+  }
+  return [t, ""];
+}
+
+/** Nettoie le HTML inline hérité (spans de mise en forme, styles, ids). */
+function cleanInline(html: string): string {
+  return html
+    .replace(/<\/?(?:span|font|div)\b[^>]*>/gi, "")
+    .replace(/\s*(?:style|id|class|lang|title)="[^"]*"/gi, "")
+    .replace(/<b\b[^>]*>/gi, "<strong>")
+    .replace(/<\/b>/gi, "</strong>")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/**
+ * Aplatit le HTML en une suite de segments « en ligne ».
+ *
+ * Les collages WordPress (depuis Word, Google Docs, un autre CMS) imbriquent
+ * les paragraphes dans des `<div>` sans profondeur fixe. Plutôt que d'analyser
+ * un arbre, on remplace toute balise de bloc — ouvrante ou fermante — par un
+ * séparateur : il ne reste que des segments de contenu, dans l'ordre, avec
+ * leurs balises en ligne (strong, em, a, img…) intactes.
+ */
+const BLOCK_TAGS =
+  /<\/?(?:div|section|article|p|h[1-6]|figure|figcaption|ul|ol|li|blockquote|table|tr|td)\b[^>]*>/gi;
+
+function inlineSegments(html: string): string[] {
+  return html
+    .replace(BLOCK_TAGS, "\u0000")
+    .split("\u0000")
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+/**
+ * Transforme le motif éditorial « photo → nom — fonction → bio » en cartes
+ * `.equipe-membre` (grille photo / texte, stylée dans globals.css).
+ *
+ * C'est le motif que produit naturellement l'éditeur WordPress quand on colle
+ * un texte : une image, un intitulé en gras, un ou plusieurs paragraphes. On
+ * ne demande donc rien de particulier à la personne qui édite la page, et la
+ * profondeur d'imbrication des conteneurs n'a aucune importance.
+ *
+ * Sécurités : la transformation est ignorée si le contenu utilise déjà des
+ * blocs « Média et texte », et si elle ne détecte pas au moins deux membres
+ * nommés, le HTML est renvoyé inchangé — jamais de page cassée par un contenu
+ * inattendu.
+ */
+export function buildTeamCards(html: string): string {
+  if (/wp-block-media-text|equipe-membre/.test(html)) return html;
+
+  interface Member { img: string; name: string; role: string; bio: string[] }
+  const members: Member[] = [];
+  let cur: Member | null = null;
+
+  for (const segment of inlineSegments(html)) {
+    const img = segment.match(/<img[^>]*>/i);
+    if (img) {
+      cur = { img: img[0], name: "", role: "", bio: [] };
+      members.push(cur);
+      // un segment peut contenir l'image ET du texte : on poursuit dessus
+    }
+    const rest = segment.replace(/<img[^>]*>/gi, "");
+    const text = rest
+      .replace(/<[^>]+>/g, "")
+      .replace(/&nbsp;/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+    if (!text || !cur) continue;
+    if (!cur.name) {
+      [cur.name, cur.role] = splitNameRole(text);
+      continue;
+    }
+    cur.bio.push(`<p>${cleanInline(rest)}</p>`);
+  }
+
+  const named = members.filter((p) => p.name && p.img);
+  if (named.length < 2) return html;
+
+  return named
+    .map(
+      (p) =>
+        `<div class="equipe-membre">` +
+        `<figure class="equipe-photo">${p.img}</figure>` +
+        `<div class="equipe-texte">` +
+        // Nom et fonction sur une même ligne : la fonction est un span dans le
+        // titre. Pas de `dir` ici — la ligne hérite du sens du parent (RTL en
+        // arabe) et l'algorithme bidi place correctement un nom latin.
+        `<h2 class="equipe-nom">${p.name}` +
+        (p.role
+          ? `<span class="equipe-fonction"> — ${p.role}</span>`
+          : "") +
+        `</h2>` +
+        p.bio.join("") +
+        `</div></div>`
+    )
+    .join("\n");
 }

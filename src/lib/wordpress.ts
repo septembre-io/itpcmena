@@ -98,8 +98,30 @@ export function getPostLang(post: WPPost): PostLang {
 }
 
 /** Strip HTML tags — used to clean excerpts */
+/**
+ * Décode les entités HTML d'un texte WordPress. Les entités numériques sont
+ * traitées génériquement ; les nommées via une table des cas courants. Une
+ * entité inconnue est laissée telle quelle (jamais remplacée par un blanc).
+ */
+const NAMED_ENTITIES: Record<string, string> = {
+  amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: "\u00a0",
+  rsquo: "\u2019", lsquo: "\u2018", ldquo: "\u201c", rdquo: "\u201d",
+  laquo: "\u00ab", raquo: "\u00bb", hellip: "\u2026",
+  ndash: "\u2013", mdash: "\u2014", eacute: "\u00e9", egrave: "\u00e8",
+  agrave: "\u00e0", ccedil: "\u00e7", ecirc: "\u00ea", ocirc: "\u00f4",
+};
+
+function decodeEntities(text: string): string {
+  return text
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex) =>
+      String.fromCodePoint(parseInt(hex, 16))
+    )
+    .replace(/&#(\d+);/g, (_, dec) => String.fromCodePoint(Number(dec)))
+    .replace(/&([a-z]+);/gi, (m, name) => NAMED_ENTITIES[name.toLowerCase()] ?? m);
+}
+
 export function stripHtml(html: string): string {
-  return html.replace(/<[^>]*>/g, "").trim();
+  return decodeEntities(html.replace(/<[^>]*>/g, "")).trim();
 }
 
 /** Locale-aware date formatter */

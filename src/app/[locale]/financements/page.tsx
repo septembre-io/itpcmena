@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { NavbarV3 } from "@/components/v3/layout/Navbar";
 import { FooterV3 } from "@/components/v3/layout/Footer";
 import { AppelsExplorer } from "@/components/v3/appels/AppelsExplorer";
-import { getMenu, getHeaderFallback, getFooterFallback } from "@/lib/menu";
+import { getMenu, getHeaderMenu, getFooterFallback } from "@/lib/menu";
 import { pageMetadata } from "@/lib/seo";
 import { getAppels, getAppelFacets } from "@/lib/appels";
 
@@ -114,7 +114,7 @@ export default async function FinancementsPage({
   const appels = await getAppels();
   const facets = getAppelFacets(appels);
 
-  const navMenu = getHeaderFallback(locale);
+  const navMenu = await getHeaderMenu(locale);
   const footMenu = await getMenu("v3-footer", locale, getFooterFallback(locale));
 
   return (

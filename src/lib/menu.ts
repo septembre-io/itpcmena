@@ -30,6 +30,8 @@ const asLocale = (l: string): Locale => (l === "en" || l === "ar" ? l : "fr");
 
 const NAV_LABELS: Record<string, Record<Locale, string>> = {
   about: { fr: "À propos", en: "About", ar: "من نحن" },
+  mission: { fr: "Mission", en: "Mission", ar: "مهمتنا" },
+  team: { fr: "L'équipe", en: "Our team", ar: "فريقنا" },
   region: { fr: "La région", en: "The region", ar: "المنطقة" },
   work: { fr: "Notre travail", en: "Our work", ar: "عملنا" },
   platforms: { fr: "Plateformes", en: "Platforms", ar: "منصّاتنا" },
@@ -52,7 +54,14 @@ export function getHeaderFallback(loc: string): MenuItem[] {
   const l = asLocale(loc);
   const t = (k: keyof typeof NAV_LABELS) => NAV_LABELS[k][l];
   return [
-    { label: t("about"), url: `/${l}#apropos` },
+    {
+      label: t("about"),
+      url: `/${l}#apropos`,
+      children: [
+        { label: t("mission"), url: `/${l}#apropos` },
+        { label: t("team"), url: `/${l}/equipe` },
+      ],
+    },
     { label: t("region"), url: `/${l}/la-region` },
     { label: t("work"), url: `/${l}#travail` },
     { label: t("platforms"), url: `/${l}#plateformes` },
@@ -79,7 +88,14 @@ export function getFooterFallback(loc: string): MenuItem[] {
   const l = asLocale(loc);
   const t = (k: keyof typeof NAV_LABELS) => NAV_LABELS[k][l];
   return [
-    { label: t("about"), url: `/${l}#apropos` },
+    {
+      label: t("about"),
+      url: `/${l}#apropos`,
+      children: [
+        { label: t("mission"), url: `/${l}#apropos` },
+        { label: t("team"), url: `/${l}/equipe` },
+      ],
+    },
     { label: t("region"), url: `/${l}/la-region` },
     { label: t("work"), url: `/${l}#travail` },
     { label: t("platforms"), url: `/${l}#plateformes` },
@@ -144,4 +160,17 @@ export async function getMenu(
   } catch {
     return fallback;
   }
+}
+
+/**
+ * Menu du header, à utiliser par TOUTES les pages : le menu WordPress
+ * (emplacement `v3-header`, un par langue via Polylang) est prioritaire,
+ * `getHeaderFallback` prend le relais tant qu'aucun menu n'y est assigné —
+ * c'est le cas aujourd'hui, l'endpoint renvoie une liste vide.
+ *
+ * Un seul point d'entrée évite les copies divergentes du header d'une page
+ * à l'autre (c'était le cas avant : WpPageView avait sa propre liste figée).
+ */
+export function getHeaderMenu(locale: string): Promise<MenuItem[]> {
+  return getMenu("v3-header", locale, getHeaderFallback(locale));
 }

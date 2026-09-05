@@ -33,8 +33,8 @@ export async function FooterV3({
           <Image
             src="https://wphead.itpcmena.org/wp-content/uploads/2020/01/Logo_ITPC.png"
             alt="ITPC-MENA"
-            width={140}
-            height={40}
+            width={124}
+            height={66}
             className="h-10 w-auto brightness-0 invert"
           />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/45">

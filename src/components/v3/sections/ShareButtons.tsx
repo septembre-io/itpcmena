@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { usePathname } from "@/i18n/navigation";
+import { SITE_URL } from "@/lib/seo";
 
 const t = {
   fr: { share: "Partager", copy: "Copier le lien", copied: "Lien copié !" },
@@ -16,12 +18,13 @@ export function ShareButtons({
   title?: string;
 }) {
   const l = t[(locale as keyof typeof t)] ?? t.fr;
-  const [url, setUrl] = useState("");
   const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
-    setUrl(window.location.href);
-  }, []);
+  // URL canonique déduite de la route plutôt que lue dans window : les liens
+  // de partage sont corrects dès le rendu serveur (avant, ils restaient vides
+  // jusqu'à l'hydratation) et pointent sur le domaine public même en local.
+  const pathname = usePathname();
+  const url = `${SITE_URL}/${locale}${pathname === "/" ? "" : pathname}`;
 
   const u = encodeURIComponent(url);
   const tt = encodeURIComponent(title);

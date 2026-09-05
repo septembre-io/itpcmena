@@ -2,16 +2,11 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { NavbarV3 } from "@/components/v3/layout/Navbar";
 import { FooterV3 } from "@/components/v3/layout/Footer";
-import {
-  getMenu,
-  getFooterFallback,
-  opinionsLabel,
-  type MenuItem,
-} from "@/lib/menu";
+import { getMenu, getHeaderMenu, getFooterFallback } from "@/lib/menu";
 import { getPostLang, stripHtml, type WPPost } from "@/lib/wordpress";
+import { fixUploadHosts } from "@/lib/content";
 
 const HOME = { fr: "Accueil", en: "Home", ar: "الرئيسية" } as const;
-const NEWS = { fr: "Actualités", en: "News", ar: "الأخبار" } as const;
 
 /**
  * Rend une page WordPress (récupérée en REST) dans le gabarit V3 :
@@ -29,23 +24,12 @@ export async function WpPageView({
   const isRtl = lang === "ar";
   const img = page.jetpack_featured_media_url;
   const home = HOME[(locale as keyof typeof HOME)] ?? HOME.fr;
-  const news = NEWS[(locale as keyof typeof NEWS)] ?? NEWS.fr;
 
-  const anchor = (h: string) => `/${locale}#${h}`;
-  const navMenu: MenuItem[] = [
-    { label: "À propos", url: anchor("apropos") },
-    { label: "La région", url: `/${locale}/la-region` },
-    { label: "Notre travail", url: anchor("travail") },
-    { label: "Plateformes", url: anchor("plateformes") },
-    { label: news, url: `/${locale}/actualites` },
-    { label: opinionsLabel[locale] ?? opinionsLabel.fr, url: `/${locale}/opinions` },
-    {
-      label: "Nous contacter",
-      url: "mailto:contact@itpcmena.org",
-      target: "_blank",
-      cta: true,
-    },
-  ];
+  // Les images/pièces jointes pointant sur l'apex itpcmena.org renvoient un
+  // 308 vers le front (Vercel) et se cassent : on les réécrit sur l'hôte WP.
+  const html = fixUploadHosts(page.content.rendered);
+
+  const navMenu = await getHeaderMenu(locale);
   const footMenu = await getMenu(
     "v3-footer",
     locale,
@@ -87,7 +71,7 @@ export async function WpPageView({
         <article
           className="article-body mt-8"
           dir={isRtl ? "rtl" : undefined}
-          dangerouslySetInnerHTML={{ __html: page.content.rendered }}
+          dangerouslySetInnerHTML={{ __html: html }}
         />
       </main>
 

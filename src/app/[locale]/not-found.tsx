@@ -2,7 +2,7 @@ import { getLocale } from "next-intl/server";
 import { NavbarV3 } from "@/components/v3/layout/Navbar";
 import { FooterV3 } from "@/components/v3/layout/Footer";
 import { NotFoundSearch } from "@/components/v3/NotFoundSearch";
-import { getHeaderFallback, getFooterFallback } from "@/lib/menu";
+import { getHeaderMenu, getFooterFallback } from "@/lib/menu";
 import { Link } from "@/i18n/navigation";
 
 type Loc = "fr" | "en" | "ar";
@@ -68,7 +68,7 @@ export default async function LocalizedNotFound() {
   const l = S[locale];
   const isRtl = locale === "ar";
 
-  const navMenu = getHeaderFallback(locale);
+  const navMenu = await getHeaderMenu(locale);
   const footMenu = getFooterFallback(locale);
 
   return (
