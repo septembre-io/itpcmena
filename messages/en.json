@@ -45,8 +45,12 @@
   "oped": {
     "eyebrow": "The blog · Op-eds & analysis",
     "title": "Where we stand",
-    "seeAll": "All →",
-    "empty": "The first op-eds are coming soon."
+    "seeAll": "All op-eds →",
+    "empty": "The first op-eds are coming soon.",
+    "tag": "Op-ed",
+    "readingTime": "· {minutes} min read",
+    "read": "Read the op-ed →",
+    "alsoSigned": "Also signed"
   },
   "platforms": {
     "statusOnline": "Online",

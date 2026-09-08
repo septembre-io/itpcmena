@@ -13,6 +13,19 @@ export interface WPAppelFields {
   email?: string; // email de candidature
 }
 
+/**
+ * Champs « tribune » exposés par le mu-plugin itpc-tribunes.php sous la clé
+ * `itpc_tribune`. `null` hors de la catégorie « Opinion » (1179 + traductions),
+ * et absent tant que le mu-plugin n'est pas déployé.
+ */
+export interface WPTribuneFields {
+  auteur?: string;
+  fonction?: string;
+  chapo?: string;
+  /** Portrait carré. Exposé pour la suite — le bloc op-ed affiche les initiales. */
+  portrait?: { url: string; alt: string; width: number; height: number } | null;
+}
+
 export interface WPPost {
   id: number;
   slug: string; // URL-encoded in API response (e.g. %d8%aa%d8%ad...)
@@ -28,6 +41,9 @@ export interface WPPost {
   lang?: PostLang | null; // native Polylang language code
   translations?: Record<string, number>; // { "fr": 30065, "en": 30062, "ar": 30071 }
   itpc_appel?: WPAppelFields | null;
+  itpc_tribune?: WPTribuneFields | null;
+  /** Champs ACF bruts. WordPress renvoie `[]` quand le post n'en porte aucun. */
+  acf?: Record<string, unknown> | unknown[];
 }
 
 const WP_URL =
@@ -148,6 +164,113 @@ export function decodeSlug(slug: string): string {
   } catch {
     return slug;
   }
+}
+
+// ---------------------------------------------------------------------------
+// Tribunes (op-ed) — métadonnées éditoriales
+// ---------------------------------------------------------------------------
+
+/**
+ * Signature d'une tribune. Alimentée par le groupe ACF du mu-plugin
+ * `itpc-tribunes.php` (clé REST `itpc_tribune`). Tant qu'aucun champ n'est
+ * renseigné, `getByline` renvoie `null` et le bloc op-ed s'affiche simplement
+ * sans signature — jamais de « à renseigner » côté public.
+ */
+export interface WPByline {
+  name: string;
+  role?: string;
+}
+
+/** Noms de champs ACF acceptés, par ordre de priorité. */
+const BYLINE_NAME_KEYS = [
+  "tribune_auteur",
+  "auteur",
+  "auteur_nom",
+  "signature",
+  "author_name",
+];
+const BYLINE_ROLE_KEYS = [
+  "tribune_fonction",
+  "auteur_fonction",
+  "fonction",
+  "auteur_organisation",
+  "author_role",
+];
+const LEDE_KEYS = ["tribune_chapo", "chapo", "chapeau", "accroche"];
+
+function acfFields(post: WPPost): Record<string, unknown> | null {
+  const acf = post.acf;
+  // WP renvoie un tableau vide quand le post n'a aucun champ ACF.
+  if (!acf || Array.isArray(acf) || typeof acf !== "object") return null;
+  return acf as Record<string, unknown>;
+}
+
+function acfString(post: WPPost, keys: string[]): string | undefined {
+  const fields = acfFields(post);
+  if (!fields) return undefined;
+  for (const key of keys) {
+    const value = fields[key];
+    if (typeof value === "string" && value.trim()) return value.trim();
+  }
+  return undefined;
+}
+
+/**
+ * Signature de la tribune, ou `null` si aucun champ auteur n'est renseigné.
+ * Source de vérité : la clé `itpc_tribune` du mu-plugin. Le repli sur les champs
+ * ACF bruts couvre le cas où le mu-plugin n'est pas (encore) déployé alors que
+ * les champs existent déjà côté WordPress.
+ */
+export function getByline(post: WPPost): WPByline | null {
+  const name =
+    post.itpc_tribune?.auteur?.trim() || acfString(post, BYLINE_NAME_KEYS);
+  if (!name) return null;
+  const role =
+    post.itpc_tribune?.fonction?.trim() || acfString(post, BYLINE_ROLE_KEYS);
+  return { name, role: role || undefined };
+}
+
+/**
+ * Initiales pour la pastille de signature. Deux lettres au plus, en majuscules ;
+ * fonctionne aussi bien sur « Othoman Mellouk » que sur « ITPC-MENA ».
+ */
+export function getInitials(name: string): string {
+  const words = name.split(/[\s\u2019'-]+/).filter(Boolean);
+  if (words.length === 0) return "";
+  const letters =
+    words.length === 1
+      ? words[0].slice(0, 2)
+      : words[0][0] + words[words.length - 1][0];
+  return letters.toLocaleUpperCase();
+}
+
+/**
+ * Chapô de la tribune : champ ACF s'il existe, sinon l'extrait WordPress
+ * nettoyé et coupé sur un mot entier. WordPress termine ses extraits
+ * automatiques par « […] » : on le retire.
+ */
+export function getLede(post: WPPost, maxChars = 190): string {
+  const custom =
+    post.itpc_tribune?.chapo?.trim() || acfString(post, LEDE_KEYS);
+  const raw = custom ?? stripHtml(post.excerpt?.rendered ?? "");
+  const text = raw.replace(/\s*\[[\u2026.]{1,5}\]\s*$/u, "").trim();
+  if (text.length <= maxChars) return text;
+  const cut = text.slice(0, maxChars);
+  const lastSpace = cut.lastIndexOf(" ");
+  return (lastSpace > maxChars * 0.6 ? cut.slice(0, lastSpace) : cut).trimEnd() + "\u2026";
+}
+
+/**
+ * Temps de lecture estimé, en minutes (200 mots/minute). `null` sous 60 mots :
+ * un article trop court (ou dont le contenu n'est pas exposé par l'API) n'a pas
+ * de temps de lecture crédible à afficher.
+ */
+export function getReadingMinutes(post: WPPost): number | null {
+  const words = stripHtml(post.content?.rendered ?? "")
+    .split(/\s+/)
+    .filter(Boolean).length;
+  if (words < 60) return null;
+  return Math.max(1, Math.round(words / 200));
 }
 
 // ---------------------------------------------------------------------------

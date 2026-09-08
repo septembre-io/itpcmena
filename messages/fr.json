@@ -45,8 +45,12 @@
   "oped": {
     "eyebrow": "Le blog · Tribunes & analyses",
     "title": "Prises de position",
-    "seeAll": "Toutes →",
-    "empty": "Les premières tribunes arrivent bientôt."
+    "seeAll": "Toutes les tribunes →",
+    "empty": "Les premières tribunes arrivent bientôt.",
+    "tag": "Tribune",
+    "readingTime": "· {minutes} min de lecture",
+    "read": "Lire la tribune →",
+    "alsoSigned": "Également signé"
   },
   "platforms": {
     "statusOnline": "En ligne",

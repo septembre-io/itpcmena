@@ -146,6 +146,11 @@ export default async function HomePage({
           </div>
         </section>
 
+        {/* ── OP-ED — « la tribune à la une », dans la foulée du hero ──
+            Placé ici (et non après les actualités) pour que la prise de
+            position du moment soit la première chose lue après le hero. ── */}
+        <OpEdChapter locale={locale} />
+
         {/* ── STATS À FILET ── */}
         <section className="mx-auto max-w-6xl px-6 py-16">
           <RevealWrapper>
@@ -349,13 +354,12 @@ export default async function HomePage({
           </RevealWrapper>
         </section>
 
-        {/* ── ACTUALITÉS (grille) + OP-ED (chapitre sombre pleine largeur) ── */}
+        {/* ── ACTUALITÉS (grille) ── */}
         <NewsV2
           locale={locale}
           section="actualites"
           id="actualites"
         />
-        <OpEdChapter locale={locale} />
 
         {/* ── NEWSLETTER ── */}
         <section className="px-4 py-16">
