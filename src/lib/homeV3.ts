@@ -126,7 +126,7 @@ export const homeV3Fallback: HomeV3Content = {
     quoteHtml:
       "« Les personnes concernées ne sont pas les bénéficiaires de notre travail. <span class=\"text-red\">Elles en sont les architectes.</span> »",
     image:
-      "https://i0.wp.com/itpcmena.org/wp-content/uploads/2023/11/Galerie-Position-1-1-scaled.jpg?fit=2560%2C1707&ssl=1",
+      "https://wphead.itpcmena.org/wp-content/uploads/2023/11/Galerie-Position-1-1-scaled.jpg",
     badge: { value: "14 pays", label: "d’intervention" },
   },
   oneHealth: {
