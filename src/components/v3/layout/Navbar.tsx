@@ -64,7 +64,7 @@ export function NavbarV3({ menu = headerFallback }: { menu?: MenuItem[] }) {
   // overlay is open so the pill stays readable.
   const dark = overHero && !mobileOpen;
 
-  const navLinkClass = `text-sm font-medium transition ${
+  const navLinkClass = `whitespace-nowrap text-sm font-medium transition ${
     dark ? "text-white/60 hover:text-white" : "text-ink/60 hover:text-ink"
   }`;
 
@@ -91,7 +91,7 @@ export function NavbarV3({ menu = headerFallback }: { menu?: MenuItem[] }) {
           </Link>
 
           {/* Nav — desktop */}
-          <nav className="hidden items-center gap-7 md:flex">
+          <nav className="hidden items-center gap-6 xl:flex">
             {navItems.map((item) =>
               item.children && item.children.length ? (
                 <div key={item.label} className="group relative">
@@ -179,7 +179,7 @@ export function NavbarV3({ menu = headerFallback }: { menu?: MenuItem[] }) {
             <button
               onClick={() => setMobileOpen((o) => !o)}
               aria-label="Menu"
-              className={`flex h-9 w-9 flex-col items-center justify-center gap-[5px] rounded-full border md:hidden ${
+              className={`flex h-9 w-9 flex-col items-center justify-center gap-[5px] rounded-full border xl:hidden ${
                 dark ? "border-white/15 bg-white/5" : "border-black/10 bg-white/80"
               }`}
             >
@@ -199,7 +199,7 @@ export function NavbarV3({ menu = headerFallback }: { menu?: MenuItem[] }) {
 
       {/* Mobile menu overlay */}
       <div
-        className={`fixed inset-0 z-40 flex flex-col bg-white transition-opacity duration-200 md:hidden ${
+        className={`fixed inset-0 z-40 flex flex-col bg-white transition-opacity duration-200 xl:hidden ${
           mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         style={{ top: "72px" }}

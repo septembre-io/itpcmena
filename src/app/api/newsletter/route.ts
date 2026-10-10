@@ -9,7 +9,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const RL_LIMIT = 5; // inscriptions max…
 const RL_WINDOW_MS = 60_000; // …par IP et par minute
 
-/** IP client derrière le proxy Vercel. */
+/** IP client derrière le proxy nginx (aout.app). */
 function clientIp(request: Request): string {
   const xff = request.headers.get("x-forwarded-for");
   if (xff) {

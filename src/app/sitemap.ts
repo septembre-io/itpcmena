@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
 import { SITE_URL } from "@/lib/seo";
 import { getAllPostSlugs } from "@/lib/wordpress";
+import { getBibliotheque } from "@/lib/bibliotheque";
+import { ficheHref } from "@/lib/bibliothequeLabels";
 
 // Sitemap du front. Toutes les routes stables × 3 langues (avec alternates
 // hreflang), plus les articles récents par langue. Rafraîchi via ISR.
@@ -12,6 +14,7 @@ const STATIC_PATHS: Array<{ path: string; priority: number }> = [
   { path: "", priority: 1 }, // accueil
   { path: "actualites", priority: 0.8 },
   { path: "financements", priority: 0.8 },
+  { path: "bibliotheque", priority: 0.8 },
   { path: "opinions", priority: 0.7 },
   { path: "la-region", priority: 0.6 },
   { path: "partenaires", priority: 0.6 },
@@ -39,6 +42,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         alternates: { languages },
       });
     }
+  }
+
+  // Fiches de la bibliothèque : même segment dans les 3 langues, avec hreflang.
+  try {
+    const cat = await getBibliotheque();
+    for (const p of cat?.publications ?? []) {
+      const suffix = ficheHref(p.slug);
+      const languages: Record<string, string> = {};
+      for (const l of routing.locales) languages[l] = `${SITE_URL}/${l}${suffix}`;
+      languages["x-default"] = `${SITE_URL}/${routing.defaultLocale}${suffix}`;
+      for (const locale of routing.locales) {
+        entries.push({
+          url: `${SITE_URL}/${locale}${suffix}`,
+          lastModified: now,
+          changeFrequency: "monthly",
+          priority: 0.6,
+          alternates: { languages },
+        });
+      }
+    }
+  } catch {
+    // bibliothèque indisponible : le reste du sitemap est servi
   }
 
   // Articles (actualités, opinions, appels — tous des posts), par langue.

@@ -68,7 +68,7 @@ const WP_TIMEOUT_MS = 8000;
  *
  * 1re tentative : mise en cache (revalidate 300 en prod → faible charge sur WP).
  * En cas d'échec (réseau, timeout, ou statut non-2xx — ex. blocage passager d'une
- * IP Vercel par le WAF Plesk), 2e tentative en `no-store` : on contourne un
+ * IP du serveur front (aout.app) par le WAF Plesk), 2e tentative en `no-store` : on contourne un
  * éventuel cache empoisonné par ce hoquet et on relit l'état RÉEL de WP.
  *
  * Résultat : un hoquet ponctuel n'affecte au pire qu'une requête (auto-guérison)

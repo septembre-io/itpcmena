@@ -26,7 +26,7 @@ export async function WpPageView({
   const home = HOME[(locale as keyof typeof HOME)] ?? HOME.fr;
 
   // Les images/pièces jointes pointant sur l'apex itpcmena.org renvoient un
-  // 308 vers le front (Vercel) et se cassent : on les réécrit sur l'hôte WP.
+  // 308 vers le front (aout.app) et se cassent : on les réécrit sur l'hôte WP.
   const html = fixUploadHosts(page.content.rendered);
 
   const navMenu = await getHeaderMenu(locale);

@@ -38,6 +38,7 @@ const NAV_LABELS: Record<string, Record<Locale, string>> = {
   news: { fr: "Actualités", en: "News", ar: "الأخبار" },
   opinions: { fr: "Opinions", en: "Op-ed", ar: "رأي" },
   financements: { fr: "Opportunités", en: "Opportunities", ar: "الفرص" },
+  library: { fr: "Bibliothèque", en: "Library", ar: "المكتبة" },
   contact: { fr: "Nous contacter", en: "Contact us", ar: "اتصل بنا" },
 };
 
@@ -73,6 +74,7 @@ export function getHeaderFallback(loc: string): MenuItem[] {
         { label: t("opinions"), url: `/${l}/opinions` },
       ],
     },
+    { label: t("library"), url: `/${l}/bibliotheque` },
     { label: t("financements"), url: `/${l}/financements` },
     {
       label: t("contact"),
@@ -101,6 +103,7 @@ export function getFooterFallback(loc: string): MenuItem[] {
     { label: t("platforms"), url: `/${l}#plateformes` },
     { label: t("news"), url: `/${l}/actualites` },
     { label: t("opinions"), url: `/${l}/opinions` },
+    { label: t("library"), url: `/${l}/bibliotheque` },
     { label: t("financements"), url: `/${l}/financements` },
   ];
 }

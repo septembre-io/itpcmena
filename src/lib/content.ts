@@ -2,7 +2,7 @@
 // Traitement du HTML d'article rendu par WordPress (content.rendered).
 //
 //  - fixUploadHosts : réécrit les liens fichiers de l'apex itpcmena.org (qui
-//    redirige désormais vers Vercel → 308, fichiers cassés) vers l'hôte WP qui
+//    redirige désormais vers le front aout.app → 308, fichiers cassés) vers l'hôte WP qui
 //    sert réellement les uploads (NEXT_PUBLIC_WP_URL = wphead.itpcmena.org).
 //  - buildToc : injecte un id sur chaque titre (h2–h4) et renvoie la table des
 //    matières correspondante, pour une navigation par ancres dans la page.
