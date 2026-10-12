@@ -54,6 +54,11 @@ export interface BiblioPublication {
   descriptions: Partial<Record<BiblioLocale, string>>;
   /** Titres par langue, issus des versions disponibles. */
   titles: Partial<Record<BiblioLocale, string>>;
+  /**
+   * Titres traduits (colonnes « Titre FR / EN / AR ») pour les langues dans
+   * lesquelles le document n'existe pas. Un titre de version reste prioritaire.
+   */
+  translatedTitles: Partial<Record<BiblioLocale, string>>;
   date: BiblioDate;
   countries: string[];
   files: BiblioFile[];
@@ -248,12 +253,18 @@ function getSource(): Source | null {
 
 type Cell = string | number | boolean | Date | null;
 
+/** « Titre FR », « Titre (EN) »… : titres traduits, distincts de « Titre du document ». */
+const TITLE_LANG = /^titre\s*\(?(fr|en|ar)\)?$/;
+
 /** Colonnes reconnues par leur en-tête (casse et accents ignorés). */
 const COLUMNS = {
   id: (h: string) => h === "id" || h.startsWith("id ") || h.startsWith("id("),
   theme: (h: string) => h.startsWith("thematique"),
   type: (h: string) => h.startsWith("type"),
-  title: (h: string) => h.startsWith("titre"),
+  title: (h: string) => h.startsWith("titre") && !TITLE_LANG.test(h),
+  titleFr: (h: string) => TITLE_LANG.test(h) && /fr/.test(h),
+  titleEn: (h: string) => TITLE_LANG.test(h) && /en/.test(h),
+  titleAr: (h: string) => TITLE_LANG.test(h) && /ar/.test(h),
   descFr: (h: string) =>
     h === "descriptif" || h === "descriptif fr" || h === "descriptif (fr)",
   descEn: (h: string) => /^descriptif\s*\(?(en|anglais)/.test(h),
@@ -328,6 +339,9 @@ interface Row {
   theme: string;
   type: string;
   title: string;
+  titleFr: string;
+  titleEn: string;
+  titleAr: string;
   descFr: string;
   descEn: string;
   descAr: string;
@@ -394,6 +408,9 @@ async function readCatalogue(
       theme: str(get(r, "theme")),
       type: str(get(r, "type")),
       title,
+      titleFr: str(get(r, "titleFr")),
+      titleEn: str(get(r, "titleEn")),
+      titleAr: str(get(r, "titleAr")),
       descFr: str(get(r, "descFr")),
       descEn: str(get(r, "descEn")),
       descAr: str(get(r, "descAr")),
@@ -508,6 +525,13 @@ async function build(): Promise<Resolved | null> {
     const first = list[0];
     const titles: BiblioPublication["titles"] = {};
     for (const r of list) titles[r.lang] ??= r.title;
+    const translatedTitles: BiblioPublication["translatedTitles"] = {};
+    const tFr = list.find((r) => r.titleFr)?.titleFr;
+    const tEn = list.find((r) => r.titleEn)?.titleEn;
+    const tAr = list.find((r) => r.titleAr)?.titleAr;
+    if (tFr && !titles.fr) translatedTitles.fr = tFr;
+    if (tEn && !titles.en) translatedTitles.en = tEn;
+    if (tAr && !titles.ar) translatedTitles.ar = tAr;
     const descriptions: BiblioPublication["descriptions"] = {};
     const fr = list.find((r) => r.descFr)?.descFr;
     const en = list.find((r) => r.descEn)?.descEn;
@@ -522,6 +546,7 @@ async function build(): Promise<Resolved | null> {
       type: first.type,
       descriptions,
       titles,
+      translatedTitles,
       date: latest.date,
       countries: detectCountries(
         `${list.map((r) => r.title).join(" ")} ${first.descFr}`,

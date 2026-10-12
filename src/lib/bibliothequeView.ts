@@ -183,9 +183,12 @@ export function localized(p: BiblioPublication, loc: Loc) {
     langOrder(loc).find((l) => p.descriptions[l]) ??
     (Object.keys(p.descriptions)[0] as Loc | undefined) ??
     loc;
+  // Titre de la version dans la langue de la page, sinon titre traduit
+  // (colonnes « Titre FR / EN / AR »), sinon titre de la version mise en avant.
+  const own = p.titles[loc] ?? p.translatedTitles?.[loc];
   return {
-    title: p.titles[loc] ?? primary.title,
-    titleLang: (p.titles[loc] ? loc : primary.lang) as Loc,
+    title: own ?? primary.title,
+    titleLang: (own ? loc : primary.lang) as Loc,
     description: p.descriptions[descLang] ?? "",
     descriptionLang: descLang,
   };
@@ -206,6 +209,7 @@ export function toItem(p: BiblioPublication, loc: Loc) {
   const haystack = fold(
     [
       ...p.files.map((f) => f.title),
+      ...Object.values(p.translatedTitles ?? {}),
       ...Object.values(p.descriptions),
       ...(["fr", "en", "ar"] as Loc[]).flatMap((x) => [
         themeLabel(p.theme, x),
