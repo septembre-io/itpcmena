@@ -64,6 +64,8 @@ export interface BiblioPublication {
   files: BiblioFile[];
   /** ID dont la couverture existe (null si aucune). */
   coverId: string | null;
+  /** Couverture de chaque version linguistique qui en a une (ID par langue). */
+  coverIds: Partial<Record<BiblioLocale, string>>;
   /** Segment d'URL de la fiche : « res-011-indice-de-stigmatisation… ». */
   slug: string;
 }
@@ -559,6 +561,9 @@ async function build(): Promise<Resolved | null> {
         sizeBytes: files.get(r.id)?.size ?? null,
       })),
       coverId: list.find((r) => covers.has(r.id))?.id ?? null,
+      coverIds: Object.fromEntries(
+        list.filter((r) => covers.has(r.id)).map((r) => [r.lang, r.id])
+      ),
       slug: slugFor(first.id, list),
     });
   }

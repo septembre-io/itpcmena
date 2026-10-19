@@ -186,7 +186,15 @@ export function localized(p: BiblioPublication, loc: Loc) {
   // Titre de la version dans la langue de la page, sinon titre traduit
   // (colonnes « Titre FR / EN / AR »), sinon titre de la version mise en avant.
   const own = p.titles[loc] ?? p.translatedTitles?.[loc];
+  // Couverture de la version mise en avant (langue de la page), sinon la
+  // plus proche : un document traduit montre la couverture de sa traduction.
+  const coverId =
+    (p.coverIds?.[primary.lang] ??
+      langOrder(loc).map((x) => p.coverIds?.[x]).find(Boolean) ??
+      p.coverId) ||
+    null;
   return {
+    coverId,
     title: own ?? primary.title,
     titleLang: (own ? loc : primary.lang) as Loc,
     description: p.descriptions[descLang] ?? "",
@@ -234,7 +242,6 @@ export function toItem(p: BiblioPublication, loc: Loc) {
     countries: p.countries,
     files: p.files.map((f) => ({ id: f.id, lang: f.lang, size: sizeLabel(f.sizeBytes, loc) })),
     primaryId: primary.id,
-    coverId: p.coverId,
     haystack,
   };
 }
@@ -287,7 +294,7 @@ export function publicationSchema(p: BiblioPublication, loc: Loc) {
     about: themeLabel(p.theme, loc),
     inLanguage: p.files.map((f) => f.lang),
     datePublished: isoDate(p),
-    image: p.coverId ? abs(coverUrl(p.coverId)) : undefined,
+    image: l.coverId ? abs(coverUrl(l.coverId)) : undefined,
     spatialCoverage: p.countries.map((c) => ({
       "@type": "Country",
       name: countryLabel(c, "en"),

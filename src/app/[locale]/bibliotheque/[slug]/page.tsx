@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     path: `bibliotheque/${p.slug}`,
     title: `${l.title} — ITPC MENA`,
     description: metaExcerpt(l.description || BIBLIO_TEXT[loc].metaDescription),
-    images: p.coverId ? [`${SITE_URL}${coverUrl(p.coverId)}`] : undefined,
+    images: l.coverId ? [`${SITE_URL}${coverUrl(l.coverId)}`] : undefined,
   });
   return { ...base, other: citationMeta(p, loc) };
 }
@@ -127,9 +127,9 @@ export default async function FichePage({ params }: { params: Params }) {
               className="block"
             >
               <div className="relative aspect-[910/1287] overflow-hidden rounded-xl bg-white shadow-xl ring-1 ring-black/10 transition hover:-translate-y-1">
-                {p.coverId ? (
+                {l.coverId ? (
                   <Image
-                    src={coverUrl(p.coverId)}
+                    src={coverUrl(l.coverId)}
                     alt={`${tLabel} : ${l.title}`}
                     fill
                     priority
