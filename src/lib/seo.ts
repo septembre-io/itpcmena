@@ -151,7 +151,10 @@ export function organizationSchema() {
       "International Treatment Preparedness Coalition — Middle East and North Africa",
     url: SITE_URL,
     logo: LOGO_URL,
-    sameAs: ["https://www.facebook.com/itpcmena"],
+    sameAs: [
+      "https://www.facebook.com/itpcmena",
+      "https://www.linkedin.com/company/itpc-mena/",
+    ],
     description:
       "Coalition internationale pour la préparation aux traitements — région Moyen-Orient et Afrique du Nord. Pour un accès équitable à la santé.",
     areaServed: "Middle East and North Africa",

@@ -50,6 +50,15 @@ export async function FooterV3({
             >
               f
             </a>
+            <a
+              href="https://www.linkedin.com/company/itpc-mena/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="ITPC-MENA sur LinkedIn"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-sm text-white/55 transition hover:bg-red hover:text-white"
+            >
+              in
+            </a>
           </div>
         </div>
 
