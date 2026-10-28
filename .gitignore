@@ -32,6 +32,8 @@ yarn-error.log*
 
 
 # env
+.dropbox-pkce
+/.cache
 .env*
 
 # vercel

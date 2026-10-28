@@ -1,0 +1,190 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 960" width="1600" height="960" font-family="'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif" xmlns:c2pa="http://c2pa.org/manifest"><metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTplZDBjNmRkYy1jZTk2LTQ0MjctYmI4NC0wMzQzYmY4MzRmNzMAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaNQEEzgV9T4276rkaxmbqSkAAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDo0YTJlZWM1MC00Y2JmLTQzYTYtOTk1OC1jYWQ1MjBmMzJjMjBscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNojVG+CzEz2ONNbOB6EJRs5wAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggbhcddgUQDKGe9XUlhpOnzn7ICgJK5e/szWpGdwibfUWkZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaHWlD8+ctf/9j0C8cr+WB1oAAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRNAAAAAAAAAAAAAAAAAGRoYXNoWCDVubdt9/6XjaWJOLp7EfHspjIVcHxoNjNpAnfe5/oACWRuYW1lbmp1bWJmIG1hbmlmZXN0amV4Y2x1c2lvbnOBomVzdGFydBjfZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOmVkMGM2ZGRjLWNlOTYtNDQyNy1iYjg0LTAzNDNiZjgzNGY3My9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOjA4ZTczZmE2LWMyMjAtNDY1OS04YmEyLWQxZmY4MWU0MmQyN3JjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCBuFx12BRAMoZ71dSWGk6fOfsgKAkrl7+zNakZ3CJt9RaJjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFggsJtFYXqKUjnXkO6XAHKQb/PiWL9hDn4nztTDS9XfwBeiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFggHE4RaBV0Esnm3UkKFnjUgUC31rex8lCOYJlxo5vCnlh0Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQJNJ7lRPDJCmZvous7kWw1yCVXN8g2ea5M0WMnZs5+ZFNJcg7bAI2y7DOytECF0ejdy5jR8WDX9MFZtbuwga7Zs=</c2pa:manifest></metadata>
+  <defs>
+    <marker id="ah-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0b0f0e"/>
+    </marker>
+    <marker id="ah-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0e9f76"/>
+    </marker>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c1272d"/>
+    </marker>
+    <marker id="ah-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8a8f8d"/>
+    </marker>
+    <filter id="sh" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#0b0f0e" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="960" fill="#f7f6f2"/>
+
+  <!-- Titre -->
+  <text x="60" y="66" font-size="13" font-weight="700" letter-spacing="2" fill="#0e9f76">BIBLIOTHÈQUE DE RESSOURCES ITPC MENA</text>
+  <text x="60" y="104" font-size="32" font-weight="800" fill="#0b0f0e">Fonctionnement</text>
+  <text x="60" y="136" font-size="17" fill="#0b0f0e" fill-opacity="0.6">Un seul emplacement pour les fichiers : la Dropbox d'équipe. Le site la lit, sans rien copier ni modifier.</text>
+
+  <!-- Numéros de colonnes -->
+  <g font-size="12" font-weight="700" letter-spacing="1.5" fill="#0b0f0e" fill-opacity="0.45">
+    <text x="60" y="196">1 · ÉQUIPE</text>
+    <text x="440" y="196">2 · STOCKAGE</text>
+    <text x="860" y="196">3 · SITE WEB</text>
+    <text x="1310" y="196">4 · PUBLIC</text>
+  </g>
+
+  <!-- ============ 1. Équipe ============ -->
+  <g filter="url(#sh)">
+    <rect x="60" y="214" width="300" height="420" rx="26" fill="#ffffff" stroke="#0b0f0e" stroke-opacity="0.06"/>
+  </g>
+  <text x="88" y="258" font-size="20" font-weight="800" fill="#0b0f0e">Équipe ITPC MENA</text>
+
+  <rect x="84" y="282" width="252" height="168" rx="16" fill="#c1272d" fill-opacity="0.07"/>
+  <text x="104" y="312" font-size="12" font-weight="700" letter-spacing="1.2" fill="#c1272d">PERSONNE RÉFÉRENTE</text>
+  <g font-size="14.5" fill="#0b0f0e" fill-opacity="0.8">
+    <text x="104" y="342">• dépose les PDF</text>
+    <text x="118" y="366">et leurs couvertures</text>
+    <text x="104" y="396">• tient à jour le catalogue</text>
+    <text x="118" y="420">(une ligne par fichier)</text>
+  </g>
+
+  <rect x="84" y="466" width="252" height="146" rx="16" fill="#0b0f0e" fill-opacity="0.04"/>
+  <text x="104" y="496" font-size="12" font-weight="700" letter-spacing="1.2" fill="#0b0f0e" fill-opacity="0.55">TOUTE L'ÉQUIPE</text>
+  <g font-size="14.5" fill="#0b0f0e" fill-opacity="0.8">
+    <text x="104" y="526">• consulte le dossier</text>
+    <text x="104" y="556">• remplace ses copies</text>
+    <text x="118" y="580">par un lien vers le dossier</text>
+  </g>
+
+  <!-- ============ 2. Dropbox ============ -->
+  <g filter="url(#sh)">
+    <rect x="440" y="214" width="340" height="420" rx="26" fill="#ffffff" stroke="#0e9f76" stroke-opacity="0.35" stroke-width="1.5"/>
+  </g>
+  <path d="M440,240 a26,26 0 0 1 26,-26 h288 a26,26 0 0 1 26,26 v38 h-340 z" fill="#0e9f76"/>
+  <text x="468" y="256" font-size="20" font-weight="800" fill="#ffffff">Dropbox d'équipe</text>
+  <rect x="664" y="237" width="100" height="26" rx="13" fill="#ffffff" fill-opacity="0.2"/>
+  <text x="714" y="254" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">source unique</text>
+
+  <!-- arborescence -->
+  <g font-size="15" fill="#0b0f0e">
+    <rect x="466" y="300" width="22" height="16" rx="3" fill="#f5b020"/>
+    <text x="498" y="314" font-weight="700">Bibliotheque_itpc_mena</text>
+    <line x1="477" y1="324" x2="477" y2="540" stroke="#0b0f0e" stroke-opacity="0.2" stroke-width="1.5"/>
+
+    <line x1="477" y1="352" x2="500" y2="352" stroke="#0b0f0e" stroke-opacity="0.2" stroke-width="1.5"/>
+    <rect x="506" y="342" width="16" height="20" rx="2" fill="#0e9f76" fill-opacity="0.85"/>
+    <text x="532" y="357" font-weight="700">Catalogue.xlsx</text>
+    <text x="532" y="379" font-size="13" fill-opacity="0.55">ID, titre, thème, type, langue,</text>
+    <text x="532" y="397" font-size="13" fill-opacity="0.55">date, résumé, nom du fichier</text>
+
+    <line x1="477" y1="440" x2="500" y2="440" stroke="#0b0f0e" stroke-opacity="0.2" stroke-width="1.5"/>
+    <rect x="506" y="432" width="22" height="16" rx="3" fill="#f5b020"/>
+    <text x="538" y="446" font-weight="700">Ressources_PDF</text>
+    <text x="538" y="468" font-size="13" fill-opacity="0.55">les documents, en FR, EN et AR</text>
+
+    <line x1="477" y1="520" x2="500" y2="520" stroke="#0b0f0e" stroke-opacity="0.2" stroke-width="1.5"/>
+    <rect x="506" y="512" width="22" height="16" rx="3" fill="#f5b020"/>
+    <text x="538" y="526" font-weight="700">Couvertures_RES</text>
+    <text x="538" y="548" font-size="13" fill-opacity="0.55">une image par document</text>
+  </g>
+  <rect x="466" y="578" width="288" height="36" rx="12" fill="#0e9f76" fill-opacity="0.08"/>
+  <text x="610" y="601" font-size="13" font-weight="600" fill="#0e9f76" text-anchor="middle">Chaque fichier est rangé une seule fois</text>
+
+  <!-- ============ 3. Site ============ -->
+  <g filter="url(#sh)">
+    <rect x="860" y="214" width="380" height="420" rx="26" fill="#ffffff" stroke="#0b0f0e" stroke-opacity="0.06"/>
+  </g>
+  <path d="M860,240 a26,26 0 0 1 26,-26 h328 a26,26 0 0 1 26,26 v38 h-380 z" fill="#0b0f0e"/>
+  <text x="888" y="256" font-size="20" font-weight="800" fill="#ffffff">Site itpcmena.org</text>
+  <text x="1212" y="256" font-size="12" font-weight="600" fill="#ffffff" fill-opacity="0.6" text-anchor="end">FR · EN · AR</text>
+
+  <g font-size="14" fill="#0b0f0e">
+    <rect x="884" y="296" width="332" height="66" rx="14" fill="#0b0f0e" fill-opacity="0.04"/>
+    <text x="902" y="322" font-weight="700">Page « Bibliothèque »</text>
+    <text x="902" y="345" font-size="13" fill-opacity="0.6">recherche et filtres : thème, type, langue, pays</text>
+
+    <rect x="884" y="372" width="332" height="66" rx="14" fill="#0b0f0e" fill-opacity="0.04"/>
+    <text x="902" y="398" font-weight="700">Une fiche par publication</text>
+    <text x="902" y="421" font-size="13" fill-opacity="0.6">résumé, versions par langue, documents liés</text>
+
+    <rect x="884" y="448" width="332" height="66" rx="14" fill="#0b0f0e" fill-opacity="0.04"/>
+    <text x="902" y="474" font-weight="700">PDF et couvertures</text>
+    <text x="902" y="497" font-size="13" fill-opacity="0.6">servis sous itpcmena.org, gardés 24 h en cache</text>
+  </g>
+  <rect x="884" y="530" width="332" height="84" rx="14" fill="#f5b020" fill-opacity="0.12"/>
+  <text x="902" y="557" font-size="13" font-weight="700" fill="#8a5a00">Mise à jour automatique</text>
+  <text x="902" y="579" font-size="13" fill="#0b0f0e" fill-opacity="0.7">le site relit le dossier toutes les 10 min :</text>
+  <text x="902" y="598" font-size="13" fill="#0b0f0e" fill-opacity="0.7">aucune mise en ligne manuelle</text>
+
+  <!-- ============ 4. Public ============ -->
+  <g filter="url(#sh)">
+    <rect x="1310" y="214" width="230" height="196" rx="26" fill="#ffffff" stroke="#0b0f0e" stroke-opacity="0.06"/>
+    <rect x="1310" y="430" width="230" height="204" rx="26" fill="#ffffff" stroke="#0b0f0e" stroke-opacity="0.06"/>
+  </g>
+  <text x="1336" y="256" font-size="18" font-weight="800" fill="#0b0f0e">Visiteurs</text>
+    <g font-size="14" fill="#0b0f0e" fill-opacity="0.75">
+    <text x="1336" y="290">partenaires, bailleurs,</text>
+    <text x="1336" y="312">associations, chercheurs</text>
+    <text x="1336" y="346">lisent les fiches et</text>
+    <text x="1336" y="368">téléchargent les PDF</text>
+  </g>
+  <text x="1336" y="472" font-size="18" font-weight="800" fill="#0b0f0e">Moteurs</text>
+  <text x="1336" y="496" font-size="18" font-weight="800" fill="#0b0f0e">de recherche</text>
+  <g font-size="14" fill="#0b0f0e" fill-opacity="0.75">
+    <text x="1336" y="530">• plan du site</text>
+    <text x="1336" y="556">• description des</text>
+    <text x="1350" y="578">documents (schema.org)</text>
+    <text x="1336" y="604">• Google Scholar</text>
+  </g>
+
+  <!-- ============ Flèches ============ -->
+  <!-- 1 -> 2 dépose -->
+  <line x1="364" y1="370" x2="434" y2="370" stroke="#c1272d" stroke-width="2.5" marker-end="url(#ah-red)"/>
+  <text x="399" y="356" font-size="12" font-weight="700" fill="#c1272d" text-anchor="middle">dépose</text>
+  <!-- 2 -> 1 consulte -->
+  <line x1="436" y1="530" x2="366" y2="530" stroke="#0b0f0e" stroke-opacity="0.5" stroke-width="2" marker-end="url(#ah-grey)"/>
+  <text x="401" y="516" font-size="12" font-weight="700" fill="#0b0f0e" fill-opacity="0.55" text-anchor="middle">consulte</text>
+
+  <!-- 2 -> 3 lecture seule -->
+  <line x1="784" y1="420" x2="854" y2="420" stroke="#0e9f76" stroke-width="2.5" marker-end="url(#ah-teal)"/>
+  <text x="819" y="392" font-size="12" font-weight="700" fill="#0e9f76" text-anchor="middle">lecture</text>
+  <text x="819" y="407" font-size="12" font-weight="700" fill="#0e9f76" text-anchor="middle">seule</text>
+
+  <!-- 3 -> 4 -->
+  <line x1="1244" y1="312" x2="1304" y2="312" stroke="#0b0f0e" stroke-width="2.5" marker-end="url(#ah-ink)"/>
+  <line x1="1244" y1="530" x2="1304" y2="530" stroke="#0b0f0e" stroke-width="2.5" marker-end="url(#ah-ink)"/>
+
+  <!-- Gros PDF : contournement -->
+  <path d="M610,636 V690 H1425 V640" fill="none" stroke="#8a8f8d" stroke-width="1.8" stroke-dasharray="6 6" marker-end="url(#ah-grey)"/>
+  <rect x="890" y="676" width="320" height="28" rx="14" fill="#f7f6f2"/>
+  <text x="1050" y="695" font-size="12.5" fill="#0b0f0e" fill-opacity="0.6" text-anchor="middle">PDF de plus de 4 Mo : lien Dropbox temporaire</text>
+
+  <!-- ============ Bandeau du bas ============ -->
+  <rect x="60" y="740" width="1480" height="170" rx="26" fill="#0b0f0e"/>
+  <text x="96" y="782" font-size="12" font-weight="700" letter-spacing="1.5" fill="#f5b020">AJOUTER OU MODIFIER UN DOCUMENT</text>
+
+  <g font-size="15" fill="#ffffff">
+    <circle cx="112" cy="826" r="16" fill="#c1272d"/>
+    <text x="112" y="831" font-size="14" font-weight="800" text-anchor="middle">1</text>
+    <text x="140" y="822" font-weight="700">Déposer le PDF</text>
+    <text x="140" y="844" font-size="13" fill-opacity="0.6">et sa couverture dans le dossier</text>
+
+    <circle cx="432" cy="826" r="16" fill="#c1272d"/>
+    <text x="432" y="831" font-size="14" font-weight="800" text-anchor="middle">2</text>
+    <text x="460" y="822" font-weight="700">Ajouter une ligne au catalogue</text>
+    <text x="460" y="844" font-size="13" fill-opacity="0.6">titre, thème, langue, date, résumé</text>
+
+    <circle cx="792" cy="826" r="16" fill="#0e9f76"/>
+    <text x="792" y="831" font-size="14" font-weight="800" text-anchor="middle">3</text>
+    <text x="820" y="822" font-weight="700">En ligne en 10 minutes</text>
+    <text x="820" y="844" font-size="13" fill-opacity="0.6">sans intervention sur le site</text>
+  </g>
+
+  <line x1="1110" y1="770" x2="1110" y2="880" stroke="#ffffff" stroke-opacity="0.15"/>
+  <g font-size="13" fill="#ffffff" fill-opacity="0.75">
+    <text x="1140" y="790">• Remplacer une version : écraser le PDF</text>
+    <text x="1154" y="810">en gardant le même nom de fichier</text>
+    <text x="1140" y="838">• Retirer du site : supprimer la ligne,</text>
+    <text x="1154" y="858">ou indiquer « interne » en diffusion</text>
+  </g>
+  <text x="96" y="884" font-size="12.5" fill="#ffffff" fill-opacity="0.45">Le site ne stocke aucune copie et n'écrit jamais dans la Dropbox.</text>
+</svg>
