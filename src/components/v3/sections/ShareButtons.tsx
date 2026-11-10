@@ -24,7 +24,17 @@ export function ShareButtons({
   // de partage sont corrects dès le rendu serveur (avant, ils restaient vides
   // jusqu'à l'hydratation) et pointent sur le domaine public même en local.
   const pathname = usePathname();
-  const url = `${SITE_URL}/${locale}${pathname === "/" ? "" : pathname}`;
+  const path = `/${locale}${pathname === "/" ? "" : pathname}`;
+  const url = `${SITE_URL}${path}`;
+
+  // Suivi Umami : le script (layout racine) compte chaque clic sur un élément
+  // portant data-umami-event, avec les data-umami-event-* comme propriétés.
+  // Événement « partage », propriétés reseau et page.
+  const track = (reseau: string) => ({
+    "data-umami-event": "partage",
+    "data-umami-event-reseau": reseau,
+    "data-umami-event-page": path,
+  });
 
   const u = encodeURIComponent(url);
   const tt = encodeURIComponent(title);
@@ -86,6 +96,7 @@ export function ShareButtons({
           target="_blank"
           rel="noopener noreferrer"
           aria-label={s.label}
+          {...track(s.key)}
           className="flex h-9 w-9 items-center justify-center rounded-full border border-ink/12 text-ink/70 transition hover:border-ink hover:bg-ink hover:text-white"
         >
           <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
@@ -96,6 +107,7 @@ export function ShareButtons({
       <button
         onClick={copy}
         aria-label={l.copy}
+        {...track("copie")}
         className="flex h-9 items-center gap-1.5 rounded-full border border-ink/12 px-3 text-xs font-semibold text-ink/70 transition hover:border-ink hover:bg-ink hover:text-white"
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-4 w-4">
