@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Newsreader } from "next/font/google";
+import localFont from "next/font/local";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -7,20 +7,25 @@ import { routing } from "@/i18n/routing";
 import { DirectionSync } from "@/components/DirectionSync";
 import "../globals.css";
 
-const plusJakartaSans = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+// Polices auto-hébergées (src/fonts, voir le README) : le build ne dépend plus
+// de Google Fonts. Fichiers variables, sous-ensemble latin.
+const plusJakartaSans = localFont({
+  src: "../../fonts/plus-jakarta-sans-latin.woff2",
+  weight: "400 800",
+  style: "normal",
   variable: "--font-plus-jakarta-sans",
   display: "swap",
 });
 
 // Serif éditorial pour la zone op-ed (proposition P1).
-const newsreader = Newsreader({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  style: ["normal", "italic"],
+const newsreader = localFont({
+  src: [
+    { path: "../../fonts/newsreader-latin.woff2", weight: "400 500", style: "normal" },
+    { path: "../../fonts/newsreader-italic-latin.woff2", weight: "400 500", style: "italic" },
+  ],
   variable: "--font-newsreader",
   display: "swap",
+  adjustFontFallback: "Times New Roman",
 });
 
 export const metadata: Metadata = {
