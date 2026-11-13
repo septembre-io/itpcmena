@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { getLocale } from "next-intl/server";
 import Script from "next/script";
 import { SITE_URL, DEFAULT_OG_IMAGE } from "@/lib/seo";
+import { UMAMI_BEFORE_SEND, UMAMI_FILTER_SCRIPT } from "@/lib/umamiFilter";
 
 // metadataBase : indispensable pour que les URLs OpenGraph/canonical relatives
 // soient résolues en absolu. En prod, NEXT_PUBLIC_SITE_URL = https://www.itpcmena.org.
@@ -21,6 +22,9 @@ export const metadata: Metadata = {
 const umamiScriptSrc =
   process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL ?? "https://atom.septembre.io/script.js";
 const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
+// Domaines suivis : la production seulement (les postes de développement ne
+// sont plus comptés).
+const umamiDomains = "www.itpcmena.org,itpcmena.org";
 
 export default async function RootLayout({
   children,
@@ -39,11 +43,21 @@ export default async function RootLayout({
     <html lang={locale} dir={dir} data-scroll-behavior="smooth">
       <body className="bg-cream antialiased">
         {umamiWebsiteId ? (
-          <Script
-            strategy="afterInteractive"
-            src={umamiScriptSrc}
-            data-website-id={umamiWebsiteId}
-          />
+          <>
+            {/* Filtre des robots (src/lib/umamiFilter.ts) : défini avant le
+                script de suivi, qui l'appelle avant chaque envoi. */}
+            <script
+              id="umami-filtre"
+              dangerouslySetInnerHTML={{ __html: UMAMI_FILTER_SCRIPT }}
+            />
+            <Script
+              strategy="afterInteractive"
+              src={umamiScriptSrc}
+              data-website-id={umamiWebsiteId}
+              data-domains={umamiDomains}
+              data-before-send={UMAMI_BEFORE_SEND}
+            />
+          </>
         ) : null}
         {children}
       </body>

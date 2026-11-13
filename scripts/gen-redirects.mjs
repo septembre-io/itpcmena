@@ -9,8 +9,11 @@
 //   - Article (post)  -> /{locale}/actualites/{slug}   (le front résout par slug WP)
 //   - Page            -> /{locale}                      (home du locale : filet anti-404)
 //                        Les pages sont surtout des reliquats e-commerce (donation-*,
-//                        donor-dashboard, causes, volunteers). Affiner à la main les
-//                        quelques pages à vrai contenu (voir le champ `_titre`).
+//                        donor-dashboard, causes, volunteers). Les quelques pages à vrai
+//                        contenu ont une cible dédiée dans PAGE_TARGETS.
+//   - Le slug de destination est nettoyé (cleanSlug) : certains anciens slugs
+//     portent un caractère U+FFFC (objet collé depuis Word) et un tiret final que
+//     WordPress a retirés depuis ; la source garde l'adresse d'origine.
 //
 // Usage : node scripts/gen-redirects.mjs [chemin/vers/inventaire-wp]
 
@@ -25,6 +28,24 @@ const INV =
 const OUT = path.join(__dirname, "..", "src", "redirects.data.json");
 
 const LOCALES = new Set(["fr", "en", "ar"]);
+
+// Pages à vrai contenu : cible dédiée au lieu de l'accueil de la langue.
+// Clé = chemin legacy nettoyé (cleanPath), sans slash de tête.
+const PAGE_TARGETS = {
+  "notre-conseil-administratif": "/fr/equipe",
+  "language/ar/our-board-ar": "/ar/equipe",
+};
+
+// Articles dont la langue a été corrigée dans WordPress depuis l'inventaire
+// (clé = slug de destination, valeur = langue réelle dans Polylang).
+const POST_LOCALES = {
+  "hiv-prevention-accountability-a-multi-country-community-perspective-2025": "en",
+};
+
+/** Slug tel que WordPress le connaît aujourd'hui : sans U+FFFC ni tiret de bord. */
+function cleanSlug(slug) {
+  return slug.replace(/\uFFFC/g, "").replace(/^-+|-+$/g, "");
+}
 
 /** Chemin propre : décodé, sans slash de tête/queue. */
 function cleanPath(url) {
@@ -80,9 +101,9 @@ for (const post of posts) {
   const raw = cleanPath(post.url);
   if (!raw) continue;
   const [prefixLang, rest] = stripLangPrefix(raw);
-  const slug = rest.split("/").pop();
+  const slug = cleanSlug(rest.split("/").pop() ?? "");
   if (!slug) continue;
-  const locale = localeOf(post, prefixLang);
+  const locale = POST_LOCALES[slug] ?? localeOf(post, prefixLang);
   add(raw, `/${locale}/actualites/${slug}`, { _type: "post" });
 }
 
@@ -95,7 +116,10 @@ for (const page of pages) {
   if (!raw) continue; // homepage '/' -> apex, rien à faire
   const [prefixLang] = stripLangPrefix(raw);
   const locale = localeOf(page, prefixLang);
-  add(raw, `/${locale}`, { _type: "page", _titre: page.titre ?? "" });
+  add(raw, PAGE_TARGETS[raw] ?? `/${locale}`, {
+    _type: "page",
+    _titre: page.titre ?? "",
+  });
 }
 
 fs.writeFileSync(OUT, JSON.stringify(redirects, null, 2) + "\n");

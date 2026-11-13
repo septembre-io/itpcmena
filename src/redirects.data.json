@@ -115,7 +115,7 @@
   },
   {
     "source": "/hiv-prevention-accountability-a-multi-country-community-perspective-2025",
-    "destination": "/fr/actualites/hiv-prevention-accountability-a-multi-country-community-perspective-2025",
+    "destination": "/en/actualites/hiv-prevention-accountability-a-multi-country-community-perspective-2025",
     "permanent": true,
     "_type": "post"
   },
@@ -325,7 +325,7 @@
   },
   {
     "source": "/communique-de-presse-2eme-colloque-national-sur-la-propriete-intellectuelle-et-acces-aux-medicaments%EF%BF%BC",
-    "destination": "/fr/actualites/communique-de-presse-2eme-colloque-national-sur-la-propriete-intellectuelle-et-acces-aux-medicaments￼",
+    "destination": "/fr/actualites/communique-de-presse-2eme-colloque-national-sur-la-propriete-intellectuelle-et-acces-aux-medicaments",
     "permanent": true,
     "_type": "post"
   },
@@ -355,7 +355,7 @@
   },
   {
     "source": "/appel-a-consultant-e-developper-un-guide-sur-le-traitement-a-vih-et-pathologies-connexes-pour-les-pvvih-et-les-communautes%EF%BF%BC",
-    "destination": "/fr/actualites/appel-a-consultant-e-developper-un-guide-sur-le-traitement-a-vih-et-pathologies-connexes-pour-les-pvvih-et-les-communautes￼",
+    "destination": "/fr/actualites/appel-a-consultant-e-developper-un-guide-sur-le-traitement-a-vih-et-pathologies-connexes-pour-les-pvvih-et-les-communautes",
     "permanent": true,
     "_type": "post"
   },
@@ -409,7 +409,7 @@
   },
   {
     "source": "/opposition-aux-brevets-pharmaceutiques-une-premiere-au-maroc-%EF%BF%BC",
-    "destination": "/fr/actualites/opposition-aux-brevets-pharmaceutiques-une-premiere-au-maroc-￼",
+    "destination": "/fr/actualites/opposition-aux-brevets-pharmaceutiques-une-premiere-au-maroc",
     "permanent": true,
     "_type": "post"
   },
@@ -421,7 +421,7 @@
   },
   {
     "source": "/appel-a-candidature-pour-le-recrutement-dun%C2%B7e-consultant%C2%B7e-en-communication-%EF%BF%BC",
-    "destination": "/fr/actualites/appel-a-candidature-pour-le-recrutement-dun·e-consultant·e-en-communication-￼",
+    "destination": "/fr/actualites/appel-a-candidature-pour-le-recrutement-dun·e-consultant·e-en-communication",
     "permanent": true,
     "_type": "post"
   },
@@ -2824,14 +2824,14 @@
   },
   {
     "source": "/language/ar/our-board-ar",
-    "destination": "/ar",
+    "destination": "/ar/equipe",
     "permanent": true,
     "_type": "page",
     "_titre": "المكتب التنفيذي"
   },
   {
     "source": "/notre-conseil-administratif",
-    "destination": "/fr",
+    "destination": "/fr/equipe",
     "permanent": true,
     "_type": "page",
     "_titre": "LE BUREAU EXECUTIF"

@@ -4,6 +4,9 @@
 //  - fixUploadHosts : réécrit les liens fichiers de l'apex itpcmena.org (qui
 //    redirige désormais vers le front aout.app → 308, fichiers cassés) vers l'hôte WP qui
 //    sert réellement les uploads (NEXT_PUBLIC_WP_URL = wphead.itpcmena.org).
+//  - fixBareEmailLinks : ajoute « mailto: » aux liens e-mail saisis sans préfixe
+//    dans l'éditeur (href="nom@domaine.org"), qui sinon pointent vers une fausse
+//    page du site (ex. /…/regional.platform@itpcmena.org, 404 relevée par Google).
 //  - buildToc : injecte un id sur chaque titre (h2–h4) et renvoie la table des
 //    matières correspondante, pour une navigation par ancres dans la page.
 // ---------------------------------------------------------------------------
@@ -19,6 +22,18 @@ export function fixUploadHosts(html: string): string {
   return html.replace(
     /https?:\/\/(?:www\.)?itpcmena\.org\/wp-content\//gi,
     `${WP_URL}/wp-content/`
+  );
+}
+
+/**
+ * Lien e-mail saisi sans « mailto: » (href="nom@domaine.org") : le navigateur le
+ * résout comme une adresse relative du site. On ajoute le préfixe, seulement
+ * quand la cible est une adresse e-mail nue (pas de schéma, de chemin ni d'ancre).
+ */
+export function fixBareEmailLinks(html: string): string {
+  return html.replace(
+    /href=(["'])\s*([^"'\s/:?#@]+@[^"'\s/:?#@]+\.[a-z]{2,})\s*\1/gi,
+    "href=$1mailto:$2$1"
   );
 }
 

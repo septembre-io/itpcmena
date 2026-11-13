@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { NavbarV3 } from "@/components/v3/layout/Navbar";
 import { FooterV3 } from "@/components/v3/layout/Footer";
@@ -8,8 +8,9 @@ import { ShareButtons } from "@/components/v3/sections/ShareButtons";
 import { AppelInfoBox } from "@/components/v3/appels/AppelInfoBox";
 import { AppelDocuments } from "@/components/v3/appels/AppelDocuments";
 import { ArticleToc } from "@/components/v3/ArticleToc";
+import { ReadingTracker } from "@/components/v3/ReadingTracker";
 import { appelFromPost } from "@/lib/appels";
-import { buildToc, fixUploadHosts } from "@/lib/content";
+import { buildToc, fixBareEmailLinks, fixUploadHosts } from "@/lib/content";
 import { getMenu, getHeaderMenu, getFooterFallback } from "@/lib/menu";
 import {
   articleMetadata,
@@ -164,6 +165,16 @@ export default async function ArticlePage({
   if (!post) notFound();
 
   const lang = getPostLang(post);
+
+  // Un article ne se lit que sous sa propre langue. Sinon /en/actualites/<slug
+  // français> servait le texte français sous <html lang="en">, sans canonical
+  // quand aucune traduction n'existe (contenu dupliqué, JSON-LD faux).
+  if (lang !== locale) {
+    permanentRedirect(
+      `/${lang}/actualites/${encodeURIComponent(decodeSlug(post.slug))}`
+    );
+  }
+
   const isRtl = lang === "ar";
   const img = post.jetpack_featured_media_url;
   const l = S[(locale as keyof typeof S)] ?? S.fr;
@@ -175,10 +186,11 @@ export default async function ArticlePage({
     | "en"
     | "ar";
 
-  // Corps : réécriture des hôtes uploads (fichiers/images) + ancres de titres.
+  // Corps : réécriture des hôtes uploads (fichiers/images), liens e-mail sans
+  // « mailto: » + ancres de titres.
   // Table des matières affichée seulement pour les articles longs (≥ 3 titres).
   const { html: contentHtml, toc } = buildToc(
-    fixUploadHosts(post.content.rendered)
+    fixBareEmailLinks(fixUploadHosts(post.content.rendered))
   );
 
   const [translations, recent] = await Promise.all([
@@ -313,10 +325,13 @@ export default async function ArticlePage({
 
         {/* Corps d'article — lisibilité renforcée */}
         <article
+          id="article-body"
           className="article-body mt-10"
           dir={isRtl ? "rtl" : undefined}
           dangerouslySetInnerHTML={{ __html: contentHtml }}
         />
+        {/* Événement Umami « lecture » (30 s ou trois quarts lus) */}
+        <ReadingTracker targetId="article-body" locale={locale} />
 
         {/* Carte documents en pied d'article (appels avec pièces jointes) */}
         {appel && (

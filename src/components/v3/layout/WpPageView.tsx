@@ -4,7 +4,7 @@ import { NavbarV3 } from "@/components/v3/layout/Navbar";
 import { FooterV3 } from "@/components/v3/layout/Footer";
 import { getMenu, getHeaderMenu, getFooterFallback } from "@/lib/menu";
 import { getPostLang, stripHtml, type WPPost } from "@/lib/wordpress";
-import { fixUploadHosts } from "@/lib/content";
+import { fixBareEmailLinks, fixUploadHosts } from "@/lib/content";
 
 const HOME = { fr: "Accueil", en: "Home", ar: "الرئيسية" } as const;
 
@@ -27,7 +27,8 @@ export async function WpPageView({
 
   // Les images/pièces jointes pointant sur l'apex itpcmena.org renvoient un
   // 308 vers le front (aout.app) et se cassent : on les réécrit sur l'hôte WP.
-  const html = fixUploadHosts(page.content.rendered);
+  // Les liens e-mail saisis sans « mailto: » reçoivent le préfixe.
+  const html = fixBareEmailLinks(fixUploadHosts(page.content.rendered));
 
   const navMenu = await getHeaderMenu(locale);
   const footMenu = await getMenu(

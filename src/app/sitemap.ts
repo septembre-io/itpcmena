@@ -9,6 +9,10 @@ import { ficheHref } from "@/lib/bibliothequeLabels";
 // hreflang), plus les articles récents par langue. Rafraîchi via ISR.
 export const revalidate = 3600;
 
+// Le protocole sitemap veut des URL encodées (RFC 3986) : les slugs arabes et
+// les caractères comme « · », « ᵉ » ou les emoji sortaient en clair.
+const toUrl = (path: string) => `${SITE_URL}${encodeURI(path)}`;
+
 // Routes partagées entre les 3 langues (préfixe de langue ajouté ci-dessous).
 const STATIC_PATHS: Array<{ path: string; priority: number }> = [
   { path: "", priority: 1 }, // accueil
@@ -29,13 +33,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const suffix = path ? `/${path}` : "";
     const languages: Record<string, string> = {};
     for (const l of routing.locales) {
-      languages[l] = `${SITE_URL}/${l}${suffix}`;
+      languages[l] = toUrl(`/${l}${suffix}`);
     }
-    languages["x-default"] = `${SITE_URL}/${routing.defaultLocale}${suffix}`;
+    languages["x-default"] = toUrl(`/${routing.defaultLocale}${suffix}`);
 
     for (const locale of routing.locales) {
       entries.push({
-        url: `${SITE_URL}/${locale}${suffix}`,
+        url: toUrl(`/${locale}${suffix}`),
         lastModified: now,
         changeFrequency: "weekly",
         priority,
@@ -50,11 +54,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     for (const p of cat?.publications ?? []) {
       const suffix = ficheHref(p.slug);
       const languages: Record<string, string> = {};
-      for (const l of routing.locales) languages[l] = `${SITE_URL}/${l}${suffix}`;
-      languages["x-default"] = `${SITE_URL}/${routing.defaultLocale}${suffix}`;
+      for (const l of routing.locales) languages[l] = toUrl(`/${l}${suffix}`);
+      languages["x-default"] = toUrl(`/${routing.defaultLocale}${suffix}`);
       for (const locale of routing.locales) {
         entries.push({
-          url: `${SITE_URL}/${locale}${suffix}`,
+          url: toUrl(`/${locale}${suffix}`),
           lastModified: now,
           changeFrequency: "monthly",
           priority: 0.6,
@@ -71,7 +75,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const posts = await getAllPostSlugs(100);
     for (const { slug, locale } of posts) {
       entries.push({
-        url: `${SITE_URL}/${locale}/actualites/${slug}`,
+        url: toUrl(`/${locale}/actualites/${slug}`),
         lastModified: now,
         changeFrequency: "monthly",
         priority: 0.6,
