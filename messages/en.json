@@ -75,6 +75,8 @@
     "joinCalls": "Calls for tenders",
     "contact": "Contact",
     "contactPrompt": "A question, a partnership, a media inquiry?",
+    "address": "158 Bd Abdelkrim Al Khattabi, Marrakech 40000",
+    "registration": "Registration no. <n>{number}</n>",
     "rights": "All rights reserved.",
     "location": "MENA Region · 14 countries"
   }

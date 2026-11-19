@@ -75,6 +75,8 @@
     "joinCalls": "Appels d'offres",
     "contact": "Contact",
     "contactPrompt": "Une question, un partenariat, une demande média ?",
+    "address": "158 Bd Abdelkrim Al Khattabi, Marrakech 40000",
+    "registration": "N° d'enregistrement : <n>{number}</n>",
     "rights": "Tous droits réservés.",
     "location": "Région MENA · 14 pays"
   }

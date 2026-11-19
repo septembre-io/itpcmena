@@ -158,6 +158,14 @@ export function organizationSchema() {
     description:
       "Coalition internationale pour la préparation aux traitements — région Moyen-Orient et Afrique du Nord. Pour un accès équitable à la santé.",
     areaServed: "Middle East and North Africa",
+    email: "contact@itpcmena.org",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "158 Bd Abdelkrim Al Khattabi",
+      addressLocality: "Marrakech",
+      postalCode: "40000",
+      addressCountry: "MA",
+    },
   };
 }
 

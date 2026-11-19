@@ -82,6 +82,13 @@ const legacyRedirects = [
   { source: "/language/:lang(fr|en|ar)/:kind(category|tag|author)/:rest*", destination: "/:lang/actualites" },
   { source: "/language/:lang(fr|en|ar)/page/:n(\\d+)", destination: "/:lang/actualites" },
   { source: "/language/:lang(fr|en|ar)/:year(\\d{4})/:month(\\d{2})/:rest*", destination: "/:lang/actualites" },
+  // Variante de slug en 404 relevée dans la Search Console (19/11/2026)
+  {
+    source:
+      "/fr/actualites/itpc-mena-organise-sa-reunion-du-community-advisory-board-pour-la-region-afrique-du-nord-et-moyen-orient-menacab-2",
+    destination:
+      "/fr/actualites/itpc-mena-organise-sa-reunion-du-community-advisory-board-pour-la-region-afrique-du-nord-et-moyen-orient-menacab",
+  },
 ].map((rule) => ({ ...rule, missing: SPAM_QUERY, permanent: true }));
 
 const nextConfig: NextConfig = {

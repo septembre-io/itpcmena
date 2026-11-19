@@ -2838,28 +2838,28 @@
   },
   {
     "source": "/language/en/press-releases-3",
-    "destination": "/en",
+    "destination": "/en/equipe",
     "permanent": true,
     "_type": "page",
     "_titre": "Our Board"
   },
   {
     "source": "/lequipe",
-    "destination": "/fr",
+    "destination": "/fr/equipe",
     "permanent": true,
     "_type": "page",
     "_titre": "L’EQUIPE"
   },
   {
     "source": "/language/ar/our-team-ar",
-    "destination": "/ar",
+    "destination": "/ar/equipe",
     "permanent": true,
     "_type": "page",
     "_titre": "فريقنا"
   },
   {
     "source": "/language/en/our-team",
-    "destination": "/en",
+    "destination": "/en/equipe",
     "permanent": true,
     "_type": "page",
     "_titre": "Our Team"

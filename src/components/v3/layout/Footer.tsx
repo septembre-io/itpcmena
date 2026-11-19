@@ -7,6 +7,11 @@ import { footerFallback, type MenuItem } from "@/lib/menu";
 // « footer ») ; la colonne « Navigation » vient du menu WP (prop `menu`).
 // `href` interne (commence par « / ») → rendu via next-intl Link (localisé) ;
 // sinon lien externe. « Partenaires » = page WP rendue dans Next (/partenaires).
+// Numéro d'enregistrement de l'association (non traduit, isolé en <bdi> pour
+// garder « Gueliz 04/15 » dans l'ordre en arabe). Adresse postale : clé
+// « address » des messages ; même adresse dans organizationSchema (src/lib/seo.ts).
+const REGISTRATION_NUMBER = "Gueliz 04/15";
+
 const joinLinks = [
   { key: "joinPartners", href: "/partenaires" },
   { key: "joinInvolved", href: "https://itpcmena.org/" },
@@ -131,11 +136,18 @@ export async function FooterV3({
               contact@itpcmena.org
             </a>
           </p>
+          <address className="mt-4 text-sm not-italic leading-relaxed text-white/45">
+            {t("address")}
+          </address>
         </div>
       </div>
       <div className="mx-auto mt-6 flex max-w-6xl flex-wrap items-center justify-between gap-2 text-xs text-white/30">
         <p>
-          © {new Date().getFullYear()} ITPC-MENA. {t("rights")}
+          © {new Date().getFullYear()} ITPC-MENA. {t("rights")} ·{" "}
+          {t.rich("registration", {
+            number: REGISTRATION_NUMBER,
+            n: (chunks) => <bdi>{chunks}</bdi>,
+          })}
         </p>
         <p>{t("location")}</p>
       </div>

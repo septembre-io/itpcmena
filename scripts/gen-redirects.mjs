@@ -34,6 +34,11 @@ const LOCALES = new Set(["fr", "en", "ar"]);
 const PAGE_TARGETS = {
   "notre-conseil-administratif": "/fr/equipe",
   "language/ar/our-board-ar": "/ar/equipe",
+  // Pages « équipe » et « Our Board » (Search Console, 19/11/2026)
+  lequipe: "/fr/equipe",
+  "language/en/our-team": "/en/equipe",
+  "language/ar/our-team-ar": "/ar/equipe",
+  "language/en/press-releases-3": "/en/equipe",
 };
 
 // Articles dont la langue a été corrigée dans WordPress depuis l'inventaire
