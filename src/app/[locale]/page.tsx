@@ -8,6 +8,8 @@ import { getHomeV3, type Accent, type PlatformStatus } from "@/lib/homeV3";
 import { getMenu, getHeaderFallback, getFooterFallback } from "@/lib/menu";
 import { OpEdChapter } from "@/components/v3/sections/OpEd";
 import { NewsletterForm } from "@/components/v3/sections/NewsletterForm";
+import { ProjetUne } from "@/components/v3/sections/ProjetUne";
+import { getProjet } from "@/lib/projet";
 import type { Metadata } from "next";
 import { pageMetadata, organizationSchema } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
@@ -48,6 +50,30 @@ export async function generateMetadata({
   });
 }
 
+// Projet à la une en ouverture de l'accueil (version B, 23/11/2026) : slug d'une
+// page projet (/programmes/{slug}). Le hero habituel passe alors en clair sous
+// le projet. Mettre à null pour revenir au hero sombre en tête.
+const PROJET_A_LA_UNE: string | null = "lancer";
+
+// Hero habituel : sombre en tête de page, clair quand un projet le précède.
+// Classes écrites en entier pour que Tailwind les détecte.
+const HERO_TONE = {
+  dark: {
+    section: "bg-ink text-white",
+    badge: "border-white/15 bg-white/5 text-white/80 backdrop-blur",
+    title: "",
+    subtitle: "text-white/65",
+    secondary: "border-white/20 bg-white/5 text-white backdrop-blur hover:bg-white/10",
+  },
+  light: {
+    section: "bg-cream text-ink",
+    badge: "border-ink/10 bg-white text-ink/70",
+    title: "text-ink [&_.text-amber]:text-red",
+    subtitle: "text-ink/65",
+    secondary: "border-ink/15 bg-white text-ink hover:bg-ink/5",
+  },
+} as const;
+
 // Tailwind ne peut pas générer des classes dynamiques : on mappe les accents.
 const borderAccent: Record<Accent, string> = {
   red: "border-red",
@@ -85,11 +111,13 @@ export default async function HomePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const [content, headerMenu, footerMenu] = await Promise.all([
+  const [content, headerMenu, footerMenu, featured] = await Promise.all([
     getHomeV3(locale),
     getMenu("v3-header", locale, getHeaderFallback(locale)),
     getMenu("v3-footer", locale, getFooterFallback(locale)),
+    PROJET_A_LA_UNE ? getProjet(PROJET_A_LA_UNE, locale) : Promise.resolve(null),
   ]);
+  const heroTone = HERO_TONE[featured ? "light" : "dark"];
   const { hero, stats, mission, vision, region, oneHealth, work, values, platforms, newsletter } =
     content;
 
@@ -114,19 +142,28 @@ export default async function HomePage({
 
 
       <main>
-        {/* ── HERO — sombre militant (repris de la proposition Plaidoyer) ── */}
-        <section id="v3-hero" className="relative overflow-hidden bg-ink text-white">
-          <RadiantMesh className="absolute inset-0" opacity={0.7} />
+        {/* ── PROJET À LA UNE (sombre, porte #v3-hero) ── */}
+        {featured && PROJET_A_LA_UNE && (
+          <ProjetUne projet={featured} slug={PROJET_A_LA_UNE} locale={locale} />
+        )}
+
+        {/* ── HERO — sombre militant (repris de la proposition Plaidoyer) ;
+            en clair, sans #v3-hero, quand un projet est à la une ── */}
+        <section
+          id={featured ? undefined : "v3-hero"}
+          className={`relative overflow-hidden ${heroTone.section}`}
+        >
+          {!featured && <RadiantMesh className="absolute inset-0" opacity={0.7} />}
           <div className="relative mx-auto max-w-5xl px-6 pb-20 pt-20 text-center md:pt-28">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-semibold tracking-wide text-white/80 backdrop-blur">
+            <span className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-semibold tracking-wide ${heroTone.badge}`}>
               <span className="h-1.5 w-1.5 rounded-full bg-amber" />
               {hero.badge}
             </span>
             <h1
-              className="mx-auto mt-7 max-w-4xl text-5xl font-extrabold leading-[1.02] tracking-tight md:text-7xl"
+              className={`mx-auto mt-7 max-w-4xl text-5xl font-extrabold leading-[1.02] tracking-tight md:text-7xl ${heroTone.title}`}
               dangerouslySetInnerHTML={{ __html: hero.titleHtml }}
             />
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/65">
+            <p className={`mx-auto mt-6 max-w-2xl text-lg leading-relaxed ${heroTone.subtitle}`}>
               {hero.subtitle}
             </p>
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
@@ -138,7 +175,7 @@ export default async function HomePage({
               </a>
               <a
                 href={hero.ctaSecondary.href}
-                className="rounded-full border border-white/20 bg-white/5 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10"
+                className={`rounded-full border px-7 py-3.5 text-sm font-semibold transition ${heroTone.secondary}`}
               >
                 {hero.ctaSecondary.label}
               </a>
