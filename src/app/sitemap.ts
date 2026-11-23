@@ -4,6 +4,7 @@ import { SITE_URL } from "@/lib/seo";
 import { getAllPostSlugs } from "@/lib/wordpress";
 import { getBibliotheque } from "@/lib/bibliotheque";
 import { ficheHref } from "@/lib/bibliothequeLabels";
+import { getProjetSlugs } from "@/lib/projet";
 
 // Sitemap du front. Toutes les routes stables × 3 langues (avec alternates
 // hreflang), plus les articles récents par langue. Rafraîchi via ISR.
@@ -43,6 +44,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: now,
         changeFrequency: "weekly",
         priority,
+        alternates: { languages },
+      });
+    }
+  }
+
+  // Pages projet (src/lib/projet.ts : projets du code + pages WP publiées).
+  for (const slug of await getProjetSlugs()) {
+    const suffix = `/programmes/${slug}`;
+    const languages: Record<string, string> = {};
+    for (const l of routing.locales) languages[l] = toUrl(`/${l}${suffix}`);
+    languages["x-default"] = toUrl(`/${routing.defaultLocale}${suffix}`);
+    for (const locale of routing.locales) {
+      entries.push({
+        url: toUrl(`/${locale}${suffix}`),
+        lastModified: now,
+        changeFrequency: "monthly",
+        priority: 0.7,
         alternates: { languages },
       });
     }

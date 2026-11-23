@@ -1,0 +1,712 @@
+{
+  "slug": "lancer",
+  "titles": {
+    "fr": "L.A.N.C.E.R.",
+    "en": "L.A.N.C.E.R. (EN)",
+    "ar": "L.A.N.C.E.R. (AR)"
+  },
+  "content": {
+    "fr": {
+      "meta": {
+        "title": "Projet L.A.N.C.E.R. : PrEP injectable au Maroc — ITPC MENA",
+        "description": "Accompagner l'introduction communautaire du lénacapavir, PrEP injectable, au Maroc : démarche, gouvernance, étapes et outils du projet L.A.N.C.E.R."
+      },
+      "shortName": "L.A.N.C.E.R.",
+      "hero": {
+        "eyebrow": "Projet L.A.N.C.E.R.",
+        "title": "Accompagner l'introduction communautaire de la PrEP injectable au Maroc",
+        "lede": "Lénacapavir : Accès National, Communautaire et Équitablement Réussi. Un projet pour que l'arrivée du lénacapavir réponde aux besoins des personnes les plus exposées au VIH, avec elles.",
+        "facts": [
+          {
+            "label": "Période",
+            "value": "Pilote 2026 · Extension 2027"
+          },
+          {
+            "label": "Populations",
+            "value": "HSH et travailleuses du sexe"
+          },
+          {
+            "label": "Premiers sites",
+            "value": "Marrakech et Agadir"
+          },
+          {
+            "label": "Financement",
+            "value": "Fonds mondial, Unitaid"
+          }
+        ]
+      },
+      "context": {
+        "tag": "Contexte",
+        "title": "Une nouvelle option de prévention, une introduction à réussir",
+        "paragraphs": [
+          "Le Maroc a été en 2017 le premier pays de la région MENA à introduire la PrEP orale. Les populations clés concentrent aujourd'hui l'essentiel des nouvelles infections, et la prise quotidienne d'un comprimé reste un obstacle pour beaucoup.",
+          "Le lénacapavir se prend en une injection tous les six mois. L'OMS recommande depuis juillet 2025 de l'offrir comme option supplémentaire de PrEP. Le Maroc l'introduit dans le cadre de son plan stratégique national, avec des premières doses arrivées en novembre 2026.",
+          "L'expérience des innovations en prévention le montre : un produit efficace ne suffit pas. Son adoption dépend de la confiance des communautés, d'une information juste et de services adaptés à leur vie. C'est le rôle de L.A.N.C.E.R."
+        ]
+      },
+      "targets": {
+        "tag": "Objectifs",
+        "items": [
+          {
+            "accent": "red",
+            "year": "2026",
+            "value": "50",
+            "text": "premières personnes informées, accompagnées et suivies"
+          },
+          {
+            "accent": "amber",
+            "year": "2027",
+            "value": "2 000",
+            "text": "doses prévues : une méthode et des outils prêts pour l'extension"
+          },
+          {
+            "accent": "teal",
+            "year": "2030",
+            "value": "80 %",
+            "text": "de maintien sous PrEP, objectif national"
+          }
+        ]
+      },
+      "approach": {
+        "tag": "Notre démarche",
+        "title": "Les communautés concernées, expertes de leur santé",
+        "intro": "Chaque outil du projet est construit en cinq temps, avec les personnes à qui il s'adresse.",
+        "steps": [
+          {
+            "title": "Écouter",
+            "body": "Partir des priorités, des craintes et des usages des communautés."
+          },
+          {
+            "title": "Adapter",
+            "body": "S'appuyer sur ce qui a fait ses preuves ailleurs, en darija et dans le contexte marocain."
+          },
+          {
+            "title": "Tester",
+            "body": "Soumettre messages et supports aux personnes concernées avant toute diffusion."
+          },
+          {
+            "title": "Diffuser",
+            "body": "Par les pairs et les associations, au rythme de l'offre disponible."
+          },
+          {
+            "title": "Suivre et ajuster",
+            "body": "Faire remonter les obstacles par la veille communautaire et corriger vite."
+          }
+        ],
+        "pillars": [
+          {
+            "title": "Éducation thérapeutique",
+            "body": "Supports d'information en darija et en français, avec version audio, pour chaque étape du parcours."
+          },
+          {
+            "title": "Mobilisation communautaire",
+            "body": "Pairs éducateurs formés, sessions d'information, campagne digitale ciblée."
+          },
+          {
+            "title": "Veille communautaire",
+            "body": "Enquête sur les préférences, canal d'écoute, remontée des barrières d'accès vers le programme national."
+          }
+        ]
+      },
+      "governance": {
+        "tag": "Gouvernance",
+        "title": "Un pilotage national et collectif",
+        "paragraphs": [
+          "Le projet est piloté par un comité présidé par le Ministère de la Santé et de la Protection sociale. Il réunit le Programme national de lutte contre le sida, l'agence du médicament, le centre de pharmacovigilance, des experts universitaires et les associations de la riposte.",
+          "Les services restent assurés par les structures existantes. ITPC-MENA apporte l'ingénierie communautaire : adaptation des outils, formation, veille et capitalisation."
+        ]
+      },
+      "milestones": {
+        "tag": "Où en sommes-nous",
+        "title": "Les étapes clés",
+        "items": [
+          {
+            "done": true,
+            "date": "10 septembre 2026",
+            "text": "Lancement du comité de pilotage"
+          },
+          {
+            "done": true,
+            "date": "Octobre 2026",
+            "text": "Messages clés en darija et en français ; sélection de l'agence de communication sur appel ouvert"
+          },
+          {
+            "done": true,
+            "date": "Novembre 2026",
+            "text": "Focus groups avec des HSH et des travailleuses du sexe ; arrivée des premières doses ; lancement de l'enquête communautaire"
+          },
+          {
+            "done": false,
+            "date": "Décembre 2026",
+            "text": "Formation de formateurs ; premières injections ; réunion de capitalisation"
+          },
+          {
+            "done": false,
+            "date": "2027",
+            "text": "Extension à de nouveaux sites, avec l'appui d'Unitaid"
+          }
+        ]
+      },
+      "productions": {
+        "tag": "Productions",
+        "title": "Des outils ouverts, réutilisables par d'autres",
+        "intro": "Les productions du projet sont mises à disposition des associations, du programme national et des pays de la région.",
+        "items": [
+          {
+            "status": "available",
+            "title": "Brief de politique sur le lénacapavir",
+            "body": "Les enjeux de l'introduction du LEN au Maroc et nos recommandations.",
+            "href": null,
+            "cta": "Télécharger (PDF)",
+            "note": ""
+          },
+          {
+            "status": "available",
+            "title": "Guides d'animation des focus groups",
+            "body": "Deux guides, HSH et travailleuses du sexe, en français et en darija, pensés pour une approche respectueuse et non extractive.",
+            "href": null,
+            "cta": "Télécharger (PDF)",
+            "note": ""
+          },
+          {
+            "status": "finalising",
+            "title": "Cartes d'information",
+            "body": "Cinq cartes, une par moment du parcours, en darija et en français, avec QR code audio.",
+            "href": null,
+            "cta": "",
+            "note": "Disponible en décembre 2026"
+          },
+          {
+            "status": "ongoing",
+            "title": "Enquête sur les préférences PrEP",
+            "body": "Ce qui guide le choix entre comprimé et injection, sa stabilité dans le temps et son lien avec la vie quotidienne.",
+            "href": null,
+            "cta": "Répondre à l'enquête",
+            "note": ""
+          },
+          {
+            "status": "testing",
+            "title": "Canal WhatsApp PrEP en darija",
+            "body": "Un assistant qui répond aux questions de base sur la PrEP, développé avec l'ALCS.",
+            "href": null,
+            "cta": "",
+            "note": ""
+          },
+          {
+            "status": "upcoming",
+            "title": "Note de capitalisation",
+            "body": "Les apprentissages de la phase pilote et les recommandations pour l'extension.",
+            "href": null,
+            "cta": "",
+            "note": "Décembre 2026"
+          }
+        ]
+      },
+      "learnings": {
+        "tag": "Premiers enseignements",
+        "title": "Ce que les communautés nous ont dit",
+        "source": "Focus groups, novembre 2026",
+        "items": [
+          {
+            "title": "Une forte adhésion à l'injection",
+            "body": "Plus de comprimé à prendre ni à cacher. « On serait plus tranquilles moralement », résume une participante."
+          },
+          {
+            "title": "L'association comme lieu de confiance",
+            "body": "Les participants souhaitent recevoir l'injection en association, avec des équipes formées et un accueil sans jugement."
+          },
+          {
+            "title": "La continuité avant tout",
+            "body": "La première question : la deuxième dose sera-t-elle disponible dans six mois ?"
+          }
+        ]
+      },
+      "partners": {
+        "tag": "Partenaires et financement",
+        "items": [
+          "Ministère de la Santé et de la Protection sociale (PNLS)",
+          "Fonds mondial",
+          "Unitaid",
+          "ALCS"
+        ]
+      },
+      "contact": {
+        "title": "Travailler avec nous",
+        "body": "Associations, institutions, partenaires de la région : nos outils sont faits pour circuler.",
+        "cta": "Nous contacter",
+        "href": "mailto:contact@itpcmena.org",
+        "injectionPrompt": "Vous cherchez où recevoir l'injection ?",
+        "injectionLink": "Consultez l'ALCS",
+        "injectionHref": "https://www.alcs.ma"
+      }
+    },
+    "en": {
+      "meta": {
+        "title": "L.A.N.C.E.R. project: injectable PrEP in Morocco — ITPC MENA",
+        "description": "Supporting the community-led introduction of lenacapavir, injectable PrEP, in Morocco: approach, governance, milestones and tools of the L.A.N.C.E.R. project."
+      },
+      "shortName": "L.A.N.C.E.R.",
+      "hero": {
+        "eyebrow": "The L.A.N.C.E.R. project",
+        "title": "Supporting the community-led introduction of injectable PrEP in Morocco",
+        "lede": "L.A.N.C.E.R. stands for “Lénacapavir : Accès National, Communautaire et Équitablement Réussi” (lenacapavir: national, community-based, equitable and successful access). A project to ensure that the arrival of lenacapavir meets the needs of the people most exposed to HIV, together with them.",
+        "facts": [
+          {
+            "label": "Period",
+            "value": "2026 pilot · 2027 scale-up"
+          },
+          {
+            "label": "Populations",
+            "value": "Men who have sex with men and female sex workers"
+          },
+          {
+            "label": "First sites",
+            "value": "Marrakech and Agadir"
+          },
+          {
+            "label": "Funding",
+            "value": "Global Fund, Unitaid"
+          }
+        ]
+      },
+      "context": {
+        "tag": "Context",
+        "title": "A new prevention option, an introduction to get right",
+        "paragraphs": [
+          "In 2017, Morocco became the first country in the MENA region to introduce oral PrEP. Key populations now account for most new infections, and taking a pill every day remains a barrier for many.",
+          "Lenacapavir is given as one injection every six months. Since July 2025, WHO has recommended offering it as an additional PrEP option. Morocco is introducing it under its national strategic plan, with the first doses delivered in November 2026.",
+          "Experience with prevention innovations shows that an effective product is not enough. Its uptake depends on community trust, accurate information and services that fit people's lives. That is the role of L.A.N.C.E.R."
+        ]
+      },
+      "targets": {
+        "tag": "Targets",
+        "items": [
+          {
+            "accent": "red",
+            "year": "2026",
+            "value": "50",
+            "text": "first people informed, supported and followed up"
+          },
+          {
+            "accent": "amber",
+            "year": "2027",
+            "value": "2,000",
+            "text": "planned doses: a method and tools ready for scale-up"
+          },
+          {
+            "accent": "teal",
+            "year": "2030",
+            "value": "80%",
+            "text": "PrEP retention, national target"
+          }
+        ]
+      },
+      "approach": {
+        "tag": "Our approach",
+        "title": "Affected communities, experts in their own health",
+        "intro": "Each project tool is built in five stages, with the people it is meant for.",
+        "steps": [
+          {
+            "title": "Listen",
+            "body": "Start from communities' priorities, concerns and practices."
+          },
+          {
+            "title": "Adapt",
+            "body": "Build on what has worked elsewhere, in Darija and for the Moroccan context."
+          },
+          {
+            "title": "Test",
+            "body": "Put messages and materials to the people concerned before any dissemination."
+          },
+          {
+            "title": "Disseminate",
+            "body": "Through peers and associations, at the pace of available services."
+          },
+          {
+            "title": "Monitor and adjust",
+            "body": "Report barriers through community-led monitoring and correct quickly."
+          }
+        ],
+        "pillars": [
+          {
+            "title": "Treatment education",
+            "body": "Information materials in Darija and French, with an audio version, for each step of the care pathway."
+          },
+          {
+            "title": "Community mobilisation",
+            "body": "Trained peer educators, information sessions, targeted digital campaign."
+          },
+          {
+            "title": "Community-led monitoring",
+            "body": "Preference survey, listening channel, reporting of access barriers to the national programme."
+          }
+        ]
+      },
+      "governance": {
+        "tag": "Governance",
+        "title": "National, collective steering",
+        "paragraphs": [
+          "The project is steered by a committee chaired by the Ministry of Health and Social Protection. It brings together the National AIDS Programme, the medicines agency, the pharmacovigilance centre, academic experts and the associations of the HIV response.",
+          "Services continue to be delivered by existing structures. ITPC-MENA provides community engineering: adapting tools, training, monitoring and documenting lessons learned."
+        ]
+      },
+      "milestones": {
+        "tag": "Where we stand",
+        "title": "Key milestones",
+        "items": [
+          {
+            "done": true,
+            "date": "10 September 2026",
+            "text": "Steering committee launched"
+          },
+          {
+            "done": true,
+            "date": "October 2026",
+            "text": "Key messages in Darija and French; communication agency selected through an open call"
+          },
+          {
+            "done": true,
+            "date": "November 2026",
+            "text": "Focus groups with men who have sex with men and female sex workers; first doses delivered; community survey launched"
+          },
+          {
+            "done": false,
+            "date": "December 2026",
+            "text": "Training of trainers; first injections; lessons-learned meeting"
+          },
+          {
+            "done": false,
+            "date": "2027",
+            "text": "Scale-up to new sites, with Unitaid support"
+          }
+        ]
+      },
+      "productions": {
+        "tag": "Outputs",
+        "title": "Open tools, reusable by others",
+        "intro": "The project's outputs are made available to associations, the national programme and countries in the region.",
+        "items": [
+          {
+            "status": "available",
+            "title": "Policy brief on lenacapavir",
+            "body": "What is at stake in introducing LEN in Morocco, and our recommendations.",
+            "href": null,
+            "cta": "Download (PDF)",
+            "note": ""
+          },
+          {
+            "status": "available",
+            "title": "Focus group facilitation guides",
+            "body": "Two guides, for men who have sex with men and for female sex workers, in French and Darija, designed for a respectful, non-extractive approach.",
+            "href": null,
+            "cta": "Download (PDF)",
+            "note": ""
+          },
+          {
+            "status": "finalising",
+            "title": "Information cards",
+            "body": "Five cards, one for each moment of the care pathway, in Darija and French, with an audio QR code.",
+            "href": null,
+            "cta": "",
+            "note": "Available in December 2026"
+          },
+          {
+            "status": "ongoing",
+            "title": "PrEP preference survey",
+            "body": "What drives the choice between pill and injection, how stable it is over time and how it relates to daily life.",
+            "href": null,
+            "cta": "Take the survey",
+            "note": ""
+          },
+          {
+            "status": "testing",
+            "title": "WhatsApp PrEP channel in Darija",
+            "body": "An assistant that answers basic questions about PrEP, developed with ALCS.",
+            "href": null,
+            "cta": "",
+            "note": ""
+          },
+          {
+            "status": "upcoming",
+            "title": "Lessons-learned note",
+            "body": "What the pilot phase taught us, and recommendations for scale-up.",
+            "href": null,
+            "cta": "",
+            "note": "December 2026"
+          }
+        ]
+      },
+      "learnings": {
+        "tag": "Early lessons",
+        "title": "What communities told us",
+        "source": "Focus groups, November 2026",
+        "items": [
+          {
+            "title": "Strong support for the injection",
+            "body": "No more pills to take or to hide. “We would have more peace of mind,” as one participant put it."
+          },
+          {
+            "title": "The association as a place of trust",
+            "body": "Participants want to receive the injection at an association, with trained teams and a non-judgemental welcome."
+          },
+          {
+            "title": "Continuity above all",
+            "body": "The first question: will the second dose be available in six months?"
+          }
+        ]
+      },
+      "partners": {
+        "tag": "Partners and funding",
+        "items": [
+          "Ministry of Health and Social Protection (National AIDS Programme)",
+          "Global Fund",
+          "Unitaid",
+          "ALCS"
+        ]
+      },
+      "contact": {
+        "title": "Work with us",
+        "body": "Associations, institutions, partners across the region: our tools are made to be shared.",
+        "cta": "Contact us",
+        "href": "mailto:contact@itpcmena.org",
+        "injectionPrompt": "Looking for where to get the injection?",
+        "injectionLink": "Contact ALCS",
+        "injectionHref": "https://www.alcs.ma"
+      }
+    },
+    "ar": {
+      "meta": {
+        "title": "مشروع LANCER: الوقاية قبل التعرض بالحقن في المغرب — ITPC MENA",
+        "description": "مواكبة الإدخال المجتمعي لليناكابافير، الوقاية قبل التعرض بالحقن، في المغرب: المنهجية والحكامة والمراحل وأدوات مشروع LANCER."
+      },
+      "shortName": "LANCER",
+      "hero": {
+        "eyebrow": "مشروع LANCER",
+        "title": "مواكبة الإدخال المجتمعي للوقاية قبل التعرض بالحقن في المغرب",
+        "lede": "ليناكابافير: وصول وطني ومجتمعي ومنصف وناجح. مشروع يهدف إلى أن يستجيب وصول ليناكابافير لاحتياجات الأشخاص الأكثر عرضة لفيروس نقص المناعة البشرية، وبمشاركتهم.",
+        "facts": [
+          {
+            "label": "الفترة",
+            "value": "مرحلة تجريبية 2026 · توسيع 2027"
+          },
+          {
+            "label": "الفئات",
+            "value": "الرجال الذين يمارسون الجنس مع الرجال والعاملات في مجال الجنس"
+          },
+          {
+            "label": "المواقع الأولى",
+            "value": "مراكش وأكادير"
+          },
+          {
+            "label": "التمويل",
+            "value": "الصندوق العالمي، يونيتيد"
+          }
+        ]
+      },
+      "context": {
+        "tag": "السياق",
+        "title": "خيار وقائي جديد، وإدخال ينبغي إنجاحه",
+        "paragraphs": [
+          "كان المغرب سنة 2017 أول بلد في منطقة الشرق الأوسط وشمال إفريقيا يُدخل الوقاية قبل التعرض عن طريق الفم. وتتركز اليوم معظم الإصابات الجديدة لدى الفئات الرئيسية، ولا يزال تناول قرص كل يوم عائقًا أمام كثيرين.",
+          "يُؤخذ ليناكابافير بحقنة واحدة كل ستة أشهر. وتوصي منظمة الصحة العالمية منذ يوليوز 2025 بتقديمه خيارًا إضافيًا للوقاية قبل التعرض. ويُدخله المغرب في إطار مخططه الاستراتيجي الوطني، وقد وصلت الجرعات الأولى في نونبر 2026.",
+          "تُظهر التجارب السابقة مع الابتكارات الوقائية أن فعالية المنتج وحدها لا تكفي. فاعتماده يتوقف على ثقة المجتمعات، وعلى معلومات صحيحة، وعلى خدمات تلائم حياة الناس. وهذا هو دور مشروع LANCER."
+        ]
+      },
+      "targets": {
+        "tag": "الأهداف",
+        "items": [
+          {
+            "accent": "red",
+            "year": "2026",
+            "value": "50",
+            "text": "شخصًا من الأوائل يتلقون المعلومة والمواكبة والتتبع"
+          },
+          {
+            "accent": "amber",
+            "year": "2027",
+            "value": "2000",
+            "text": "جرعة مبرمجة: منهجية وأدوات جاهزة للتوسيع"
+          },
+          {
+            "accent": "teal",
+            "year": "2030",
+            "value": "80%",
+            "text": "نسبة الاستمرار في الوقاية قبل التعرض، هدف وطني"
+          }
+        ]
+      },
+      "approach": {
+        "tag": "منهجيتنا",
+        "title": "المجتمعات المعنية، خبيرة في صحتها",
+        "intro": "تُبنى كل أداة من أدوات المشروع على خمس مراحل، بمشاركة الأشخاص الموجهة إليهم.",
+        "steps": [
+          {
+            "title": "الإصغاء",
+            "body": "الانطلاق من أولويات المجتمعات ومخاوفها وممارساتها."
+          },
+          {
+            "title": "التكييف",
+            "body": "الاستناد إلى ما أثبت نجاعته في أماكن أخرى، بالدارجة وفي السياق المغربي."
+          },
+          {
+            "title": "الاختبار",
+            "body": "عرض الرسائل والوسائط على الأشخاص المعنيين قبل أي نشر."
+          },
+          {
+            "title": "النشر",
+            "body": "عبر الأقران والجمعيات، وبوتيرة العرض المتاح."
+          },
+          {
+            "title": "التتبع والتعديل",
+            "body": "رصد العوائق عبر اليقظة المجتمعية وتصحيحها بسرعة."
+          }
+        ],
+        "pillars": [
+          {
+            "title": "التثقيف العلاجي",
+            "body": "وسائط إعلامية بالدارجة والفرنسية، مع نسخة صوتية، لكل مرحلة من مراحل المسار."
+          },
+          {
+            "title": "التعبئة المجتمعية",
+            "body": "مثقفون أقران مكوَّنون، وجلسات إعلامية، وحملة رقمية موجهة."
+          },
+          {
+            "title": "اليقظة المجتمعية",
+            "body": "استطلاع حول التفضيلات، وقناة للإصغاء، ورفع عوائق الولوج إلى البرنامج الوطني."
+          }
+        ]
+      },
+      "governance": {
+        "tag": "الحكامة",
+        "title": "قيادة وطنية وجماعية",
+        "paragraphs": [
+          "تقود المشروعَ لجنةٌ تترأسها وزارة الصحة والحماية الاجتماعية، وتضم البرنامج الوطني لمحاربة السيدا، ووكالة الأدوية، ومركز اليقظة الدوائية، وخبراء جامعيين، وجمعيات الاستجابة لداء السيدا.",
+          "تظل الخدمات مقدَّمة من طرف البنيات القائمة. وتُسهم آي تي بي سي مينا بالهندسة المجتمعية: تكييف الأدوات، والتكوين، واليقظة، وتثمين التجارب."
+        ]
+      },
+      "milestones": {
+        "tag": "أين وصلنا",
+        "title": "المراحل الرئيسية",
+        "items": [
+          {
+            "done": true,
+            "date": "10 شتنبر 2026",
+            "text": "إطلاق لجنة القيادة"
+          },
+          {
+            "done": true,
+            "date": "أكتوبر 2026",
+            "text": "الرسائل الرئيسية بالدارجة والفرنسية؛ اختيار وكالة التواصل عبر طلب مفتوح"
+          },
+          {
+            "done": true,
+            "date": "نونبر 2026",
+            "text": "مجموعات نقاش مركزة مع رجال يمارسون الجنس مع الرجال ومع عاملات في مجال الجنس؛ وصول الجرعات الأولى؛ إطلاق الاستطلاع المجتمعي"
+          },
+          {
+            "done": false,
+            "date": "دجنبر 2026",
+            "text": "تكوين المكوِّنين؛ أولى الحقن؛ اجتماع تثمين التجارب"
+          },
+          {
+            "done": false,
+            "date": "2027",
+            "text": "التوسيع إلى مواقع جديدة بدعم من يونيتيد"
+          }
+        ]
+      },
+      "productions": {
+        "tag": "الإنتاجات",
+        "title": "أدوات مفتوحة، قابلة لإعادة الاستعمال",
+        "intro": "توضع إنتاجات المشروع رهن إشارة الجمعيات والبرنامج الوطني وبلدان المنطقة.",
+        "items": [
+          {
+            "status": "available",
+            "title": "موجز سياسات حول ليناكابافير",
+            "body": "رهانات إدخال ليناكابافير في المغرب، وتوصياتنا.",
+            "href": null,
+            "cta": "تحميل (PDF)",
+            "note": ""
+          },
+          {
+            "status": "available",
+            "title": "دليلا تنشيط مجموعات النقاش المركزة",
+            "body": "دليلان، للرجال الذين يمارسون الجنس مع الرجال وللعاملات في مجال الجنس، بالفرنسية والدارجة، صُمّما لمقاربة محترِمة وغير استخراجية.",
+            "href": null,
+            "cta": "تحميل (PDF)",
+            "note": ""
+          },
+          {
+            "status": "finalising",
+            "title": "بطاقات إعلامية",
+            "body": "خمس بطاقات، واحدة لكل مرحلة من مراحل المسار، بالدارجة والفرنسية، مع رمز QR للاستماع.",
+            "href": null,
+            "cta": "",
+            "note": "متاحة في دجنبر 2026"
+          },
+          {
+            "status": "ongoing",
+            "title": "استطلاع حول تفضيلات الوقاية قبل التعرض",
+            "body": "ما الذي يوجّه الاختيار بين القرص والحقنة، ومدى ثباته مع الوقت، وعلاقته بالحياة اليومية.",
+            "href": null,
+            "cta": "المشاركة في الاستطلاع",
+            "note": ""
+          },
+          {
+            "status": "testing",
+            "title": "قناة واتساب للوقاية قبل التعرض بالدارجة",
+            "body": "مساعد يجيب عن الأسئلة الأساسية حول الوقاية قبل التعرض، طُوّر مع جمعية محاربة السيدا (ALCS).",
+            "href": null,
+            "cta": "",
+            "note": ""
+          },
+          {
+            "status": "upcoming",
+            "title": "مذكرة تثمين التجارب",
+            "body": "دروس المرحلة التجريبية، والتوصيات من أجل التوسيع.",
+            "href": null,
+            "cta": "",
+            "note": "دجنبر 2026"
+          }
+        ]
+      },
+      "learnings": {
+        "tag": "الدروس الأولى",
+        "title": "ما قالته لنا المجتمعات",
+        "source": "مجموعات النقاش المركزة، نونبر 2026",
+        "items": [
+          {
+            "title": "إقبال قوي على الحقن",
+            "body": "لا مزيد من الأقراص التي يجب تناولها أو إخفاؤها. «سنكون أكثر راحة نفسيًا»، كما لخّصت إحدى المشاركات."
+          },
+          {
+            "title": "الجمعية فضاءً للثقة",
+            "body": "يرغب المشاركون في تلقي الحقنة داخل الجمعية، مع فرق مكوَّنة واستقبال خالٍ من الأحكام."
+          },
+          {
+            "title": "الاستمرارية قبل كل شيء",
+            "body": "السؤال الأول: هل ستكون الجرعة الثانية متاحة بعد ستة أشهر؟"
+          }
+        ]
+      },
+      "partners": {
+        "tag": "الشركاء والتمويل",
+        "items": [
+          "وزارة الصحة والحماية الاجتماعية (البرنامج الوطني لمحاربة السيدا)",
+          "الصندوق العالمي",
+          "يونيتيد",
+          "جمعية محاربة السيدا"
+        ]
+      },
+      "contact": {
+        "title": "اعملوا معنا",
+        "body": "جمعيات ومؤسسات وشركاء في المنطقة: أدواتنا وُجدت لتنتشر.",
+        "cta": "اتصل بنا",
+        "href": "mailto:contact@itpcmena.org",
+        "injectionPrompt": "تبحثون عن مكان لتلقي الحقنة؟",
+        "injectionLink": "تواصلوا مع جمعية محاربة السيدا",
+        "injectionHref": "https://www.alcs.ma"
+      }
+    }
+  }
+}
