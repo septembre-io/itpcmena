@@ -8,6 +8,9 @@ import { asLocale, type ProjetContent } from "@/lib/projet";
 // Reprend le bandeau de la page projet (contenu WordPress via getProjet, donc
 // modifiable par ITPC) sans fil d'Ariane, avec un bouton vers la page.
 // Porte id="v3-hero" : la navbar reste sombre tant qu'elle le survole.
+// Remonte sous la navbar collante (-mt-24, compensé par pt-44 / md:pt-48) pour
+// que le fond sombre aille jusqu'en haut de page, sans bande crème derrière le
+// menu ; le texte reste à la même hauteur (pt-20 / md:pt-24 sous la navbar).
 // Pas de RevealWrapper : c'est le premier bloc visible, il doit s'afficher tout
 // de suite. Titre en h2 : le h1 de l'accueil reste la phrase de mission.
 // ───────────────────────────────────────────────────────────────────────────
@@ -35,11 +38,11 @@ export function ProjetUne({
   return (
     <section
       id="v3-hero"
-      className="relative w-full overflow-hidden bg-ink text-white"
+      className="relative -mt-24 w-full overflow-hidden bg-ink text-white"
       dir={rtl ? "rtl" : undefined}
     >
       <RadiantMesh className="absolute inset-0" opacity={0.55} />
-      <div className="relative mx-auto max-w-6xl px-6 pb-20 pt-20 md:pt-24">
+      <div className="relative mx-auto max-w-6xl px-6 pb-20 pt-44 md:pt-48">
         {h.eyebrow && (
           <p
             className={`text-amber ${rtl ? "text-sm font-bold" : "text-xs font-bold uppercase tracking-[0.18em]"}`}
