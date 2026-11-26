@@ -23,6 +23,7 @@ const STATIC_PATHS: Array<{ path: string; priority: number }> = [
   { path: "opinions", priority: 0.7 },
   { path: "la-region", priority: 0.6 },
   { path: "partenaires", priority: 0.6 },
+  { path: "equipe", priority: 0.6 },
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
